@@ -49,12 +49,14 @@ public class CreateRecipeModel extends AbstractModel {
 			tags.add(Unicode.toAscii(tag).toLowerCase());
 		}
 		
+		recipe.setView(0);
 		RecipeDAO.getInstance().save(recipe);
 		recipe.setIsFavorite(false);
 		// get user info
 		CompactUserInfo user = UserCache.getInstance().get(userId);
 		RecipeResponseData data = new RecipeResponseData(recipe, user);
 		data.setIsFollowing(true);
+		
 		response.setData(data);
 		
 		// increate recipe number of user

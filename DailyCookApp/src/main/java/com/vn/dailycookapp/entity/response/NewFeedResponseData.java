@@ -22,6 +22,8 @@ public class NewFeedResponseData {
 	
 	private boolean	isFavorite;
 	
+	private int view;
+	
 	public String getRecipeId() {
 		return recipeId;
 	}
@@ -85,5 +87,12 @@ public class NewFeedResponseData {
 	public void setIsFavorite(boolean isFavorite) {
 		this.isFavorite = isFavorite;
 	}
-	
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
 }

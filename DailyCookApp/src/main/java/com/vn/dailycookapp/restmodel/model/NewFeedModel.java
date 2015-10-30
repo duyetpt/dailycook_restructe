@@ -85,6 +85,7 @@ public class NewFeedModel extends AbstractModel {
 				data.setRecipeName(recipe.getTitle());
 				data.setRecipePicture(recipe.getPictureUrl());
 				data.setRecipeId(recipe.getId());
+				data.setView(recipe.getView());
 				if (favorite != null)
 					data.setIsFavorite(favorite.getRecipeIds().contains(recipe.getId()));
 				

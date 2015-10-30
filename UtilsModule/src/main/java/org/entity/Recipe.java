@@ -230,11 +230,11 @@ public class Recipe {
 		this.tags = tags;
 	}
 
-	public int getView() {
+	public Integer getView() {
 		return view;
 	}
 
-	public void setView(int view) {
+	public void setView(Integer view) {
 		this.view = view;
 	}
 
