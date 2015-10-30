@@ -6,8 +6,8 @@
 	
 	<appender name="FILE-AUDIT"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/opt/jenkins/DailyCookApp/target/logs/daily_cook.debug.log</file>
-		<!--<file>/opt/logs/logs/daily_cook.debug.log</file>-->
+		<file>/opt/jenkins/logs/daily_cook.debug.log</file>
+		<!--<file>/opt/jenkins/logs/daily_cook.debug.log</file>-->
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
@@ -16,7 +16,7 @@
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${LOG_HOME}/daily_cook.debug.%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>opt/jenkins/logs/daily_cook.debug.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
