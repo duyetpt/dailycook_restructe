@@ -1,6 +1,6 @@
 #!/bin/sh
 SERVICE_NAME=dailycook_with_jenkins
-PATH_APP=/opt/jenkins/DailyCookApp/target
+PATH_APP=/opt/jenkins/Webservice/DailyCookApp/target
 PATH_TO_JAR=$PATH_APP/simple-service-webapp-jar-with-dependencies.jar
 PATH_LANG=$PATH_APP/lang
 PATH_LOG=$PATH_APP/logs/
