@@ -11,7 +11,7 @@
 
 	<groupId>com.vn.dailycookapp</groupId>
 	<artifactId>DailyCookApp</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<name>dailyCookApp</name>
 	<url>http://maven.apache.org</url>
