@@ -55,18 +55,10 @@ public class DCAServer {
 			logger.error((homeDir.getAbsolutePath()));
 			return;
 		}
-		String basePath = System.getProperty("jetty.base", homeDir + "/demo_base");
-		File baseDir = new File(basePath);
-		if (!baseDir.exists()) {
-			logger.error((baseDir.getAbsolutePath()));
-			return;
-		}
 		
 		// Configure jetty.home and jetty.base system properties
 		String jetty_home = homeDir.getAbsolutePath();
-		String jetty_base = baseDir.getAbsolutePath();
 		System.setProperty("jetty.home", jetty_home);
-		System.setProperty("jetty.base", jetty_base);
 		
 		// === jetty.xml ===
 		// Setup Threadpool
