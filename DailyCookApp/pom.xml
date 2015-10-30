@@ -178,7 +178,7 @@
 							<goal>start</goal>
 						</goals>
 						<configuration>
-							<port>27017</port>
+							<port>17017</port>
 
 							<!-- <randomPort>true</randomPort> optional, default is false, if 
 								true allocates a random port and overrides embedmongo.port -->
