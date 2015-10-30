@@ -52,7 +52,7 @@ public class AbstractTest extends JerseyTest {
 	
 	static Command					command				= Command.MongoD;
 	protected static final String	DATABASE_NAME		= "dailycook";
-	protected static final int		PORT				= 17017;
+	protected static final int		PORT				= 27017;
 	
 	private static MongodProcess	_mongod;
 	protected static MongoDatabase  _mongo;

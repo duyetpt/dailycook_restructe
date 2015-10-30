@@ -264,7 +264,7 @@ public class JsonTransformer {
 				try {
 					valueOfField = obj.get(jsonKey);
 				} catch (Exception ex) {
-					// TODO
+					logger.error("get value error", ex);
 				}
 				if (jsonIEP == null) {
 					if (valueOfField == null) {

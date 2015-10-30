@@ -51,7 +51,9 @@ public class GetRecipeModel extends AbstractModel {
 		RecipeResponseData data = new RecipeResponseData(recipe, owner);
 		data.setIsFollowing(isFollowingOwner);
 		
-		// TODO
+		// Increase view number
+		RecipeDAO.getInstance().increateView(recipeId);
+		
 		response.setData(data);
 		return response;
 	}
