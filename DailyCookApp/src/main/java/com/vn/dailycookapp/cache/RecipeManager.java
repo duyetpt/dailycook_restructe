@@ -74,7 +74,6 @@ public class RecipeManager implements RecipeSearch {
 	@Override
 	public List<String> suggestName(String keyword) {
 		Map<String, List<String>> mapName = RecipeInfoCache.getInstance().getNameMap();
-		
 		List<String> result = new ArrayList<>();
 		for (String name : mapName.keySet()) {
 			if (result.size() >= 10)
