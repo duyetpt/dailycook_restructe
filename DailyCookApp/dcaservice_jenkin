@@ -1,0 +1,76 @@
+#!/bin/sh
+SERVICE_NAME=dailycook_with_jenkins
+PATH_APP=/opt/jenkins/DailyCookApp/target
+PATH_TO_JAR=$PATH_APP/simple-service-webapp-jar-with-dependencies.jar
+PATH_LANG=$PATH_APP/lang
+PATH_LOG=$PATH_APP/logs/
+PATH_IMAGE=$PATH_APP/image/
+PID_PATH_NAME=/tmp/dailycook-pid
+
+# Reference
+##http://linux.101hacks.com/unix/nohup-command/
+
+#Nohup
+##Nohup is very helpful when you have to execute a shell-script or command that take a long time to finish.
+##In that case, you don’t want to be connected to the shell and waiting for the command to complete. 
+##Instead, execute it with nohup, exit the shell and continue with your other work.
+
+##By default, the standard output will be redirected to nohup.out file in the current directory
+
+##nohup syntax:
+###nohup command-with-options &
+
+##start function
+start () 
+{
+echo "Starting $SERVICE_NAME ..."
+	if [ ! -f $PID_PATH_NAME ]; then
+		#check lang folder exit and extract lang folder
+		if [ ! -d "$PATH_LANG" ]; then
+		# Control will enter here if $DIRECTORY doesn't exits
+		cd $PATH_APP
+		jar xf $PATH_TO_JAR lang
+		fi
+		#check image folder
+		if [ ! -d "$PATH_IMAGE" ]; then
+		mkdir $PATH_IMAGE
+		fi
+		#check log folder
+		if [ ! -d "$PATH_LOG" ]; then
+		mkdir $PATH_LOG
+		fi
+		# runs in background
+		# 1: stdout, 2: stderr -> write all stdout and error to /dev/null
+		nohup java -jar $PATH_TO_JAR >/dev/null 2>&1 &
+					echo $! > $PID_PATH_NAME
+		echo "$SERVICE_NAME started ..."
+	else
+		echo "$SERVICE_NAME is already running ..."
+	fi
+}
+
+##stop function
+stop ()
+{
+if [ -f $PID_PATH_NAME ]; then
+		PID=$(cat $PID_PATH_NAME);
+		echo "$SERVICE_NAME stoping ..."
+		kill $PID;
+		echo "$SERVICE_NAME stopped ..."
+		rm $PID_PATH_NAME
+else
+		echo "$SERVICE_NAME is not running ..."
+fi
+}
+case $1 in
+	start)
+		start
+	;;
+	stop)
+		stop
+	;;
+	restart)
+		stop
+		start
+	;;
+esac 

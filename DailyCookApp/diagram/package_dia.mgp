@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="com.vn.dailycookapp.dao" x="248" y="91">
+        <DependencyLink destination="com.vn.dailycookapp.entity"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.entity" x="811" y="89"/>
+    <Package name="com.vn.dailycookapp.restapi" x="542" y="58">
+        <DependencyLink destination="com.vn.dailycookapp.restapi.response"/>
+        <DependencyLink destination="com.vn.dailycookapp.utils.json"/>
+        <DependencyLink destination="com.vn.dailycookapp.security.authentication"/>
+        <DependencyLink destination="com.vn.dailycookapp.utils"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.restapi.response" x="792" y="243">
+        <DependencyLink destination="com.vn.dailycookapp.utils.json"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.security" x="-1" y="60"/>
+    <Package name="com.vn.dailycookapp.security.authentication" x="288" y="391">
+        <DependencyLink destination="com.vn.dailycookapp.restapi.response"/>
+        <DependencyLink destination="com.vn.dailycookapp.security.session"/>
+        <DependencyLink destination="com.vn.dailycookapp.entity"/>
+        <DependencyLink destination="com.vn.dailycookapp.utils"/>
+        <DependencyLink destination="com.vn.dailycookapp.dao"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.security.authorization" x="0" y="108"/>
+    <Package name="com.vn.dailycookapp.security.session" x="5" y="160">
+        <DependencyLink destination="com.vn.dailycookapp.utils"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.server" x="-2" y="8"/>
+    <Package name="com.vn.dailycookapp.service" x="658" y="386">
+        <DependencyLink destination="com.vn.dailycookapp.restapi.response"/>
+        <DependencyLink destination="com.vn.dailycookapp.restapi"/>
+        <DependencyLink destination="com.vn.dailycookapp.utils.json"/>
+        <DependencyLink destination="com.vn.dailycookapp.dao"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.utils" x="344" y="4">
+        <DependencyLink destination="com.vn.dailycookapp.utils.json"/>
+    </Package>
+    <Package name="com.vn.dailycookapp.utils.json" x="703" y="-6"/>
+</PackageAnalysis>

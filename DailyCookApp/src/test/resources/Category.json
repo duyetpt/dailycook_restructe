@@ -1,0 +1,7 @@
+{"_id":{"$oid":"5606dd78dcb2fd08b821694a"},"default_value":"Ways of cook","name":"Ways_of_cook"}
+{"_id":{"$oid":"5606dd78dcb2fd08b821694c"},"default_value":"Grill","name":"Grill","parent_id":"5606dd78dcb2fd08b821694a"}
+{"_id":{"$oid":"5606dd78dcb2fd08b821694d"},"default_value":"Bake","name":"Bake","parent_id":"5606dd78dcb2fd08b821694a"}
+{"_id":{"$oid":"5606dd78dcb2fd08b821694e"},"default_value":"Main ingredient","name":"Main_ingredient"}
+{"_id":{"$oid":"5606dd78dcb2fd08b821694f"},"default_value":"Meat","name":"Meat","parent_id":"5606dd78dcb2fd08b821694e"}
+{"_id":{"$oid":"5606dd78dcb2fd08b8216950"},"default_value":"Seafood","name":"Seafood","parent_id":"5606dd78dcb2fd08b821694e"}
+{"_id":{"$oid":"5606dd78dcb2fd08b8216951"},"default_value":"Vegetables, fruits","name":"Vegetables_fruits","parent_id":"5606dd78dcb2fd08b821694e"}

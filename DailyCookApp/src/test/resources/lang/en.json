@@ -1,0 +1,54 @@
+{
+	"language" : "en",
+	"ingredient_type": [
+		"Meat",
+		"Seafood",
+		"Eggs",
+		"Vegetables",
+		"Milk",
+		"Cereals",
+		"Fruits",
+		"Aromatic vegetables"
+	],
+	"notification_msg":{
+		"new_comment":"%s% was commented in your recipe",
+		"new_follower":"%s% was followed you",
+		"new_favorite":"%s% was favorited a your recipe",
+		"new_recipe_of_following":"%s% added a new recipe",
+		"warm":"%s%"
+	},
+	"categories": {
+		"Ways_of_cook":"Ways of cook",
+		"Grill":"Grill",
+		"Bake":"Bake",
+		"Stir-fry":"Stir-fry",
+		"Fried":"Fried",
+		"Steamed":"Steamed",
+		"Salad":"Salad",
+		"Soup":"Soup",
+		"Main_ingredient":"Main ingredient",
+		"Vegetables_fruits":"Vegetables, fruits",
+		"Meat":"Meat",
+		"Seafood":"Seafood",
+		"Cereals":"Cereals(rise, beans, corn,...)",
+		"Eggs_butter_milk":"Eggs, butter, milk",
+		"Diet":"Diel",
+		"Vegetarian":"Vegetarian",
+		"Weight_loss":"Weight loss",
+		"Weight_gain":"Weight gain",
+		"Ceremony":"Ceremony",
+		"New_year":"New year",
+		"Birthday":"Birthday",
+		"The_meals":"Bữa ăn",
+		"Breakfast":"Breakfast",
+		"Launch":"Launch",
+		"Dinner":"Dinner"
+	},
+	"units":[
+		"Kg",
+		"Gram",
+		"Teaspoon",
+		"Lit",
+		"Mililit"
+	]         
+}
