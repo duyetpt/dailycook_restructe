@@ -6,6 +6,7 @@ import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FollowUserModel;
 import com.vn.dailycookapp.restmodel.model.GetCommentModel;
 import com.vn.dailycookapp.restmodel.model.GetIngredientTypesModel;
+import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetUnitsModel;
 import com.vn.dailycookapp.restmodel.model.LoginModel;
@@ -14,6 +15,7 @@ import com.vn.dailycookapp.restmodel.model.NewFeedModel;
 import com.vn.dailycookapp.restmodel.model.RegisterModel;
 import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
+import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
 import com.vn.dailycookapp.restmodel.model.suggestSearchingModel;
 
 public enum ModelDefine {
@@ -26,6 +28,8 @@ public enum ModelDefine {
 	LOGIN("login", LoginModel.class),
 	LOGOUT("logout", LogoutModel.class),
 	FOLLOW("follow_user", FollowUserModel.class),
+	GET_NOTIFICATION("get_notification", GetNotificationsModel.class),
+	UPDATE_NOTIFICATION("update_notification", UpdateNotificationModel.class),
 	
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),

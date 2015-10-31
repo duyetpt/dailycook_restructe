@@ -9,6 +9,8 @@ import org.bson.types.ObjectId;
 import org.entity.Recipe;
 import org.mongodb.morphia.query.Query;
 
+import com.mongodb.DBRef;
+
 public class RecipeDAO extends AbstractDAO<Recipe> {
 	public static final String SORT_BY_NEWEST = "new";
 	public static final String SORT_BY_HOTEST = "hot";
@@ -106,25 +108,66 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
 	}
 
-	public List<Recipe> listRecipeByIngredient(String ingredients)
+	/**
+	 * list all recipe match one of IngredientIds
+	 * 
+	 * @param ingredientIds
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<Recipe> listRecipeByIngredient(List<String> ingredientIds)
 			throws DAOException {
 		try {
+			List<DBRef> dbRefs = new ArrayList<DBRef>();
+			for (String ingId : ingredientIds) {
+				DBRef dbR = new DBRef("Ingredient", new ObjectId(ingId));
+				dbRefs.add(dbR);
+			}
 			Query<Recipe> query = datastore.createQuery(Recipe.class);
-			query.field("ingredients.$.normalize_name").containsIgnoreCase(
-					ingredients);
+			query.field("ingredients").hasAnyOf(dbRefs);
 
 			return query.asList();
 		} catch (Exception ex) {
 			throw new DAOException();
 		}
 	}
-	
-	public List<Recipe> listRecipeByTag(String tag)
+
+	/**
+	 * list all recipe match one of tags
+	 * 
+	 * @param tagIds
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<Recipe> listRecipeByTag(List<String> tagIds)
 			throws DAOException {
 		try {
+			List<DBRef> dbRefs = new ArrayList<DBRef>();
+			for (String ingId : tagIds) {
+				DBRef dbR = new DBRef("Tag", new ObjectId(ingId));
+				dbRefs.add(dbR);
+			}
 			Query<Recipe> query = datastore.createQuery(Recipe.class);
-			query.field("tags.$").containsIgnoreCase(
-					tag);
+			query.field("ingredients").hasAnyOf(dbRefs);
+
+			return query.asList();
+		} catch (Exception ex) {
+			throw new DAOException();
+		}
+	}
+
+	/**
+	 * get list recipe by title
+	 * 
+	 * @param name
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<Recipe> list(String name) throws DAOException {
+		try {
+			Query<Recipe> query = datastore.createQuery(Recipe.class);
+			query.field("normalize_title").contains(name).order("-view")
+					.order("-popularPoint").limit(10);
 
 			return query.asList();
 		} catch (Exception ex) {

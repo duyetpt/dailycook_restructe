@@ -1,6 +1,7 @@
 package org.entity;
 
 import org.bson.types.ObjectId;
+import org.json.JsonIgnoreEmpty;
 import org.json.JsonIgnoreProperty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -14,14 +15,20 @@ public class Ingredient {
 	private ObjectId id;
 
 	private String name;
+
 	@Property(value = "normalize_name")
 	@Indexed(background = true)
 	@JsonIgnoreProperty
 	private String normalizedName;
 
 	private String unit;
+
 	private String quantity;
+
 	private String group;
+
+	@JsonIgnoreEmpty
+	private int popularPoint;
 
 	public String getId() {
 		return id.toHexString();
@@ -69,6 +76,14 @@ public class Ingredient {
 
 	public void setNormalizedName(String normalizedName) {
 		this.normalizedName = normalizedName;
+	}
+
+	public int getPopularPoint() {
+		return popularPoint;
+	}
+
+	public void setPopularPoint(int popularPoint) {
+		this.popularPoint = popularPoint;
 	}
 
 }

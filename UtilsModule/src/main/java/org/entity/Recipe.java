@@ -47,7 +47,8 @@ public class Recipe {
 
 	// Normalize of categoryIds
 	@JsonIgnoreProperty
-	private List<String> tags;
+	@Reference
+	private List<Tag> tags;
 
 	@Property(value = "status_flag")
 	@JsonIgnoreProperty
@@ -71,10 +72,13 @@ public class Recipe {
 
 	@Reference
 	private List<Ingredient> ingredients;
-
+	
 	private List<Recipe.Step> steps;
 
 	private Integer view;
+
+	@JsonIgnoreProperty
+	private int popularPoint;
 
 	public String getId() {
 		return id;
@@ -223,11 +227,11 @@ public class Recipe {
 		this.isFavorite = favorite;
 	}
 
-	public List<String> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<String> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
@@ -269,6 +273,14 @@ public class Recipe {
 			this.pictureUrl = pictureUrl;
 		}
 
+	}
+
+	public int getPopularPoint() {
+		return popularPoint;
+	}
+
+	public void setPopularPoint(int popularPoint) {
+		this.popularPoint = popularPoint;
 	}
 
 }

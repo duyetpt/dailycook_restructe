@@ -40,11 +40,13 @@ public class SessionManager implements Runnable {
 	 */
 	public Session getSession(String token) throws TokenInvalidException, SessionClosedException {
 		if (token == null || token.length() != TOKEN_LENGTH) {
+			logger.error("!!!!! token invalid token:" + token);
 			throw new TokenInvalidException(ErrorCodeConstant.INVALID_TOKEN.getErrorCode());
 		}
 		
 		Session session = tokenMap.get(token);
 		if (session == null) {
+			logger.error("!!!!! token is closed:" + token);
 			throw new SessionClosedException(ErrorCodeConstant.CLOSED_SESSION.getErrorCode());
 		}
 		
@@ -75,6 +77,7 @@ public class SessionManager implements Runnable {
 			try {
 				Session session = entry.getValue();
 				if (session.getUserId().equals(userId)) {
+					logger.info("=====>:User close session: " + entry.getKey());
 					tokenMap.remove(entry.getKey());
 				}
 			} catch (Exception e) {
@@ -90,7 +93,7 @@ public class SessionManager implements Runnable {
 			for (Map.Entry<String, Session> entry : tokenMap.entrySet()) {
 				Session session = entry.getValue();
 				if (currentTime - session.getLastActiveTime() > Session.TTL) {
-					System.out.println("expire session of:" + entry.getValue().getUserId());
+					logger.info("=====>:Scan close session: " + entry.getKey());
 					tokenMap.remove(entry.getKey());
 				}
 			}

@@ -13,7 +13,6 @@ import org.dao.RecipeDAO;
 import org.entity.Favorite;
 import org.entity.Recipe;
 
-import com.vn.dailycookapp.cache.RecipeManager;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.entity.response.SearchRecipeResponseData;
 import com.vn.dailycookapp.restmodel.AbstractModel;
@@ -34,29 +33,30 @@ public class SearchRecipeModel extends AbstractModel {
 		userId = data[2];
 	}
 	
+	// TODO
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		
-		Set<String> recipeIds = null;
-		Map<String, Integer> nIngredientMatchMap = null;
-		switch (filter) {
-			case INGREDIENT_TYPE:
-				List<String> ingredients = parseKeyword();
-				nIngredientMatchMap = RecipeManager.getInstance().getRecipeByIngredients(ingredients);
-				recipeIds = nIngredientMatchMap.keySet();
-				break;
-			case TAG_TYPE:
-				List<String> tags = parseKeyword();
-				recipeIds = RecipeManager.getInstance().getRecipeByTags(tags);
-				break;
-			case NAME_TYPE:
-				recipeIds = RecipeManager.getInstance().getRecipeByName(keyword);
-				break;
-		}
-		
-		List<SearchRecipeResponseData> result = getResult(recipeIds, nIngredientMatchMap);
-		response.setData(result);
+//		
+//		Set<String> recipeIds = null;
+//		Map<String, Integer> nIngredientMatchMap = null;
+//		switch (filter) {
+//			case INGREDIENT_TYPE:
+//				List<String> ingredients = parseKeyword();
+//				nIngredientMatchMap = RecipeManager.getInstance().getRecipeByIngredients(ingredients);
+//				recipeIds = nIngredientMatchMap.keySet();
+//				break;
+//			case TAG_TYPE:
+//				List<String> tags = parseKeyword();
+//				recipeIds = RecipeManager.getInstance().getRecipeByTags(tags);
+//				break;
+//			case NAME_TYPE:
+//				recipeIds = RecipeManager.getInstance().getRecipeByName(keyword);
+//				break;
+//		}
+//		
+//		List<SearchRecipeResponseData> result = getResult(recipeIds, nIngredientMatchMap);
+//		response.setData(result);
 		return response;
 	}
 	

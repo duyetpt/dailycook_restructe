@@ -6,7 +6,6 @@ import java.util.List;
 class NotAuthUrls {
 	
 	private static final List<String>	list;
-	// TODO
 	private static final List<String> regexUrl;
 	
 	static {

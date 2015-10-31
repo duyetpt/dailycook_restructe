@@ -6,13 +6,14 @@ import java.util.List;
 import org.Unicode;
 import org.dao.IngredientDAO;
 import org.dao.RecipeDAO;
+import org.dao.TagDAO;
 import org.dao.UserDAO;
 import org.entity.Ingredient;
 import org.entity.Notification;
 import org.entity.Recipe;
+import org.entity.Tag;
 import org.json.JsonTransformer;
 
-import com.vn.dailycookapp.cache.RecipeManager;
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.response.DCAResponse;
@@ -44,16 +45,21 @@ public class CreateRecipeModel extends AbstractModel {
 			ing.setNormalizedName(Unicode.toAscii(ing.getName()).toLowerCase());
 		}
 		// normalize tags
-		List<String> tags = recipe.getTags();
-		if (tags == null)
-			tags = new ArrayList<String>();
+		List<Tag> tags = new ArrayList<Tag>();
 		for (String tag : recipe.getCategoryIds()) {
-			tags.add(Unicode.toAscii(tag).toLowerCase());
+			Tag tagObj = new Tag();
+			tagObj.setTag(tag);
+			tagObj.setNormalizeTag(Unicode.toAscii(tag).toLowerCase());
+			tags.add(tagObj);
 		}
+		recipe.setTags(tags);
 		
-		recipe.setView(0);
+		recipe.setView(1);
+		
 		// save ingredients
 		IngredientDAO.getInstance().save(recipe.getIngredients());
+		// save tags
+		TagDAO.getInstance().save(tags);
 		// save recipe
 		RecipeDAO.getInstance().save(recipe);
 		recipe.setIsFavorite(false);
@@ -70,8 +76,8 @@ public class CreateRecipeModel extends AbstractModel {
 		// update user cache info
 		UserCache.getInstance().get(userId).increaseNumberRecipe();
 		
-		// Cache recipe infor for search
-		RecipeManager.getInstance().addRecipe(recipe);
+		// TODO:Cache recipe infor for search
+		// RecipeManager.getInstance().addRecipe(recipe);
 		
 		// TODO notification, add recipe to user_recipe
 		NotificationActionImp.getInstance().addNotification(recipeId, userId, null,
