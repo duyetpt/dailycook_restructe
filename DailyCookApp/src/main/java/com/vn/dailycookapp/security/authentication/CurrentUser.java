@@ -23,6 +23,9 @@ public class CurrentUser {
 	private String				dob;
 	private String				language;
 	private String				token;
+	private int					numberRecipes;
+	private int					numberFollower;
+	private int					numberFollowing;
 	
 	public void login(FbToken fbToken) throws DCAException, DAOException {
 		// get data into database
@@ -43,6 +46,7 @@ public class CurrentUser {
 					// Update DATABASE
 					String userId = saveToDB(fbToken);
 					token = SessionManager.getInstance().addSession(userId);
+					
 				} else {
 					throw new LoginFailException(ErrorCodeConstant.LOGIN_FB_FAIL);
 				}
@@ -53,6 +57,10 @@ public class CurrentUser {
 			coverUrl = user.getCoverUrl();
 			dob = user.getDob();
 			language = user.getLanguage();
+			this.numberFollower = user.getNumberFollower();
+			this.numberFollowing = user.getNumberFollowing();
+			this.numberRecipes = user.getNumberRecipes();
+			
 			token = SessionManager.getInstance().addSession(user.getId());
 		}
 		
@@ -94,6 +102,9 @@ public class CurrentUser {
 				dob = user.getDob();
 				language = user.getLanguage();
 				this.token = SessionManager.getInstance().addSession(user.getId());
+				this.numberFollower = user.getNumberFollower();
+				this.numberFollowing = user.getNumberFollowing();
+				this.numberRecipes = user.getNumberRecipes();
 				
 				// cache data
 				UserCache.getInstance().cache(user);
@@ -151,6 +162,30 @@ public class CurrentUser {
 	
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	
+	public int getNumberRecipes() {
+		return numberRecipes;
+	}
+	
+	public void setNumberRecipes(int numberRecipes) {
+		this.numberRecipes = numberRecipes;
+	}
+	
+	public int getNumberFollower() {
+		return numberFollower;
+	}
+	
+	public void setNumberFollower(int numberFollower) {
+		this.numberFollower = numberFollower;
+	}
+	
+	public int getNumberFollowing() {
+		return numberFollowing;
+	}
+	
+	public void setNumberFollowing(int numberFollowing) {
+		this.numberFollowing = numberFollowing;
 	}
 	
 }
