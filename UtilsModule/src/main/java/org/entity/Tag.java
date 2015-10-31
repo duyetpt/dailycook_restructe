@@ -17,6 +17,9 @@ public class Tag {
 	@JsonIgnoreProperty
 	private int popularPoint;
 
+	@JsonIgnoreProperty
+	private int numberTaged;
+
 	public ObjectId getId() {
 		return id;
 	}
@@ -47,6 +50,14 @@ public class Tag {
 
 	public void setPopularPoint(int popularPoint) {
 		this.popularPoint = popularPoint;
+	}
+
+	public int getNumberTaged() {
+		return numberTaged;
+	}
+
+	public void setNumberTaged(int numberTaged) {
+		this.numberTaged = numberTaged;
 	}
 
 }

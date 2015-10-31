@@ -38,19 +38,19 @@ public class suggestSearchingModel extends AbstractModel {
 		 List<String> result = new ArrayList<String>();
 		 switch (type) {
 		 case INGREDIENT_TYPE:
-			 List<Ingredient> list = IngredientDAO.getInstance().list(keyword);
+			 List<Ingredient> list = IngredientDAO.getInstance().list(keyword, 0, 10);
 			 if (list != null)
 				 for (Ingredient in : list)
 					 result.add(in.getNormalizedName());
 		 break;
 		 case TAG_TYPE:
-			 List<Tag> tags = TagDAO.getInstance().list(keyword);
+			 List<Tag> tags = TagDAO.getInstance().list(keyword, 0, 10);
 			 if (tags != null)
 				 for (Tag tag : tags)
 					 result.add(tag.getNormalizeTag()); 
 		 break;
 		 case NAME_TYPE:
-			 List<Recipe> recipes = RecipeDAO.getInstance().list(keyword);
+			 List<Recipe> recipes = RecipeDAO.getInstance().getRecipeForSuggestion(keyword);
 			 if (recipes != null)
 				 for (Recipe recipe : recipes)
 					 result.add(recipe.getNormalizedTitle()); 

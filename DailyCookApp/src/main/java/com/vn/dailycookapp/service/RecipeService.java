@@ -66,16 +66,18 @@ public class RecipeService {
 		return Response.ok().entity(data).build();
 	}
 	
-	//http://dailycookapp.cloudapp.net:8181/dailycook/recipe/{recipeId}/comment
+	// http://dailycookapp.cloudapp.net:8181/dailycook/recipe/{recipeId}/comment
 	@POST
 	@Path("/{recipeId}/comment")
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
-	public Response comment(@HeaderParam(HeaderField.USER_ID) String userId, @PathParam("recipeId") String recipeId, String content) {
+	public Response comment(@HeaderParam(HeaderField.USER_ID) String userId, @PathParam("recipeId") String recipeId,
+			String content) {
 		String data = ModelResolver.getApi(ModelDefine.COMMENT).doProcess(recipeId, userId, content);
 		return Response.ok().entity(data).build();
 	}
 	
-	//http://dailycookapp.cloudapp.net:8181/dailycook/recipe/{name | ingredients | tags}/suggest?keyword={keyword}
+	// http://dailycookapp.cloudapp.net:8181/dailycook/recipe/{name |
+	// ingredients | tags}/suggest?keyword={keyword}
 	@GET
 	@Path("/{suggestion}/suggest")
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
@@ -84,12 +86,14 @@ public class RecipeService {
 		return Response.ok().entity(data).build();
 	}
 	
-	//http://dailycookapp.cloudapp.net:8181/dailycook/recipe/search?keyword={keyword}&filter={name | ingredients | tags}
+	// http://dailycookapp.cloudapp.net:8181/dailycook/recipe/search?keyword={keyword}&filter={name
+	// | ingredients | tags}
 	@GET
 	@Path("/search")
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
-	public Response search(@HeaderParam(HeaderField.USER_ID) String userId, @QueryParam("keyword") String keyword, @QueryParam("filter") String filter) {
-		String data = ModelResolver.getApi(ModelDefine.SEARCH_RECIPE).doProcess(filter, keyword, userId);
+	public Response search(@HeaderParam(HeaderField.USER_ID) String userId, @QueryParam("keyword") String keyword,
+			@QueryParam("filter") String filter, @QueryParam("skip") String skip, @QueryParam("take") String take) {
+		String data = ModelResolver.getApi(ModelDefine.SEARCH_RECIPE).doProcess(filter, keyword, userId, skip, take);
 		return Response.ok().entity(data).build();
 	}
 }

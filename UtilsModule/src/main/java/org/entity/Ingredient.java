@@ -86,4 +86,20 @@ public class Ingredient {
 		this.popularPoint = popularPoint;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Ingredient) {
+			Ingredient ing = (Ingredient) obj;
+			return ing.getId().equals(this.getId());
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
 }
