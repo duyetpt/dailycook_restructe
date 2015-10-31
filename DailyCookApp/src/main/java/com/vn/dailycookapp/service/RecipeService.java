@@ -80,7 +80,7 @@ public class RecipeService {
 	@Path("/{suggestion}/suggest")
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
 	public Response suggestSearching(@QueryParam("keyword") String keyword, @PathParam("suggestion") String type) {
-		String data = ModelResolver.getApi(ModelDefine.COMMENT).doProcess(type, keyword);
+		String data = ModelResolver.getApi(ModelDefine.SUGGEST_SEARCHING).doProcess(type, keyword);
 		return Response.ok().entity(data).build();
 	}
 	

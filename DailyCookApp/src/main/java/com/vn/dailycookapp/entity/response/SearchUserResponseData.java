@@ -1,9 +1,13 @@
 package com.vn.dailycookapp.entity.response;
 
+import org.json.JsonIgnoreEmpty;
+
 public class SearchUserResponseData {
 	private String	username;
 	private String	userId;
+	@JsonIgnoreEmpty
 	private String	introduce;
+	@JsonIgnoreEmpty
 	private String	avatarUrl;
 	private boolean	following;
 	private int		numberRecipes;
@@ -41,7 +45,7 @@ public class SearchUserResponseData {
 		this.avatarUrl = avatarUrl;
 	}
 	
-	public boolean isFollowing() {
+	public boolean getFollowing() {
 		return following;
 	}
 	

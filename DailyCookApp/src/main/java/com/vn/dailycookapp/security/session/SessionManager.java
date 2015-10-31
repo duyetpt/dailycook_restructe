@@ -90,6 +90,7 @@ public class SessionManager implements Runnable {
 			for (Map.Entry<String, Session> entry : tokenMap.entrySet()) {
 				Session session = entry.getValue();
 				if (currentTime - session.getLastActiveTime() > Session.TTL) {
+					System.out.println("expire session of:" + entry.getValue().getUserId());
 					tokenMap.remove(entry.getKey());
 				}
 			}

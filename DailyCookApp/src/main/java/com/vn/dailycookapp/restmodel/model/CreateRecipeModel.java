@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.Unicode;
+import org.dao.IngredientDAO;
 import org.dao.RecipeDAO;
 import org.dao.UserDAO;
+import org.entity.Ingredient;
 import org.entity.Notification;
 import org.entity.Recipe;
 import org.json.JsonTransformer;
@@ -38,7 +40,7 @@ public class CreateRecipeModel extends AbstractModel {
 		recipe.setOwner(userId);
 		// normalize title, ingredient
 		recipe.setNormalizedTitle(Unicode.toAscii(recipe.getTitle()).toLowerCase());
-		for (Recipe.Ingredient ing : recipe.getIngredients()) {
+		for (Ingredient ing : recipe.getIngredients()) {
 			ing.setNormalizedName(Unicode.toAscii(ing.getName()).toLowerCase());
 		}
 		// normalize tags
@@ -50,6 +52,9 @@ public class CreateRecipeModel extends AbstractModel {
 		}
 		
 		recipe.setView(0);
+		// save ingredients
+		IngredientDAO.getInstance().save(recipe.getIngredients());
+		// save recipe
 		RecipeDAO.getInstance().save(recipe);
 		recipe.setIsFavorite(false);
 		// get user info

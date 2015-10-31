@@ -29,7 +29,7 @@ public class SearchRecipeModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		filter = data[0];
+		filter = data[0] == null ? NAME_TYPE : data[0];
 		keyword = Unicode.toAscii(data[1]).toLowerCase();
 		userId = data[2];
 	}

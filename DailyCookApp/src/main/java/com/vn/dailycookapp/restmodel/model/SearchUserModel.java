@@ -35,7 +35,8 @@ public class SearchUserModel extends AbstractModel {
 			CompactUserInfo cUser = UserCache.getInstance().getInfoByEmail(username);
 			
 			cUsers = new ArrayList<CompactUserInfo>();
-			cUsers.add(cUser);
+			if (cUser != null)
+				cUsers.add(cUser);
 		} catch (InvalidEmailFormatException ex) {
 			// search by username
 			cUsers = UserCache.getInstance().list(username);
@@ -59,6 +60,8 @@ public class SearchUserModel extends AbstractModel {
 				info.setFollowing(false);
 			else
 				info.setFollowing(following.getStarIds().contains(cUser.getUserId()));
+			
+			data.add(info);
 		}
 		
 		response.setData(data);

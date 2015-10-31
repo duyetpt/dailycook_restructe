@@ -7,8 +7,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Application;
 
+import org.entity.Ingredient;
 import org.entity.Recipe;
-import org.entity.Recipe.Ingredient;
 import org.entity.Recipe.Step;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;

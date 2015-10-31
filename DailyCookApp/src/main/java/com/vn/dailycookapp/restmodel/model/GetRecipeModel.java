@@ -44,9 +44,9 @@ public class GetRecipeModel extends AbstractModel {
 		CompactUserInfo owner = UserCache.getInstance().get(recipe.getOwner());
 		
 		// check user favorite recipe
-		recipe.setIsFavorite(FavoriteDAO.getInstance().isFavorited(userId, recipeId));
+		recipe.setIsFavorite(userId == null ? false : FavoriteDAO.getInstance().isFavorited(userId, recipeId));
 		// check userid is following owner of recipe
-		boolean isFollowingOwner = FollowingDAO.getInstance().isFollowing(userId, owner.getUserId());
+		boolean isFollowingOwner = userId == null ? false : FollowingDAO.getInstance().isFollowing(userId, owner.getUserId());
 		
 		RecipeResponseData data = new RecipeResponseData(recipe, owner);
 		data.setIsFollowing(isFollowingOwner);

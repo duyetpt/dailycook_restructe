@@ -25,6 +25,7 @@ abstract class AbstractDAO<T> {
 		try {
 			return datastore.createQuery(entityClass).field("_id").equal(new ObjectId(id)).get();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			logger.error("get error", ex);
 			throw new DAOException();
 		}

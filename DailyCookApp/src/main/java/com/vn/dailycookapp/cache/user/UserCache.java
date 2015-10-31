@@ -1,6 +1,7 @@
 package com.vn.dailycookapp.cache.user;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,8 +77,10 @@ public class UserCache {
 		String id = emailMap.get(email);
 		if (id == null) {
 			User user = UserDAO.getInstance().getUserInfoByEmail(email);
-			cache(user);
-			id = user.getId();
+			if (user != null) {
+				cache(user);
+				id = user.getId();
+			}
 		}
 		return id == null ? null : userMap.get(id);
 	}
@@ -87,15 +90,26 @@ public class UserCache {
 	 * 
 	 * @param username
 	 * @return
+	 * @throws DAOException
 	 */
-	public List<CompactUserInfo> list(String username) {
-		List<String> userIds = new ArrayList<String>();
+	public List<CompactUserInfo> list(String username) throws DAOException {
+		Set<String> userIds = new HashSet<String>();
 		for (CompactUserInfo cUser : userMap.values()) {
 			if (Unicode.toAscii(cUser.getDisplayName()).toLowerCase().contains(username)) {
 				userIds.add(cUser.getUserId());
 			}
 			if (cUser.getEmail().contains(username)) {
 				userIds.add(cUser.getUserId());
+			}
+		}
+		
+		if (userIds.isEmpty()) {
+			List<User> users = UserDAO.getInstance().listUserByName(username);
+			if (users != null) {
+				for (User user : users) {
+					userIds.add(user.getId());
+					cache(user);
+				}
 			}
 		}
 		

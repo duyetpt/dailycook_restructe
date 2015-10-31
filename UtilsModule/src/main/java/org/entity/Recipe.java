@@ -7,8 +7,8 @@ import org.json.JsonIgnoreEmpty;
 import org.json.JsonIgnoreProperty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.annotations.Transient;
 
 @Entity(value = "Recipe", noClassnameStored = true)
@@ -69,7 +69,8 @@ public class Recipe {
 	@JsonIgnoreProperty
 	private Long createdTime = TimeUtils.getCurrentGMTTime();
 
-	private List<Recipe.Ingredient> ingredients;
+	@Reference
+	private List<Ingredient> ingredients;
 
 	private List<Recipe.Step> steps;
 
@@ -236,60 +237,6 @@ public class Recipe {
 
 	public void setView(Integer view) {
 		this.view = view;
-	}
-
-	public static class Ingredient {
-		private String name;
-
-		@Property(value = "normalize_name")
-		@Indexed(background = true)
-		@JsonIgnoreProperty
-		private String normalizedName;
-
-		private String unit;
-		private String quantity;
-		private String group;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getUnit() {
-			return unit;
-		}
-
-		public void setUnit(String unit) {
-			this.unit = unit;
-		}
-
-		public String getQuantity() {
-			return quantity;
-		}
-
-		public void setQuantity(String quantity) {
-			this.quantity = quantity;
-		}
-
-		public String getGroup() {
-			return group;
-		}
-
-		public void setGroup(String group) {
-			this.group = group;
-		}
-
-		public String getNormalizedName() {
-			return normalizedName;
-		}
-
-		public void setNormalizedName(String normalizedName) {
-			this.normalizedName = normalizedName;
-		}
-
 	}
 
 	public static class Step {

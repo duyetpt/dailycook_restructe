@@ -173,7 +173,6 @@ public class JsonTransformer {
 					jsonArr.put(obj);
 				} else {
 					JSONObject jsonObj = marshallChild(obj);
-					// System.out.println(jsonObj.toJSONString());
 					jsonArr.put(jsonObj);
 				}
 			}

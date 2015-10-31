@@ -35,7 +35,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 	public boolean increateCommentNumber(String recipeId) throws DAOException {
 		return increaseForField(recipeId, 1, Recipe.class, "comment_number");
 	}
-	
+
 	public boolean increateView(String recipeId) throws DAOException {
 		return increaseForField(recipeId, 1, Recipe.class, "view");
 	}
@@ -104,5 +104,31 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 			throw new DAOException();
 		}
 
+	}
+
+	public List<Recipe> listRecipeByIngredient(String ingredients)
+			throws DAOException {
+		try {
+			Query<Recipe> query = datastore.createQuery(Recipe.class);
+			query.field("ingredients.$.normalize_name").containsIgnoreCase(
+					ingredients);
+
+			return query.asList();
+		} catch (Exception ex) {
+			throw new DAOException();
+		}
+	}
+	
+	public List<Recipe> listRecipeByTag(String tag)
+			throws DAOException {
+		try {
+			Query<Recipe> query = datastore.createQuery(Recipe.class);
+			query.field("tags.$").containsIgnoreCase(
+					tag);
+
+			return query.asList();
+		} catch (Exception ex) {
+			throw new DAOException();
+		}
 	}
 }

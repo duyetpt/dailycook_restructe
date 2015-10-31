@@ -13,7 +13,7 @@ class NotAuthUrls {
 		list = new ArrayList<String>();
 		regexUrl = new ArrayList<String>();
 		// regex
-		regexUrl.add("dailycook[/]user[/]{1}[a-zA-Z1-9]+[/]search{1}");
+		regexUrl.add("dailycook[/]recipe[/](name|ingredients|tags){1}[/]suggest{1}");
 		regexUrl.add("dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}");
 		//dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}
 		
@@ -21,6 +21,7 @@ class NotAuthUrls {
 		list.add("dailycook/user/login");
 		list.add("dailycook/user/newfeed");
 		list.add("dailycook/user/register");
+		list.add("dailycook/user/search");
 		
 		// recipe
 		list.add("dailycook/recipe/get");

@@ -3,8 +3,8 @@ package com.vn.dailycookapp.cache;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.entity.Ingredient;
 import org.entity.Recipe;
-import org.entity.Recipe.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

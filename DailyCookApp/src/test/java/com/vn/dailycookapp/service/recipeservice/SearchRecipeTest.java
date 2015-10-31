@@ -6,8 +6,8 @@ import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
+import org.entity.Ingredient;
 import org.entity.Recipe;
-import org.entity.Recipe.Ingredient;
 import org.entity.Recipe.Step;
 import org.json.JSONObject;
 import org.json.JsonTransformer;

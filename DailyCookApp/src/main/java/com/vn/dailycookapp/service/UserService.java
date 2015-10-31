@@ -64,12 +64,11 @@ public class UserService {
 		return Response.ok(data).build();
 	}
 	
-	// http://dailycookapp.cloudapp.net:8181/dailycook/user/{username ||
-	// email}/search
+	// http://dailycookapp.cloudapp.net:8181/dailycook/user/search?keyword={keyword}
 	@GET
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
-	@Path("/{username}/search")
-	public Response search(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("username") String username) {
+	@Path("/search")
+	public Response search(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("keyword") String username) {
 		String data = ModelResolver.getApi(ModelDefine.SEARCH_USER).doProcess(owner, username);
 		return Response.ok(data).build();
 	}
