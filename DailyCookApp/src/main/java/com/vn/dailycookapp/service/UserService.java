@@ -68,8 +68,9 @@ public class UserService {
 	@GET
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
 	@Path("/search")
-	public Response search(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("keyword") String username) {
-		String data = ModelResolver.getApi(ModelDefine.SEARCH_USER).doProcess(owner, username);
+	public Response search(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("keyword") String username,
+			@QueryParam("skip") String skip, @QueryParam("take") String take) {
+		String data = ModelResolver.getApi(ModelDefine.SEARCH_USER).doProcess(owner, username, skip, take);
 		return Response.ok(data).build();
 	}
 	
@@ -83,11 +84,12 @@ public class UserService {
 		return Response.ok(data).build();
 	}
 	
-	//http://dailycookapp.cloudapp.net:8181/dailycook/user/notification/{notificationId}/read
+	// http://dailycookapp.cloudapp.net:8181/dailycook/user/notification/{notificationId}/read
 	@POST
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
 	@Path("/notification/{notificationId}/read")
-	public Response updateNotification(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("notificationId") String notiId) {
+	public Response updateNotification(@HeaderParam(HeaderField.USER_ID) String owner,
+			@PathParam("notificationId") String notiId) {
 		String data = ModelResolver.getApi(ModelDefine.UPDATE_NOTIFICATION).doProcess(owner, notiId);
 		return Response.ok(data).build();
 	}

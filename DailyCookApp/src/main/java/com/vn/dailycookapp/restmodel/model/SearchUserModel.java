@@ -17,11 +17,15 @@ import com.vn.dailycookapp.utils.validate.Validator;
 
 public class SearchUserModel extends AbstractModel {
 	private String	username;
+	private int		skip;
+	private int		take;
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
 		userId = data[0];
 		username = data[1].toLowerCase();
+		skip = Integer.parseInt(data[2]);
+		take = Integer.parseInt(data[3]);
 	}
 	
 	@Override
@@ -47,7 +51,17 @@ public class SearchUserModel extends AbstractModel {
 			following = FollowingDAO.getInstance().get(userId, Following.class);
 		}
 		
+		int countSkip = 0;
+		int countTake = 0;
 		for (CompactUserInfo cUser : cUsers) {
+			if (countSkip < skip) {
+				countSkip++;
+				continue;
+			}
+			if (countTake == take) {
+				countTake++;
+				break;
+			}
 			SearchUserResponseData info = new SearchUserResponseData();
 			info.setAvatarUrl(cUser.getAvatarUrl());
 			info.setIntroduce(cUser.getIntroduce());
