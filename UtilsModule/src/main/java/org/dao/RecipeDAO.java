@@ -7,6 +7,7 @@ import java.util.Set;
 import org.TimeUtils;
 import org.bson.types.ObjectId;
 import org.entity.Recipe;
+import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.Query;
 
 import com.mongodb.DBRef;
@@ -143,13 +144,17 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 	public List<Recipe> listRecipeByIngredient(List<String> ingredientIds)
 			throws DAOException {
 		try {
-			List<DBRef> dbRefs = new ArrayList<DBRef>();
-			for (String ingId : ingredientIds) {
-				DBRef dbR = new DBRef("Ingredient", new ObjectId(ingId));
-				dbRefs.add(dbR);
-			}
 			Query<Recipe> query = datastore.createQuery(Recipe.class);
-			query.field("ingredients").hasAnyOf(dbRefs);
+			Criteria[] criterias = new Criteria[ingredientIds.size()];
+
+			for (int i = 0; i < ingredientIds.size(); i++) {
+				String ingId = ingredientIds.get(i);
+				DBRef dbR = new DBRef("Ingredient", new ObjectId(ingId));
+				criterias[i] = query.criteria("ingredients")
+						.hasThisElement(dbR);
+			}
+
+			query.or(criterias);
 
 			return query.asList();
 		} catch (Exception ex) {
@@ -167,13 +172,17 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 	public List<Recipe> listRecipeByTag(List<String> tagIds)
 			throws DAOException {
 		try {
-			List<DBRef> dbRefs = new ArrayList<DBRef>();
-			for (String ingId : tagIds) {
-				DBRef dbR = new DBRef("Tag", new ObjectId(ingId));
-				dbRefs.add(dbR);
-			}
 			Query<Recipe> query = datastore.createQuery(Recipe.class);
-			query.field("ingredients").hasAnyOf(dbRefs);
+			Criteria[] criterias = new Criteria[tagIds.size()];
+
+			for (int i = 0; i < tagIds.size(); i++) {
+				String tag = tagIds.get(i);
+				DBRef dbR = new DBRef("Tag", new ObjectId(tag));
+				criterias[i] = query.criteria("ingredients")
+						.hasThisElement(dbR);
+			}
+
+			query.or(criterias);
 
 			return query.asList();
 		} catch (Exception ex) {
