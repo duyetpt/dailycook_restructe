@@ -197,11 +197,11 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Recipe> getRecipeForSuggestion(String name) throws DAOException {
+	public List<Recipe> getRecipeForSuggestion(String name, int skip, int take) throws DAOException {
 		try {
 			Query<Recipe> query = datastore.createQuery(Recipe.class);
 			query.field("normalize_title").contains(name).order("-view")
-					.order("-popularPoint").limit(10);
+					.order("-popularPoint").limit(take).offset(skip);
 
 			return query.asList();
 		} catch (Exception ex) {

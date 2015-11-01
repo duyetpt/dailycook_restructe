@@ -57,7 +57,7 @@ public class SearchRecipeModel extends AbstractModel {
 				List<String> ingredients = parseKeyword();
 				// get list Ingredient by keyword
 				List<Ingredient> listIngredient = IngredientDAO.getInstance().list(ingredients);
-				if (listIngredient != null) {
+				if (listIngredient != null && !listIngredient.isEmpty()) {
 					List<String> ingredientIds = new ArrayList<String>();
 					for (Ingredient in : listIngredient)
 						ingredientIds.add(in.getId());
@@ -78,7 +78,7 @@ public class SearchRecipeModel extends AbstractModel {
 			case TAG_TYPE:
 				List<String> tags = parseKeyword();
 				List<Tag> list = TagDAO.getInstance().list(tags);
-				if (list != null) {
+				if (list != null && !list.isEmpty()) {
 					List<String> tagIds = new ArrayList<String>();
 					for (Tag tag : list) {
 						tagIds.add(tag.getId().toHexString());
@@ -118,6 +118,10 @@ public class SearchRecipeModel extends AbstractModel {
 	private List<SearchRecipeResponseData> getResult(List<Recipe> recipes, Map<String, Integer> nPercentMap)
 			throws DAOException {
 		List<SearchRecipeResponseData> result = new ArrayList<SearchRecipeResponseData>();
+		// check recipes
+		if (recipes == null || recipes.isEmpty())
+			return result;
+		
 		Favorite favorite = null;
 		if (userId != null) {
 			favorite = FavoriteDAO.getInstance().get(userId, Favorite.class);
