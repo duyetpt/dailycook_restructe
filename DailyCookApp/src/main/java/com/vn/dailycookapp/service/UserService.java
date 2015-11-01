@@ -32,7 +32,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/logout")
 	public Response logout(@HeaderParam(HeaderField.USER_ID) String userId) {
-		String data = ModelResolver.getApi(ModelDefine.LOGIN).doProcess(userId);
+		String data = ModelResolver.getApi(ModelDefine.LOGOUT).doProcess(userId);
 		return Response.ok(data).build();
 	}
 	
