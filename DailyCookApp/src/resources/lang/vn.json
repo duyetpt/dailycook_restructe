@@ -11,10 +11,10 @@
 		"Rau thơm"
 	],
 	"notification_msg":{
-		"new_comment":"%s% đã bình luận trên một công thức(%s%) của bạn",
-		"new_follower":"%s% đang theo dõi bạn",
-		"new_favorite":"%s% đã thích một công thức(%s%) của bạn",
-		"new_recipe_of_following":"%s% đã thêm một công thức(%s%) mới",
+		"new_comment":"%s1 đã bình luận trên một công thức(%s2) của bạn",
+		"new_follower":"%s1 đang theo dõi bạn",
+		"new_favorite":"%s1 đã thích một công thức(%s2) của bạn",
+		"new_recipe_of_following":"%s1 đã thêm một công thức(%s2) mới",
 		"warm":"%s%"
 	},
 	"categories": {

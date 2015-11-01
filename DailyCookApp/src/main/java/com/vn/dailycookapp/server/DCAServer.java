@@ -166,10 +166,6 @@ public class DCAServer {
 		server.addBean(lowResourcesMonitor);
 		
 		try {
-			server.start();
-			System.out.println("Start server ....");
-			server.join();
-			
 			// start notification worker
 			NotificationWorker worker = new NotificationWorker();
 			worker.start();
@@ -177,6 +173,11 @@ public class DCAServer {
 			// start management session
 			Thread mSession = new Thread(SessionManager.getInstance());
 			mSession.start();
+			
+			// start servlet container
+			server.start();
+			System.out.println("Start server ....");
+			server.join();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

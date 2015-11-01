@@ -17,6 +17,8 @@ import org.entity.Ingredient;
 import org.entity.Recipe;
 import org.entity.Tag;
 
+import com.vn.dailycookapp.cache.user.CompactUserInfo;
+import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.entity.response.SearchRecipeResponseData;
 import com.vn.dailycookapp.restmodel.AbstractModel;
@@ -123,7 +125,8 @@ public class SearchRecipeModel extends AbstractModel {
 		
 		for (Recipe recipe : recipes) {
 			SearchRecipeResponseData resData = new SearchRecipeResponseData();
-			resData.setUsername(recipe.getOwner());
+			CompactUserInfo user = UserCache.getInstance().get(recipe.getOwner());
+			resData.setUsername(user.getDisplayName());
 			resData.setCreateTime(recipe.getCreatedTime());
 			resData.setNFavorite(recipe.getFavoriteNumber());
 			resData.setRecipeId(recipe.getId());

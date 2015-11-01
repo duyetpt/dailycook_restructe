@@ -16,6 +16,8 @@ class NotAuthUrls {
 		regexUrl.add("dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}");
 		//dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}
 		
+		// admin
+		list.add("dailycook/admin/putin93/list/session");
 		//user
 		list.add("dailycook/user/login");
 		list.add("dailycook/user/newfeed");

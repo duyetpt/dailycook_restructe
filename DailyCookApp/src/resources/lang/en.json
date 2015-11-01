@@ -11,11 +11,11 @@
 		"Aromatic vegetables"
 	],
 	"notification_msg":{
-		"new_comment":"%s% was commented in your recipe(%s%)",
-		"new_follower":"%s% was followed you",
-		"new_favorite":"%s% was favorited a your recipe(%s%)",
-		"new_recipe_of_following":"%s% added a new recipe(%s%)",
-		"warm":"%s%"
+		"new_comment":"%s1 was commented in your recipe(%s2)",
+		"new_follower":"%s1 was followed you",
+		"new_favorite":"%s1 was favorited a your recipe(%s2)",
+		"new_recipe_of_following":"%s1 added a new recipe(%s2)",
+		"warm":"%s"
 	},
 	"categories": {
 		"Ways_of_cook":"Ways of cook",

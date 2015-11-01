@@ -41,7 +41,7 @@ public class NotificationActionImp implements NotificationAction {
 		synchronized (queue) {
 			while (queue.isEmpty()) {
 				try {
-					wait();
+					queue.wait();
 				} catch (InterruptedException e) {
 					logger.error(e.getMessage(), e);
 				}

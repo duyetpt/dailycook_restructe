@@ -22,6 +22,7 @@ public class NotificationWorker extends Thread {
 	
 	public void run() {
 		while (true) {
+			logger.info("Notificaion worker is running...");
 			try {
 				Notification noti = NotificationActionImp.getInstance().getNoti();
 				Recipe recipe = null;
@@ -60,7 +61,6 @@ public class NotificationWorker extends Thread {
 	}
 	
 	private List<Notification> notiNewRecipe(Recipe recipe, String from) {
-		String title = recipe.getTitle();
 		CompactUserInfo user = null;
 		Following follow = null;
 		try {
@@ -72,9 +72,8 @@ public class NotificationWorker extends Thread {
 		
 		List<Notification> notis = new ArrayList<Notification>();
 		for (String follower : follow.getFollowers()) {
-			String messageForm = Language.getInstance().getMessage(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE,
+			String msg = Language.getInstance().getMessage(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE,
 					user.getLanguage());
-			String msg = String.format(messageForm, user.getDisplayName(), title);
 			
 			Notification noti = new Notification();
 			noti.setFrom(from);
@@ -82,6 +81,9 @@ public class NotificationWorker extends Thread {
 			noti.setMsg(msg);
 			noti.setRecipeId(recipe.getId());
 			noti.setType(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
+			noti.setFromAvatar(user.getAvatarUrl());
+			noti.setFromName(user.getDisplayName());
+			noti.setRecipeTitle(recipe.getTitle());
 			
 			notis.add(noti);
 		}
@@ -90,7 +92,6 @@ public class NotificationWorker extends Thread {
 	}
 	
 	private List<Notification> notiNewComment(Recipe recipe, String from) {
-		String title = recipe.getTitle();
 		CompactUserInfo user = null;
 		try {
 			user = UserCache.getInstance().get(from);
@@ -99,8 +100,8 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiNewComment error", e);
 		}
 		
-		String messageForm = Language.getInstance().getMessage(Notification.NEW_COMMENT_TYPE, user.getLanguage());
-		String msg = String.format(messageForm, user.getDisplayName(), title);
+		String msg = Language.getInstance().getMessage(Notification.NEW_COMMENT_TYPE,
+				user.getLanguage());
 		
 		Notification noti = new Notification();
 		noti.setFrom(from);
@@ -108,6 +109,9 @@ public class NotificationWorker extends Thread {
 		noti.setMsg(msg);
 		noti.setRecipeId(recipe.getId());
 		noti.setType(Notification.NEW_COMMENT_TYPE);
+		noti.setFromAvatar(user.getAvatarUrl());
+		noti.setFromName(user.getDisplayName());
+		noti.setRecipeTitle(recipe.getTitle());
 		
 		List<Notification> notis = new ArrayList<Notification>();
 		notis.add(noti);
@@ -115,7 +119,6 @@ public class NotificationWorker extends Thread {
 	}
 	
 	private List<Notification> notiFavorite(Recipe recipe, String from) {
-		String title = recipe.getTitle();
 		CompactUserInfo user = null;
 		try {
 			user = UserCache.getInstance().get(from);
@@ -124,8 +127,8 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiFavorite error", e);
 		}
 		
-		String messageForm = Language.getInstance().getMessage(Notification.NEW_FAVORITE_TYPE, user.getLanguage());
-		String msg = String.format(messageForm, user.getDisplayName(), title);
+		String msg = Language.getInstance().getMessage(Notification.NEW_FAVORITE_TYPE,
+				user.getLanguage());
 		
 		Notification noti = new Notification();
 		noti.setFrom(from);
@@ -133,6 +136,9 @@ public class NotificationWorker extends Thread {
 		noti.setMsg(msg);
 		noti.setRecipeId(recipe.getId());
 		noti.setType(Notification.NEW_FAVORITE_TYPE);
+		noti.setFromAvatar(user.getAvatarUrl());
+		noti.setFromName(user.getDisplayName());
+		noti.setRecipeTitle(recipe.getTitle());
 		
 		List<Notification> notis = new ArrayList<Notification>();
 		notis.add(noti);
@@ -148,14 +154,16 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiFollower error", e);
 		}
 		
-		String messageForm = Language.getInstance().getMessage(Notification.NEW_FOLLOWER_TYPE, user.getLanguage());
-		String msg = String.format(messageForm, user.getDisplayName());
+		String msg = Language.getInstance().getMessage(Notification.NEW_FOLLOWER_TYPE,
+				user.getLanguage());
 		
 		Notification noti = new Notification();
 		noti.setFrom(from);
 		noti.setTo(to);
 		noti.setMsg(msg);
 		noti.setType(Notification.NEW_FOLLOWER_TYPE);
+		noti.setFromAvatar(user.getAvatarUrl());
+		noti.setFromName(user.getDisplayName());
 		
 		List<Notification> notis = new ArrayList<Notification>();
 		notis.add(noti);

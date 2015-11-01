@@ -89,6 +89,31 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 		}
 	}
 
+	/**
+	 * List favorite recipe, sorted by create time
+	 * 
+	 * @param skip
+	 * @param take
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<Recipe> listFavoriteRecipe(List<String> recipeIds, int skip,
+			int take) throws DAOException {
+		try {
+			List<ObjectId> listObjId = new ArrayList<ObjectId>();
+			for (String recipeId : recipeIds) {
+				listObjId.add(new ObjectId(recipeId));
+			}
+			Query<Recipe> query = datastore.createQuery(Recipe.class)
+					.field("_id").in(listObjId).offset(skip).limit(take)
+					.order("-created_time");
+			return query.asList();
+		} catch (Exception ex) {
+			logger.error("get recipes error", ex);
+			throw new DAOException();
+		}
+	}
+
 	public List<Recipe> getRecipes(Set<String> recipeIds) throws DAOException {
 		try {
 			List<ObjectId> listObjId = new ArrayList<ObjectId>();
@@ -174,7 +199,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 			throw new DAOException();
 		}
 	}
-	
+
 	/**
 	 * get list recipe by title
 	 * 

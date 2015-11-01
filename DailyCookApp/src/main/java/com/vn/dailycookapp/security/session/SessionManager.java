@@ -86,6 +86,15 @@ public class SessionManager implements Runnable {
 		}
 	}
 	
+	/**
+	 * only for test
+	 * 
+	 * @return
+	 */
+	public Map<String, Session> getAllSession() {
+		return tokenMap;
+	}
+	
 	@Override
 	public void run() {
 		while (true) {

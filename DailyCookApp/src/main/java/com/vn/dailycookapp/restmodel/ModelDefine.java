@@ -5,6 +5,7 @@ import com.vn.dailycookapp.restmodel.model.CreateRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FollowUserModel;
 import com.vn.dailycookapp.restmodel.model.GetCommentModel;
+import com.vn.dailycookapp.restmodel.model.GetFavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetIngredientTypesModel;
 import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
@@ -30,6 +31,7 @@ public enum ModelDefine {
 	FOLLOW("follow_user", FollowUserModel.class),
 	GET_NOTIFICATION("get_notification", GetNotificationsModel.class),
 	UPDATE_NOTIFICATION("update_notification", UpdateNotificationModel.class),
+	GET_FAVORITE_RECIPE("get_favorite_recipe", GetFavoriteRecipeModel.class),
 	
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),
