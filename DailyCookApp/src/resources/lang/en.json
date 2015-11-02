@@ -11,11 +11,11 @@
 		"Aromatic vegetables"
 	],
 	"notification_msg":{
-		"new_comment":"%s1 was commented in your recipe(%s2)",
-		"new_follower":"%s1 was followed you",
-		"new_favorite":"%s1 was favorited a your recipe(%s2)",
-		"new_recipe_of_following":"%s1 added a new recipe(%s2)",
-		"warm":"%s"
+		"new_comment":"%@ was commented in your recipe(%@)",
+		"new_follower":"%@ was followed you",
+		"new_favorite":"%@ was favorited a your recipe(%@)",
+		"new_recipe_of_following":"%@ added a new recipe(%@)",
+		"warm":"%@"
 	},
 	"units":[
 		"Kg",
