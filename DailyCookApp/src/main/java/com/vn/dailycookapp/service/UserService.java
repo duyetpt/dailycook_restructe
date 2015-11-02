@@ -103,4 +103,12 @@ public class UserService {
 		String data = ModelResolver.getApi(ModelDefine.GET_FAVORITE_RECIPE).doProcess(owner, skip, take);
 		return Response.ok(data).build();
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/planmeal")
+	public Response getPlanMeal(@HeaderParam(HeaderField.USER_ID) String owner) {
+		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL).doProcess(owner);
+		return Response.ok(data).build();
+	}
 }

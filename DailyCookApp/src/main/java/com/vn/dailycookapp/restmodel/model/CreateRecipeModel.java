@@ -76,10 +76,7 @@ public class CreateRecipeModel extends AbstractModel {
 		// update user cache info
 		UserCache.getInstance().get(userId).increaseNumberRecipe();
 		
-		// TODO:Cache recipe infor for search
-		// RecipeManager.getInstance().addRecipe(recipe);
-		
-		// TODO notification, add recipe to user_recipe
+		// notification, add recipe to user_recipe
 		NotificationActionImp.getInstance().addNotification(recipeId, userId, null,
 				Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
 		

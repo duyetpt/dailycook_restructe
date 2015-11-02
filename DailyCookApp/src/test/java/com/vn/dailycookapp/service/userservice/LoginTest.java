@@ -40,7 +40,8 @@ public class LoginTest extends AbstractTest {
 	// }
 	public void testLoginWithEmail() {
 		try {
-			importData("User", getClass().getResource("/User.json").getFile());
+			System.out.println(getClass().getResource("/User.json").getFile());
+			importData("User", getClass().getResource("/User.json").getFile().substring(1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -11,8 +11,11 @@ import org.Unicode;
 import org.dao.DAOException;
 import org.dao.UserDAO;
 import org.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserCache {
+	Logger									logger		= LoggerFactory.getLogger(getClass());
 	private Map<String, CompactUserInfo>	userMap;
 	private Map<String, String>				emailMap;
 	
@@ -103,6 +106,8 @@ public class UserCache {
 			}
 		}
 		
+		logger.info("Find_user_in_cache:" + userIds.toString());
+		
 		if (userIds.isEmpty()) {
 			List<User> users = UserDAO.getInstance().listUserByName(username);
 			if (users != null) {
@@ -110,7 +115,9 @@ public class UserCache {
 					userIds.add(user.getId());
 					cache(user);
 				}
+				logger.info("Find_user_in_db:" + users.toString());
 			}
+			
 		}
 		
 		List<CompactUserInfo> cUsers = new ArrayList<CompactUserInfo>();
@@ -118,6 +125,7 @@ public class UserCache {
 			cUsers.add(userMap.get(userId));
 		}
 		
+		logger.info("Find_user_in_cache_response:" + cUsers.toString());
 		return cUsers;
 	}
 	

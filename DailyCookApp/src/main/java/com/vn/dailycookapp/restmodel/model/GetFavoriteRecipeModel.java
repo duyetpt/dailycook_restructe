@@ -34,23 +34,25 @@ public class GetFavoriteRecipeModel extends AbstractModel {
 		
 		// get list favorite recipe id
 		Favorite fav = FavoriteDAO.getInstance().get(userId, Favorite.class);
-		// get recipe by list
-		List<Recipe> recipes = RecipeDAO.getInstance().listFavoriteRecipe(fav.getRecipeIds(), skip, take);
-		
-		if (recipes != null) {
-			for (Recipe recipe : recipes) {
-				SearchRecipeResponseData resData = new SearchRecipeResponseData();
-				resData.setFavorite(true);
-				resData.setRecipeId(recipeId);
-				resData.setNFavorite(recipe.getFavoriteNumber());
-				resData.setRecipePicture(recipe.getPictureUrl());
-				resData.setRecipeStory(recipe.getStory());
-				resData.setTitlel(recipe.getTitle());
-				
-				CompactUserInfo user = UserCache.getInstance().get(recipe.getOwner());
-				resData.setUsername(user.getDisplayName());
-				
-				data.add(resData);
+		if (fav != null) {
+			// get recipe by list
+			List<Recipe> recipes = RecipeDAO.getInstance().listFavoriteRecipe(fav.getRecipeIds(), skip, take);
+			
+			if (recipes != null) {
+				for (Recipe recipe : recipes) {
+					SearchRecipeResponseData resData = new SearchRecipeResponseData();
+					resData.setFavorite(true);
+					resData.setRecipeId(recipeId);
+					resData.setNFavorite(recipe.getFavoriteNumber());
+					resData.setRecipePicture(recipe.getPictureUrl());
+					resData.setRecipeStory(recipe.getStory());
+					resData.setTitlel(recipe.getTitle());
+					
+					CompactUserInfo user = UserCache.getInstance().get(recipe.getOwner());
+					resData.setUsername(user.getDisplayName());
+					
+					data.add(resData);
+				}
 			}
 		}
 		

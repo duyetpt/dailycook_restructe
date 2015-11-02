@@ -44,6 +44,7 @@ public class SearchUserModel extends AbstractModel {
 		} catch (InvalidEmailFormatException ex) {
 			// search by username
 			cUsers = UserCache.getInstance().list(username);
+			logger.info("search_user_login_debug:" + cUsers.toString());
 		}
 		
 		Following following = null;
