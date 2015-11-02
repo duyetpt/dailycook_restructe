@@ -42,7 +42,7 @@ public class GetFavoriteRecipeModel extends AbstractModel {
 				for (Recipe recipe : recipes) {
 					SearchRecipeResponseData resData = new SearchRecipeResponseData();
 					resData.setFavorite(true);
-					resData.setRecipeId(recipeId);
+					resData.setRecipeId(recipe.getId());
 					resData.setNFavorite(recipe.getFavoriteNumber());
 					resData.setRecipePicture(recipe.getPictureUrl());
 					resData.setRecipeStory(recipe.getStory());
