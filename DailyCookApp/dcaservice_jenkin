@@ -30,6 +30,11 @@ echo "Starting $SERVICE_NAME ..."
 		# Control will enter here if $DIRECTORY doesn't exits
 		cd $PATH_APP
 		jar xf $PATH_TO_JAR lang
+		# if existed -> removed -> extracted newest
+		else
+		cd $PATH_APP
+		rm -R lang
+		jar xf $PATH_TO_JAR lang
 		fi
 		#check image folder
 		if [ ! -d "$PATH_IMAGE" ]; then
