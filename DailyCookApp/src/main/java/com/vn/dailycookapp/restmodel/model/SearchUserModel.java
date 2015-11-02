@@ -28,6 +28,7 @@ public class SearchUserModel extends AbstractModel {
 		take = Integer.parseInt(data[3]);
 	}
 	
+	// TODO BUG-ONLY SEARCH IN CACHE IF CACHE HAD
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
@@ -43,7 +44,7 @@ public class SearchUserModel extends AbstractModel {
 				cUsers.add(cUser);
 		} catch (InvalidEmailFormatException ex) {
 			// search by username
-			cUsers = UserCache.getInstance().list(username);
+			cUsers = UserCache.getInstance().list(username, skip, take);
 			logger.info("search_user_login_debug:" + cUsers.toString());
 		}
 		

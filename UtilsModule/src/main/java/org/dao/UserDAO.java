@@ -44,9 +44,10 @@ public class UserDAO extends AbstractDAO<User> {
 			throw new DAOException();
 		}
 	}
-	
+
 	/**
 	 * Get Users by display name or email
+	 * 
 	 * @param username
 	 * @return
 	 * @throws DAOException
@@ -54,10 +55,31 @@ public class UserDAO extends AbstractDAO<User> {
 	public List<User> listUserByName(String username) throws DAOException {
 		try {
 			Query<User> query = datastore.createQuery(User.class);
-	
-			query.or(query.criteria("email").containsIgnoreCase(username), query.criteria("display_name").containsIgnoreCase(username));
-			
+
+			query.or(query.criteria("email").containsIgnoreCase(username),
+					query.criteria("display_name").containsIgnoreCase(username));
+
 			return query.asList();
+		} catch (Exception ex) {
+			throw new DAOException();
+		}
+	}
+
+	/**
+	 * count number user match with username
+	 * 
+	 * @param username
+	 * @return
+	 * @throws DAOException
+	 */
+	public int countUserByName(String username) throws DAOException {
+		try {
+			Query<User> query = datastore.createQuery(User.class);
+
+			query.or(query.criteria("email").containsIgnoreCase(username),
+					query.criteria("display_name").containsIgnoreCase(username));
+
+			return (int) query.countAll();
 		} catch (Exception ex) {
 			throw new DAOException();
 		}

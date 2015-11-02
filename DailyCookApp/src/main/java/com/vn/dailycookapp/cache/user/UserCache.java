@@ -95,7 +95,7 @@ public class UserCache {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<CompactUserInfo> list(String username) throws DAOException {
+	public List<CompactUserInfo> list(String username, int skip, int take) throws DAOException {
 		Set<String> userIds = new HashSet<String>();
 		for (CompactUserInfo cUser : userMap.values()) {
 			if (Unicode.toAscii(cUser.getDisplayName()).toLowerCase().contains(username)) {
@@ -117,7 +117,18 @@ public class UserCache {
 				}
 				logger.info("Find_user_in_db:" + users.toString());
 			}
-			
+		} else if (userIds.size() < skip + take) {
+			int foundNumber = UserDAO.getInstance().countUserByName(username);
+			if (foundNumber > userIds.size()) {
+				List<User> users = UserDAO.getInstance().listUserByName(username);
+				if (users != null) {
+					for (User user : users) {
+						userIds.add(user.getId());
+						cache(user);
+					}
+					logger.info("Find_user_in_db:" + users.toString());
+				}
+			}
 		}
 		
 		List<CompactUserInfo> cUsers = new ArrayList<CompactUserInfo>();
