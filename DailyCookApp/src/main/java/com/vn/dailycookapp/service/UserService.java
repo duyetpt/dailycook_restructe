@@ -58,9 +58,9 @@ public class UserService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/follow/{userId}")
-	public Response follow(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("flag") String flag,
+	public Response follow(@HeaderParam(HeaderField.USER_ID) String myId, @QueryParam("flag") String flag,
 			@PathParam("userId") String userId) {
-		String data = ModelResolver.getApi(ModelDefine.FOLLOW).doProcess(owner, userId, flag);
+		String data = ModelResolver.getApi(ModelDefine.FOLLOW).doProcess(myId, userId, flag);
 		return Response.ok(data).build();
 	}
 	

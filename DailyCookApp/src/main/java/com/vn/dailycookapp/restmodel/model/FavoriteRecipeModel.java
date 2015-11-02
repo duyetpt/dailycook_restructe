@@ -24,7 +24,7 @@ public class FavoriteRecipeModel extends AbstractModel {
 		try {
 			recipeId = data[0];
 			flag = data[1];
-			userId = data[2];
+			myId = data[2];
 		} catch (Exception ex) {
 			throw new InvalidParamException();
 		}
@@ -41,12 +41,12 @@ public class FavoriteRecipeModel extends AbstractModel {
 				 * Push into Favorite, Favorited
 				 * Return
 				 */
-				FavoriteDAO.getInstance().push(userId, recipeId);
-				FavoritedDAO.getInstance().push(recipeId, userId);
+				FavoriteDAO.getInstance().push(myId, recipeId);
+				FavoritedDAO.getInstance().push(recipeId, myId);
 				RecipeDAO.getInstance().increateFavoriteNumber(recipeId);
 				
 				// Notification
-				NotificationActionImp.getInstance().addNotification(recipeId, userId, null, Notification.NEW_FAVORITE_TYPE);
+				NotificationActionImp.getInstance().addNotification(recipeId, myId, null, Notification.NEW_FAVORITE_TYPE);
 				break;
 			case UNFAVORITE_FLAG:
 				/**
@@ -54,8 +54,8 @@ public class FavoriteRecipeModel extends AbstractModel {
 				 * Pull into Favorite, Favorited
 				 * Return
 				 */
-				FavoriteDAO.getInstance().pull(userId, recipeId);
-				FavoritedDAO.getInstance().pull(recipeId, userId);
+				FavoriteDAO.getInstance().pull(myId, recipeId);
+				FavoritedDAO.getInstance().pull(recipeId, myId);
 				RecipeDAO.getInstance().decreateFavoriteNumber(recipeId);
 		}
 		Recipe recipe = RecipeDAO.getInstance().get(recipeId);

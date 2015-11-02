@@ -40,7 +40,7 @@ public class NewFeedModel extends AbstractModel {
 	@Override
 	protected void preExecute(String... data) throws Exception {
 		try {
-			userId = data[0];
+			myId = data[0];
 			skip = Integer.parseInt(data[1]);
 			take = Integer.parseInt(data[2]);
 			sort = data[3];
@@ -56,8 +56,8 @@ public class NewFeedModel extends AbstractModel {
 		List<NewFeedResponseData> datas = new ArrayList<NewFeedResponseData>();
 		
 		List<String> followingIds = null;
-		if (SORT_BY_FOLLOWING.equals(sort) && userId != null) {
-			Following following = FollowingDAO.getInstance().get(userId, Following.class);
+		if (SORT_BY_FOLLOWING.equals(sort) && myId != null) {
+			Following following = FollowingDAO.getInstance().get(myId, Following.class);
 			followingIds = following.getStarIds();
 		}
 		// Get recipes
@@ -74,8 +74,8 @@ public class NewFeedModel extends AbstractModel {
 			
 			// Get list favorite recipe of this user
 			Favorite favorite = null;
-			if (userId != null) {
-				favorite = FavoriteDAO.getInstance().get(userId, Favorite.class);
+			if (myId != null) {
+				favorite = FavoriteDAO.getInstance().get(myId, Favorite.class);
 			}
 			// Merger data for response
 			for (Recipe recipe : recipes) {

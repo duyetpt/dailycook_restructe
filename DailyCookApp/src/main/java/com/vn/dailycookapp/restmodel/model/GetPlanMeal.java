@@ -7,7 +7,7 @@ public class GetPlanMeal extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 	}
 	
 	@Override

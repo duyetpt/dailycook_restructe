@@ -13,6 +13,7 @@ public enum ErrorCodeConstant {
 	USER_NOT_FOUND(-103, "not found user in db"),
 	PASSWORD_INCORRECT(-104, "Password is incorrect"),
 	USERNAME_INCORRECT(-105, "User name is incorrect"),
+	//-107 existed account in uitl module
 	
 	INVALID_DATA(-203, "Incorrect param"),
 	INVALID_TOKEN(-201, "token is invalid"),

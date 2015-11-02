@@ -17,14 +17,14 @@ public class FollowUserModel extends AbstractModel {
 	private static final String	FOLLOW_FLAG		= "1";
 	private static final String	UNFOLLOW_FLAG	= "-1";
 	
-	private String				owner;
+	private String				starId;
 	private String				flag;
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
 		try {
-			owner = data[0];
-			userId = data[1];
+			myId = data[0];
+			starId = data[1];
 			flag = data[2];
 		} catch (Exception ex) {
 			throw new InvalidParamException();
@@ -39,38 +39,38 @@ public class FollowUserModel extends AbstractModel {
 		switch (flag) {
 			case FOLLOW_FLAG:
 				// add following
-				FollowingDAO.getInstance().following(owner, userId);
+				FollowingDAO.getInstance().following(myId, starId);
 				// add follower
-				FollowingDAO.getInstance().addFollower(userId, owner);
+				FollowingDAO.getInstance().addFollower(starId, myId);
 				
 				// increase following number
-				UserDAO.getInstance().increateFollowingNumber(owner);
+				UserDAO.getInstance().increateFollowingNumber(starId);
 				// increase follower number
-				UserDAO.getInstance().increateFollowerNumber(userId);
+				UserDAO.getInstance().increateFollowerNumber(myId);
 				// Cache update
-				UserCache.getInstance().get(owner).increaseNumberFollowing();
-				UserCache.getInstance().get(userId).increaseNumberFollower();
+				UserCache.getInstance().get(myId).increaseNumberFollowing();
+				UserCache.getInstance().get(starId).increaseNumberFollower();
 				
 				// Notification
-				NotificationActionImp.getInstance().addNotification(null, userId, owner, Notification.NEW_FOLLOWER_TYPE);
+				NotificationActionImp.getInstance().addNotification(null, myId, starId, Notification.NEW_FOLLOWER_TYPE);
 				break;
 			case UNFOLLOW_FLAG:
 				// add following
-				FollowingDAO.getInstance().unfollow(owner, userId);
+				FollowingDAO.getInstance().unfollow(myId, starId);
 				// add follower
-				FollowingDAO.getInstance().removeFollower(userId, owner);
+				FollowingDAO.getInstance().removeFollower(starId, myId);
 				
 				// increase following number
-				UserDAO.getInstance().decreaseFollowingNumber(owner);
+				UserDAO.getInstance().decreaseFollowingNumber(starId);
 				// increase follower number
-				UserDAO.getInstance().decreaseFollowerNumber(userId);
+				UserDAO.getInstance().decreaseFollowerNumber(myId);
 				// Cache update
-				UserCache.getInstance().get(owner).decreaseNumberFollowing();
-				UserCache.getInstance().get(userId).decreaseNumberFollower();
+				UserCache.getInstance().get(myId).decreaseNumberFollowing();
+				UserCache.getInstance().get(starId).decreaseNumberFollower();
 				break;
 		}
 		
-		CompactUserInfo user = UserCache.getInstance().get(userId);
+		CompactUserInfo user = UserCache.getInstance().get(myId);
 		FollowResponseData data = new FollowResponseData();
 		data.setFollowingNumber(user.getNumberFollowing());
 		

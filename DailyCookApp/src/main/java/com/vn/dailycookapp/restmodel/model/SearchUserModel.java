@@ -22,7 +22,7 @@ public class SearchUserModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 		username = data[1].toLowerCase();
 		skip = Integer.parseInt(data[2]);
 		take = Integer.parseInt(data[3]);
@@ -49,8 +49,8 @@ public class SearchUserModel extends AbstractModel {
 		}
 		
 		Following following = null;
-		if (userId != null) {
-			following = FollowingDAO.getInstance().get(userId, Following.class);
+		if (myId != null) {
+			following = FollowingDAO.getInstance().get(myId, Following.class);
 		}
 		
 		int countSkip = 0;
@@ -72,7 +72,7 @@ public class SearchUserModel extends AbstractModel {
 			info.setUserId(cUser.getUserId());
 			info.setUsername(cUser.getDisplayName());
 			
-			if (userId == null)
+			if (myId == null)
 				info.setFollowing(false);
 			else
 				info.setFollowing(following.getStarIds().contains(cUser.getUserId()));

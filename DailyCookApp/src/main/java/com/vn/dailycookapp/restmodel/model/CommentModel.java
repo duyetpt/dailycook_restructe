@@ -23,7 +23,7 @@ public class CommentModel extends AbstractModel {
 	protected void preExecute(String... data) throws Exception {
 		try {
 			recipeId = data[0];
-			userId = data[1];
+			myId = data[1];
 			commentInfo = JsonTransformer.getInstance().unmarshall(data[2], CommentInfo.class);
 		} catch (Exception ex) {
 			throw new InvalidParamException();
@@ -37,7 +37,7 @@ public class CommentModel extends AbstractModel {
 		
 		Comment comment = new Comment();
 		comment.setContent(commentInfo.getContent());
-		comment.setOwner(userId);
+		comment.setOwner(myId);
 		comment.setRecipeId(recipeId);
 		// save comment
 		CommentDAO.getInstance().save(comment);
@@ -46,7 +46,7 @@ public class CommentModel extends AbstractModel {
 		RecipeDAO.getInstance().increateCommentNumber(recipeId);
 		
 		// Get user Info
-		User user = UserDAO.getInstance().getUser(userId);
+		User user = UserDAO.getInstance().getUser(myId);
 		
 		CommentResponseInfo cri = new CommentResponseInfo();
 		cri.setAvatarUrl(user.getAvatarUrl());
@@ -55,7 +55,7 @@ public class CommentModel extends AbstractModel {
 		cri.setUserName(user.getDisplayName());
 		
 		// Notification
-		NotificationActionImp.getInstance().addNotification(recipeId, userId, null, Notification.NEW_COMMENT_TYPE);
+		NotificationActionImp.getInstance().addNotification(recipeId, myId, null, Notification.NEW_COMMENT_TYPE);
 		response.setData(cri);
 		return response;
 	}

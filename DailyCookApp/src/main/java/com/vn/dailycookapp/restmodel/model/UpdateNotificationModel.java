@@ -11,7 +11,7 @@ public class UpdateNotificationModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 		notiId = data[1];
 	}
 	

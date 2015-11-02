@@ -28,7 +28,7 @@ public class GetRecipeModel extends AbstractModel {
 	@Override
 	protected void preExecute(String... data) throws Exception {
 		try {
-			userId = data[0];
+			myId = data[0];
 			recipeId = data[1];
 		} catch (Exception ex) {
 			throw new InvalidParamException();
@@ -44,9 +44,9 @@ public class GetRecipeModel extends AbstractModel {
 		CompactUserInfo owner = UserCache.getInstance().get(recipe.getOwner());
 		
 		// check user favorite recipe
-		recipe.setIsFavorite(userId == null ? false : FavoriteDAO.getInstance().isFavorited(userId, recipeId));
+		recipe.setIsFavorite(myId == null ? false : FavoriteDAO.getInstance().isFavorited(myId, recipeId));
 		// check userid is following owner of recipe
-		boolean isFollowingOwner = userId == null ? false : FollowingDAO.getInstance().isFollowing(userId, owner.getUserId());
+		boolean isFollowingOwner = myId == null ? false : FollowingDAO.getInstance().isFollowing(myId, owner.getUserId());
 		
 		RecipeResponseData data = new RecipeResponseData(recipe, owner);
 		data.setIsFollowing(isFollowingOwner);

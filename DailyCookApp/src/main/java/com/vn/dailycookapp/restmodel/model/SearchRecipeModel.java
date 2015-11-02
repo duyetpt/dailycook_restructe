@@ -39,7 +39,7 @@ public class SearchRecipeModel extends AbstractModel {
 	protected void preExecute(String... data) throws InvalidParamException {
 		filter = data[0] == null ? NAME_TYPE : data[0];
 		keyword = Unicode.toAscii(data[1]).toLowerCase();
-		userId = data[2];
+		myId = data[2];
 		skip = Integer.parseInt(data[3]);
 		take = Integer.parseInt(data[4]);
 	}
@@ -123,8 +123,8 @@ public class SearchRecipeModel extends AbstractModel {
 			return result;
 		
 		Favorite favorite = null;
-		if (userId != null) {
-			favorite = FavoriteDAO.getInstance().get(userId, Favorite.class);
+		if (myId != null) {
+			favorite = FavoriteDAO.getInstance().get(myId, Favorite.class);
 		}
 		
 		for (Recipe recipe : recipes) {

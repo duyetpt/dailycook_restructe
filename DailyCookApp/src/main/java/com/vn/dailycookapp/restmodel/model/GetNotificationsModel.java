@@ -17,7 +17,7 @@ public class GetNotificationsModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 		skip = Integer.parseInt(data[1]);
 		take = Integer.parseInt(data[2]);
 	}
@@ -25,7 +25,7 @@ public class GetNotificationsModel extends AbstractModel {
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		List<Notification> list = NotificationDAO.getInstance().list(userId, skip, take);
+		List<Notification> list = NotificationDAO.getInstance().list(myId, skip, take);
 		List<GetNotificationResponseData> data = new ArrayList<GetNotificationResponseData>();
 		if (list != null)
 			for (Notification noti : list) {

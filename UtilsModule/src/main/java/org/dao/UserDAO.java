@@ -28,7 +28,7 @@ public class UserDAO extends AbstractDAO<User> {
 				save(user);
 			}
 		} catch (Exception ex) {
-			throw new DAOException();
+			throw new AccountExistedException();
 		}
 
 	}

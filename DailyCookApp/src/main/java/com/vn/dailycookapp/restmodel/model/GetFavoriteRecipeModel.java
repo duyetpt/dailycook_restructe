@@ -22,7 +22,7 @@ public class GetFavoriteRecipeModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws InvalidParamException {
-		userId = data[0];
+		myId = data[0];
 		skip = Integer.parseInt(data[1]);
 		take = Integer.parseInt(data[2]);
 	}
@@ -33,7 +33,7 @@ public class GetFavoriteRecipeModel extends AbstractModel {
 		List<SearchRecipeResponseData> data = new ArrayList<SearchRecipeResponseData>();
 		
 		// get list favorite recipe id
-		Favorite fav = FavoriteDAO.getInstance().get(userId, Favorite.class);
+		Favorite fav = FavoriteDAO.getInstance().get(myId, Favorite.class);
 		if (fav != null) {
 			// get recipe by list
 			List<Recipe> recipes = RecipeDAO.getInstance().listFavoriteRecipe(fav.getRecipeIds(), skip, take);

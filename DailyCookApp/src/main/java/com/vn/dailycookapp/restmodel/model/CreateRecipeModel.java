@@ -30,7 +30,7 @@ public class CreateRecipeModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 		recipe = JsonTransformer.getInstance().unmarshall(data[1], Recipe.class);
 		validateRecipe();
 	}
@@ -38,7 +38,7 @@ public class CreateRecipeModel extends AbstractModel {
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		recipe.setOwner(userId);
+		recipe.setOwner(myId);
 		// normalize title, ingredient
 		recipe.setNormalizedTitle(Unicode.toAscii(recipe.getTitle()).toLowerCase());
 		for (Ingredient ing : recipe.getIngredients()) {
@@ -64,20 +64,20 @@ public class CreateRecipeModel extends AbstractModel {
 		RecipeDAO.getInstance().save(recipe);
 		recipe.setIsFavorite(false);
 		// get user info
-		CompactUserInfo user = UserCache.getInstance().get(userId);
+		CompactUserInfo user = UserCache.getInstance().get(myId);
 		RecipeResponseData data = new RecipeResponseData(recipe, user);
 		data.setIsFollowing(true);
 		
 		response.setData(data);
 		
 		// increate recipe number of user
-		UserDAO.getInstance().increateRecipeNumber(userId);
+		UserDAO.getInstance().increateRecipeNumber(myId);
 		
 		// update user cache info
-		UserCache.getInstance().get(userId).increaseNumberRecipe();
+		UserCache.getInstance().get(myId).increaseNumberRecipe();
 		
 		// notification, add recipe to user_recipe
-		NotificationActionImp.getInstance().addNotification(recipeId, userId, null,
+		NotificationActionImp.getInstance().addNotification(recipeId, myId, null,
 				Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
 		
 		return response;

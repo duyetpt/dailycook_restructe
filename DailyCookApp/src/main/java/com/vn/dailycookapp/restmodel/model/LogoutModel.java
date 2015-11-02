@@ -9,13 +9,13 @@ public class LogoutModel extends AbstractModel {
 	
 	@Override
 	protected void preExecute(String... data) throws Exception {
-		userId = data[0];
+		myId = data[0];
 	}
 	
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		SessionManager.getInstance().closeSessionOfUser(userId);
+		SessionManager.getInstance().closeSessionOfUser(myId);
 		return response;
 	}
 	
