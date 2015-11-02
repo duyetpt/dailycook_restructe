@@ -5,6 +5,7 @@ import org.dao.RecipeDAO;
 import org.dao.UserDAO;
 import org.entity.Comment;
 import org.entity.Notification;
+import org.entity.Recipe;
 import org.entity.User;
 import org.json.JsonTransformer;
 
@@ -55,7 +56,8 @@ public class CommentModel extends AbstractModel {
 		cri.setUserName(user.getDisplayName());
 		
 		// Notification
-		NotificationActionImp.getInstance().addNotification(recipeId, myId, null, Notification.NEW_COMMENT_TYPE);
+		Recipe recipe = RecipeDAO.getInstance().get(recipeId);
+		NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, recipe.getOwner(), Notification.NEW_COMMENT_TYPE);
 		response.setData(cri);
 		return response;
 	}

@@ -12,6 +12,7 @@ import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.annotations.Transient;
 
 @Entity(value = "Recipe", noClassnameStored = true)
+@JsonIgnoreEmpty
 public class Recipe {
 	public static final int APPROVED_FLAG = 1;
 	public static final int REPORTED_FLAG = 0;
@@ -72,7 +73,7 @@ public class Recipe {
 
 	@Reference
 	private List<Ingredient> ingredients;
-	
+
 	private List<Recipe.Step> steps;
 
 	private Integer view;
@@ -84,6 +85,7 @@ public class Recipe {
 		return id;
 	}
 
+	@JsonIgnoreProperty
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -100,6 +102,7 @@ public class Recipe {
 		return normalizedTitle;
 	}
 
+	@JsonIgnoreProperty
 	public void setNormalizedTitle(String normalizedTitle) {
 		this.normalizedTitle = normalizedTitle;
 	}
@@ -108,6 +111,7 @@ public class Recipe {
 		return owner;
 	}
 
+	@JsonIgnoreProperty
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
@@ -116,6 +120,7 @@ public class Recipe {
 		return commentNumber;
 	}
 
+	@JsonIgnoreProperty
 	public void setCommentNumber(int commentNumber) {
 		this.commentNumber = commentNumber;
 	}
@@ -124,6 +129,7 @@ public class Recipe {
 		return favoriteNumber;
 	}
 
+	@JsonIgnoreProperty
 	public void setFavoriteNumber(int favoriteNumber) {
 		this.favoriteNumber = favoriteNumber;
 	}
@@ -148,6 +154,7 @@ public class Recipe {
 		return statusFlag;
 	}
 
+	@JsonIgnoreProperty
 	public void setStatusFlag(int statusFlag) {
 		this.statusFlag = statusFlag;
 	}
@@ -180,6 +187,7 @@ public class Recipe {
 		return deletedTime;
 	}
 
+	@JsonIgnoreProperty
 	public void setDeletedTime(Long deletedTime) {
 		this.deletedTime = deletedTime;
 	}
@@ -188,6 +196,7 @@ public class Recipe {
 		return createdTime;
 	}
 
+	@JsonIgnoreProperty
 	public void setCreatedTime(Long createdTime) {
 		this.createdTime = createdTime;
 	}
@@ -279,6 +288,7 @@ public class Recipe {
 		return popularPoint;
 	}
 
+	@JsonIgnoreProperty
 	public void setPopularPoint(int popularPoint) {
 		this.popularPoint = popularPoint;
 	}

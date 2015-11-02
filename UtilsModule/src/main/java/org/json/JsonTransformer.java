@@ -39,31 +39,39 @@ public class JsonTransformer {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	private JSONObject marshallChild(Object t) {
-		try {
-			Class<? extends Object> pClass = t.getClass();
-			JSONObject obj = new JSONObject();
-			// get all field private, protected, public
-			List<Field> lField = new ArrayList<Field>();
+	private List<Field> getField(Class<? extends Object> tClass) {
+		List<Field> lField = new ArrayList<Field>();
 
-			// get all field private, protected, public
-			Field[] fields = pClass.getDeclaredFields();
-			for (Field field : fields) {
+		// get all field private, protected, public
+		Field[] fields = tClass.getDeclaredFields();
+		for (Field field : fields) {
+			if (!Modifier.isStatic(field.getModifiers())
+					&& !Modifier.isFinal(field.getModifiers())) {
+				lField.add(field);
+			}
+		}
+
+		Class<? extends Object> superClass = tClass.getSuperclass();
+		if (!superClass.equals(Object.class)) {
+			Field[] superFields = superClass.getDeclaredFields();
+			for (Field field : superFields) {
 				if (!Modifier.isStatic(field.getModifiers())) {
 					lField.add(field);
 				}
 			}
+		}
 
-			Class superClass = pClass.getSuperclass();
-			if (!superClass.equals(Object.class)) {
-				Field[] superFields = superClass.getDeclaredFields();
-				for (Field field : superFields) {
-					if (!Modifier.isStatic(field.getModifiers())) {
-						lField.add(field);
-					}
-				}
-			}
+		return lField;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private JSONObject marshallChild(Object t) {
+		try {
+			Class<? extends Object> pClass = t.getClass();
+
+			JSONObject obj = new JSONObject();
+			// get all field private, protected, public
+			List<Field> lField = getField(pClass);
 
 			for (Field field : lField) {
 				// check for ignore this property
@@ -242,21 +250,9 @@ public class JsonTransformer {
 	private Object unmarshallMap(JSONObject obj, Class<? extends Object> tClass) {
 		try {
 			Object t = tClass.newInstance();
-			List<Field> lField = new ArrayList<Field>();
-
 			// get all field private, protected, public
-			Field[] fields = tClass.getDeclaredFields();
-			for (Field field : fields) {
-				lField.add(field);
-			}
-			@SuppressWarnings({ "rawtypes" })
-			Class superClass = tClass.getSuperclass();
-			if (!superClass.equals(Object.class)) {
-				Field[] superFields = superClass.getDeclaredFields();
-				for (Field field : superFields) {
-					lField.add(field);
-				}
-			}
+			List<Field> lField = getField(tClass);
+
 			for (Field field : lField) {
 				// check for ignore this property
 				if (field.isAnnotationPresent(JsonIgnoreProperty.class)) {
@@ -277,7 +273,9 @@ public class JsonTransformer {
 
 				Object valueOfField = null;
 				try {
-					valueOfField = obj.get(jsonKey);
+					if (!obj.isNull(jsonKey)) {
+						valueOfField = obj.get(jsonKey);
+					}
 				} catch (Exception ex) {
 					logger.error("get value error", ex);
 				}
@@ -304,14 +302,14 @@ public class JsonTransformer {
 
 							Object[] oo = (Object[]) arrUnknow;
 
-							setValue(t, tClass, field, oo, fieldName);
+							setValue(t, field, oo, fieldName);
 						} else if (field.getType().isAssignableFrom(List.class)) {
 							JSONArray arr = (JSONArray) valueOfField;
 							ParameterizedType listType = (ParameterizedType) field
 									.getGenericType();
 							Class<?> itemListClass = (Class<?>) listType
 									.getActualTypeArguments()[0];
-							setValue(t, tClass, field,
+							setValue(t, field,
 									unmarshallList(arr, itemListClass),
 									fieldName);
 							// unmarshallMap(jsonObj, classOfValue);
@@ -346,28 +344,18 @@ public class JsonTransformer {
 										}
 									}
 								}
-								setValue(t, tClass, field, newValueOfField,
-										fieldName);
+								setValue(t, field, newValueOfField, fieldName);
 
 							} else {
 								setValue(
 										t,
-										tClass,
 										field,
 										unmarshallMap(jsonObj, field.getType()),
 										fieldName);
 							}
 						} else {
-							setValue(t, tClass, field, valueOfField, fieldName);
+							setValue(t, field, valueOfField, fieldName);
 						}
-						// if (classOfValue.equals(JSONArray.class)) {
-						//
-						// } else if (classOfValue.equals(JSONObject.class)) {
-						//
-						// } else {
-						//
-						// }
-
 					}
 				} else {
 					continue;
@@ -381,23 +369,29 @@ public class JsonTransformer {
 		return null;
 	}
 
-	private void setValue(Object t, Class<? extends Object> tClass,
-			Field field, Object valueOfField, String fieldName)
-			throws NoSuchMethodException, SecurityException,
+	private void setValue(Object t, Field field, Object valueOfField,
+			String fieldName) throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
 		String firtChar = fieldName.subSequence(0, 1).toString();
 
-		// if (field.getClass().isArray()) {
-		// @SuppressWarnings("unchecked")
-		// List<? extends Object> list = (List<? extends Object>) valueOfField;
-		// valueOfField = list.toArray();
-		// }
-		Method method = tClass.getMethod(
+		Method method = t.getClass().getMethod(
 				"set"
 						+ fieldName.replaceFirst(firtChar,
 								firtChar.toUpperCase()), field.getType());
 
+		JsonIgnoreEmpty pClassIgnoreEmpty = t.getClass().getAnnotation(
+				JsonIgnoreEmpty.class);
+		JsonIgnoreEmpty fieldIgonEmpty = field
+				.getAnnotation(JsonIgnoreEmpty.class);
+		// check ignore method
+		if (method.isAnnotationPresent(JsonIgnoreProperty.class)) {
+			return;
+		}
+		if (valueOfField == null
+				&& (pClassIgnoreEmpty != null || fieldIgonEmpty != null)) {
+			return;
+		}
 		// invoke method set
 		method.invoke(t, valueOfField);
 	}

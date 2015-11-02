@@ -45,8 +45,6 @@ public class FavoriteRecipeModel extends AbstractModel {
 				FavoritedDAO.getInstance().push(recipeId, myId);
 				RecipeDAO.getInstance().increateFavoriteNumber(recipeId);
 				
-				// Notification
-				NotificationActionImp.getInstance().addNotification(recipeId, myId, null, Notification.NEW_FAVORITE_TYPE);
 				break;
 			case UNFAVORITE_FLAG:
 				/**
@@ -59,6 +57,10 @@ public class FavoriteRecipeModel extends AbstractModel {
 				RecipeDAO.getInstance().decreateFavoriteNumber(recipeId);
 		}
 		Recipe recipe = RecipeDAO.getInstance().get(recipeId);
+		if (flag.equals(FAVORITE_FLAG)) {
+			// Notification
+			NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, recipe.getOwner(), Notification.NEW_FAVORITE_TYPE);
+		}
 		
 		FavoriteResponseData data = new FavoriteResponseData();
 		data.setFavoriteNumber(recipe.getFavoriteNumber());

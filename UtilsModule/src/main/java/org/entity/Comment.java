@@ -1,11 +1,13 @@
 package org.entity;
 
 import org.TimeUtils;
+import org.json.JsonIgnoreEmpty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
 @Entity(value = "Comment", noClassnameStored = true)
+@JsonIgnoreEmpty
 public class Comment {
 	
 	@Id

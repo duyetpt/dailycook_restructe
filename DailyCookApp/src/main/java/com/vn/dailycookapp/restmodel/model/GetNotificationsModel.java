@@ -33,6 +33,10 @@ public class GetNotificationsModel extends AbstractModel {
 				responseInfo.setMsg(noti.getMsg());
 				responseInfo.setRecipeId(noti.getRecipeId());
 				responseInfo.setStatus(noti.getStatus() == Notification.READED_STATUS);
+				responseInfo.setFromAvatar(noti.getFromAvatar());
+				responseInfo.setFromName(noti.getFromName());
+				responseInfo.setRecipeTitle(noti.getRecipeTitle());
+				responseInfo.setType(noti.getType());
 				data.add(responseInfo);
 			}
 		response.setData(data);

@@ -73,11 +73,11 @@ public class CreateRecipeModel extends AbstractModel {
 		// increate recipe number of user
 		UserDAO.getInstance().increateRecipeNumber(myId);
 		
-		// update user cache info
+		// update user cache info	
 		UserCache.getInstance().get(myId).increaseNumberRecipe();
 		
 		// notification, add recipe to user_recipe
-		NotificationActionImp.getInstance().addNotification(recipeId, myId, null,
+		NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, null,
 				Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
 		
 		return response;

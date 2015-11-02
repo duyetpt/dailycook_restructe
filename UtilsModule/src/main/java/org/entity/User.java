@@ -1,5 +1,7 @@
 package org.entity;
 
+import org.json.JsonIgnoreEmpty;
+import org.json.JsonIgnoreProperty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -10,6 +12,7 @@ import org.mongodb.morphia.annotations.Property;
 // true, background = true)),
 // @Index(fields = @Field("fbId"), options = @IndexOptions(unique = true,
 // background = true)) })
+@JsonIgnoreEmpty
 public class User {
 	
 	public static final String			LANG_ENGLISH		= "en";
@@ -24,6 +27,7 @@ public class User {
 	public static final int		DELETED_FLAG		= -1;
 	
 	@Id
+	@JsonIgnoreEmpty
 	private String				id;
 	
 	@Property("display_name")
@@ -80,6 +84,7 @@ public class User {
 		return id;
 	}
 	
+	@JsonIgnoreProperty
 	public void setId(String id) {
 		this.id = id;
 	}

@@ -1,10 +1,13 @@
 package com.vn.dailycookapp.entity.response;
 
-
 public class GetNotificationResponseData {
 	private String	msg;
 	private boolean	status;
 	private String	recipeId;
+	private String	type;
+	private String	fromAvatar;
+	private String	recipeTitle;
+	private String	fromName;
 	
 	public String getMsg() {
 		return msg;
@@ -28,6 +31,38 @@ public class GetNotificationResponseData {
 	
 	public void setRecipeId(String recipeId) {
 		this.recipeId = recipeId;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getFromAvatar() {
+		return fromAvatar;
+	}
+	
+	public void setFromAvatar(String fromAvatar) {
+		this.fromAvatar = fromAvatar;
+	}
+	
+	public String getRecipeTitle() {
+		return recipeTitle;
+	}
+	
+	public void setRecipeTitle(String recipeTitle) {
+		this.recipeTitle = recipeTitle;
+	}
+	
+	public String getFromName() {
+		return fromName;
+	}
+	
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
 	}
 	
 }

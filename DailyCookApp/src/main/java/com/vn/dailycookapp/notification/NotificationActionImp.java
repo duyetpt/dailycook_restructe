@@ -24,12 +24,13 @@ public class NotificationActionImp implements NotificationAction {
 	}
 	
 	@Override
-	public void addNotification(String recipeId, String from, String to, String notiType) {
+	public void addNotification(String recipeId, String recipeTitle, String from, String to, String notiType) {
 		synchronized (queue) {
 			Notification noti = new Notification();
 			noti.setFrom(from);
 			noti.setTo(to);
 			noti.setRecipeId(recipeId);
+			noti.setRecipeTitle(recipeTitle);
 			noti.setType(notiType);
 			queue.add(noti);
 			queue.notify();

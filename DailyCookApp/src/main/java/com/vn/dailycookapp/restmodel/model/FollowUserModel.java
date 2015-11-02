@@ -52,7 +52,7 @@ public class FollowUserModel extends AbstractModel {
 				UserCache.getInstance().get(starId).increaseNumberFollower();
 				
 				// Notification
-				NotificationActionImp.getInstance().addNotification(null, myId, starId, Notification.NEW_FOLLOWER_TYPE);
+				NotificationActionImp.getInstance().addNotification(null, null, myId, starId, Notification.NEW_FOLLOWER_TYPE);
 				break;
 			case UNFOLLOW_FLAG:
 				// add following

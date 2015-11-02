@@ -12,7 +12,7 @@ public interface NotificationAction {
 	 * @param notiType
 	 *            : Define in Notification entity
 	 */
-	public void addNotification(String recipeId, String from, String to, String notiType);
+	public void addNotification(String recipeId, String recipeTitle, String from, String to, String notiType);
 	
 	/**
 	 * Get noti from queue to process
