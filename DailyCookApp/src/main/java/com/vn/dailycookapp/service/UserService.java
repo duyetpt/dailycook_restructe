@@ -19,7 +19,6 @@ public class UserService {
 	
 	@POST
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
-	// @Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public Response login(@HeaderParam(HeaderField.AUTHORIZATION) String authInfo,
 			@HeaderParam(HeaderField.LOGIN_METHOD) String loginMethod) {

@@ -7,7 +7,7 @@ import java.util.TimeZone;
 public class TimeUtils {
 	
 	private static final String	STANDARD_TIME_ZONE	= "Etc/GMT+0";
-	public static final long	A_MONTH_MILI		= 1000 * 60 * 60 * 24 * 30;
+	public static final long	A_MONTH_MILI		= 1000l * 60l * 60l * 24l * 30l;
 	
 	// private static final String VN_TIME_ZONE = "Etc/GMT+7";
 	

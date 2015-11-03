@@ -73,10 +73,9 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 				}
 				break;
 			case SORT_BY_HOTEST:
+				long time = TimeUtils.getCurrentGMTTime() - TimeUtils.A_MONTH_MILI;
 				query.field("created_time")
-						.greaterThanOrEq(
-								TimeUtils.getCurrentGMTTime()
-										- TimeUtils.A_MONTH_MILI)
+						.greaterThanOrEq(time)
 						.order("-favorite_number");
 				break;
 			case SORT_BY_NEWEST:
