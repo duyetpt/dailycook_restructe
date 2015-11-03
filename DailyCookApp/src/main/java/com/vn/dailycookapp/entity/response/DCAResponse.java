@@ -1,11 +1,13 @@
 package com.vn.dailycookapp.entity.response;
 
+import org.json.JsonIgnoreEmpty;
 import org.json.JsonProperty;
 
+@JsonIgnoreEmpty
 public class DCAResponse {
 	
 	@JsonProperty("error_no")
-	private int	error;
+	private int		error;
 	
 	@JsonProperty("data")
 	private Object	data;

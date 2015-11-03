@@ -20,6 +20,7 @@ public enum ErrorCodeConstant {
 	CLOSED_SESSION(-202, "Session is closed"),
 	
 	DAO_EXCEPTION(-1100, "DAO exception"),
+	// - 1111 existedDataException
 	
 	ENCRYPT_EXCEPTION(-10000, "Encrypt data excetpiton");
 	

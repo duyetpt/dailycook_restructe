@@ -104,11 +104,35 @@ public class UserService {
 		return Response.ok(data).build();
 	}
 	
+	// TODO - DESCRIPTON DOCUMENT
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/planmeal")
 	public Response getPlanMeal(@HeaderParam(HeaderField.USER_ID) String owner) {
 		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL).doProcess(owner);
+		return Response.ok(data).build();
+	}
+	
+	// TODO - DESCRIPTON DOCUMENT
+	// add/meal/{day}/{time}/{recipeId}?mealId={mealId}&flag={flag}
+	// flag= 1 > add, flag = -1 -> remove
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/meal/{day}/{time}/add/{recipeId}")
+	public Response getPlanMeal(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("mealId") String mealId,
+			@QueryParam("flag") String flag, @PathParam("day") String day, @PathParam("time") String time,
+			@PathParam("recipeId") String recipeId) {
+		String data = ModelResolver.getApi(ModelDefine.ADD_RECIPE_TO_MEAL).doProcess(owner, recipeId, mealId, flag,
+				day, time);
+		return Response.ok(data).build();
+	}
+	
+	// TODO - DESCRIPTON DOCUMENT
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/planmeal/{mealId}/detail")
+	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("mealId") String mealId) {
+		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL_DETAIL).doProcess(owner, mealId);
 		return Response.ok(data).build();
 	}
 }

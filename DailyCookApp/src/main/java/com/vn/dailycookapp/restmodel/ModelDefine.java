@@ -10,6 +10,7 @@ import com.vn.dailycookapp.restmodel.model.GetFavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetIngredientTypesModel;
 import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetPlanMeal;
+import com.vn.dailycookapp.restmodel.model.GetPlanMealDetail;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetUnitsModel;
 import com.vn.dailycookapp.restmodel.model.LoginModel;
@@ -36,6 +37,7 @@ public enum ModelDefine {
 	GET_FAVORITE_RECIPE("get_favorite_recipe", GetFavoriteRecipeModel.class),
 	ADD_RECIPE_TO_MEAL("add_recipe_to_meal", AddRecipeToMeal.class),
 	GET_PLAN_MEAL("get_plan_meal", GetPlanMeal.class),
+	GET_PLAN_MEAL_DETAIL("get_plan_meal_detail", GetPlanMealDetail.class),
 	
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),

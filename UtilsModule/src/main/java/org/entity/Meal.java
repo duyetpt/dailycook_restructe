@@ -1,11 +1,14 @@
 package org.entity;
 
-import java.util.List;
+import java.util.Set;
 
+import org.json.JsonIgnoreEmpty;
 import org.json.JsonIgnoreProperty;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Transient;
 
+@JsonIgnoreEmpty
 public class Meal {
 
 	public static final String MONDAY = "T2";
@@ -23,11 +26,17 @@ public class Meal {
 
 	@Id
 	private String id;
+	@Indexed
 	private String userId;
 	private String day;
 	private String time;
 	@JsonIgnoreProperty
-	private List<String> recipeIds;
+	private Set<String> recipeIds;
+
+	@JsonIgnoreProperty
+	@Indexed(unique = true)
+	private String index;
+
 	@Transient
 	private int numRecipe;
 
@@ -63,11 +72,28 @@ public class Meal {
 		this.time = time;
 	}
 
-	public List<String> getRecipeIds() {
+	public Set<String> getRecipeIds() {
 		return recipeIds;
 	}
 
-	public void setRecipeIds(List<String> recipeIds) {
+	public void setRecipeIds(Set<String> recipeIds) {
 		this.recipeIds = recipeIds;
 	}
+
+	public int getNumRecipe() {
+		return numRecipe;
+	}
+
+	public void setNumRecipe(int numRecipe) {
+		this.numRecipe = numRecipe;
+	}
+
+	public String getIndex() {
+		return index;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
+	}
+
 }

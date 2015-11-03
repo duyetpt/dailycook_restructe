@@ -27,7 +27,6 @@ public class User {
 	public static final int		DELETED_FLAG		= -1;
 	
 	@Id
-	@JsonIgnoreEmpty
 	private String				id;
 	
 	@Property("display_name")
