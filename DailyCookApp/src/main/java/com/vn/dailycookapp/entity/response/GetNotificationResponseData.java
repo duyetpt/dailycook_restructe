@@ -1,6 +1,8 @@
 package com.vn.dailycookapp.entity.response;
 
 public class GetNotificationResponseData {
+	
+	private String	notiId;
 	private String	msg;
 	private boolean	status;
 	private String	recipeId;
@@ -9,6 +11,14 @@ public class GetNotificationResponseData {
 	private String	recipeTitle;
 	private String	fromName;
 	private String	from;
+	
+	public String getNotiId() {
+		return notiId;
+	}
+	
+	public void setNotiId(String notiId) {
+		this.notiId = notiId;
+	}
 	
 	public String getMsg() {
 		return msg;

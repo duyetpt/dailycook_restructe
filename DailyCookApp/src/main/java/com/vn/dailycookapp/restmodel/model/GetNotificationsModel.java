@@ -43,6 +43,7 @@ public class GetNotificationsModel extends AbstractModel {
 				responseInfo.setRecipeTitle(noti.getRecipeTitle());
 				responseInfo.setType(noti.getType());
 				responseInfo.setFrom(noti.getFrom());
+				responseInfo.setNotiId(noti.getId());
 				
 				data.add(responseInfo);
 			}
