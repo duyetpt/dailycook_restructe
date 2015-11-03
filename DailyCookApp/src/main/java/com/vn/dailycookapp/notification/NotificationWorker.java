@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
-import com.vn.dailycookapp.utils.lang.Language;
 
 public class NotificationWorker extends Thread {
 	Logger	logger	= LoggerFactory.getLogger(getClass());
@@ -64,13 +63,9 @@ public class NotificationWorker extends Thread {
 		
 		List<Notification> notis = new ArrayList<Notification>();
 		for (String follower : follow.getFollowers()) {
-			String msg = Language.getInstance().getMessage(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE,
-					user.getLanguage());
-			
 			Notification notiComp = new Notification();
 			notiComp.setFrom(noti.getFrom());
 			notiComp.setTo(follower);
-			notiComp.setMsg(msg);
 			notiComp.setRecipeId(noti.getRecipeId());
 			notiComp.setType(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
 			notiComp.setFromAvatar(user.getAvatarUrl());
@@ -92,12 +87,9 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiNewComment error", e);
 		}
 		
-		String msg = Language.getInstance().getMessage(Notification.NEW_COMMENT_TYPE, user.getLanguage());
-		
 		Notification noti = new Notification();
 		noti.setFrom(notification.getFrom());
 		noti.setTo(notification.getTo());
-		noti.setMsg(msg);
 		noti.setRecipeId(notification.getRecipeId());
 		noti.setType(Notification.NEW_COMMENT_TYPE);
 		noti.setFromAvatar(user.getAvatarUrl());
@@ -118,12 +110,9 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiFavorite error", e);
 		}
 		
-		String msg = Language.getInstance().getMessage(Notification.NEW_FAVORITE_TYPE, user.getLanguage());
-		
 		Notification noti = new Notification();
 		noti.setFrom(notification.getFrom());
 		noti.setTo(notification.getTo());
-		noti.setMsg(msg);
 		noti.setRecipeId(notification.getRecipeId());
 		noti.setType(Notification.NEW_FAVORITE_TYPE);
 		noti.setFromAvatar(user.getAvatarUrl());
@@ -144,12 +133,9 @@ public class NotificationWorker extends Thread {
 			logger.error("process notiFollower error", e);
 		}
 		
-		String msg = Language.getInstance().getMessage(Notification.NEW_FOLLOWER_TYPE, user.getLanguage());
-		
 		Notification noti = new Notification();
 		noti.setFrom(notification.getFrom());
 		noti.setTo(notification.getTo());
-		noti.setMsg(msg);
 		noti.setType(Notification.NEW_FOLLOWER_TYPE);
 		noti.setFromAvatar(user.getAvatarUrl());
 		noti.setFromName(user.getDisplayName());

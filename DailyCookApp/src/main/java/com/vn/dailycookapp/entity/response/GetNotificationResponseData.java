@@ -8,6 +8,7 @@ public class GetNotificationResponseData {
 	private String	fromAvatar;
 	private String	recipeTitle;
 	private String	fromName;
+	private String	from;
 	
 	public String getMsg() {
 		return msg;
@@ -63,6 +64,14 @@ public class GetNotificationResponseData {
 	
 	public void setFromName(String fromName) {
 		this.fromName = fromName;
+	}
+	
+	public String getFrom() {
+		return from;
+	}
+	
+	public void setFrom(String from) {
+		this.from = from;
 	}
 	
 }

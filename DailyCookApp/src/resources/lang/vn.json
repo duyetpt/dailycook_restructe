@@ -11,11 +11,11 @@
 		"Rau thơm"
 	],
 	"notification_msg":{
-		"new_comment":"%@ đã bình luận trên một công thức(%@) của bạn",
-		"new_follower":"%@ đang theo dõi bạn",
-		"new_favorite":"%@ đã thích một công thức(%@) của bạn",
-		"new_recipe_of_following":"%@ đã thêm một công thức(%@) mới",
-		"warm":"%@"
+		"new_comment":"đã bình luận trên một công thức của bạn",
+		"new_follower":"đang theo dõi bạn",
+		"new_favorite":"đã thích một công thức của bạn",
+		"new_recipe_of_following":"đã thêm một công thức mới",
+		"warm":""
 	},
 	"units":[
 		"Kg",
