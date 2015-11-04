@@ -17,6 +17,7 @@ import com.vn.dailycookapp.restmodel.model.LoginModel;
 import com.vn.dailycookapp.restmodel.model.LogoutModel;
 import com.vn.dailycookapp.restmodel.model.NewFeedModel;
 import com.vn.dailycookapp.restmodel.model.RegisterModel;
+import com.vn.dailycookapp.restmodel.model.RemoveRecipeFromMealModel;
 import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
 import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
@@ -38,6 +39,7 @@ public enum ModelDefine {
 	ADD_RECIPE_TO_MEAL("add_recipe_to_meal", AddRecipeToMeal.class),
 	GET_PLAN_MEAL("get_plan_meal", GetPlanMeal.class),
 	GET_PLAN_MEAL_DETAIL("get_plan_meal_detail", GetPlanMealDetail.class),
+	REMOVE_RECIPE_TO_MEAL("remove_recipe_to_meal", RemoveRecipeFromMealModel.class),
 	
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),

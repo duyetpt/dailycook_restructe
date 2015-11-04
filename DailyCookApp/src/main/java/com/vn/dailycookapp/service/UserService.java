@@ -113,16 +113,23 @@ public class UserService {
 	}
 	
 	// TODO - DESCRIPTON DOCUMENT
-	// add/meal/{day}/{time}/{recipeId}?mealId={mealId}&flag={flag}
-	// flag= 1 > add, flag = -1 -> remove
-	@POST
+	// add/meal/{day}/{time}/{recipeId}
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/meal/{day}/{time}/add/{recipeId}")
-	public Response getPlanMeal(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("mealId") String mealId,
-			@QueryParam("flag") String flag, @PathParam("day") String day, @PathParam("time") String time,
-			@PathParam("recipeId") String recipeId) {
-		String data = ModelResolver.getApi(ModelDefine.ADD_RECIPE_TO_MEAL).doProcess(owner, recipeId, mealId, flag,
-				day, time);
+	public Response addRecipeToMeal(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("day") String day,
+			@PathParam("time") String time, @PathParam("recipeId") String recipeId) {
+		String data = ModelResolver.getApi(ModelDefine.ADD_RECIPE_TO_MEAL).doProcess(owner, recipeId, day, time);
+		return Response.ok(data).build();
+	}
+	
+	// TODO - DESCRIPTON DOCUMENT
+	// add/meal/{day}/{time}/{recipeId}
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/meal/{mealId}/remove/{recipeId}")
+	public Response removeRecipeToMeal(@PathParam("recipeId") String recipeId, @PathParam("mealId") String mealId) {
+		String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE_TO_MEAL).doProcess(mealId, recipeId);
 		return Response.ok(data).build();
 	}
 	

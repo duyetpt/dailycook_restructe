@@ -22,10 +22,13 @@ public class MealDAO extends AbstractDAO<Meal> {
 		return instance;
 	}
 
-	public void addRecipeToMeal(String mealId, String day, String time,
-			String recipeId, String userId) throws DCAUtilsException {
+	public void addRecipeToMeal(String day, String time, String recipeId,
+			String userId) throws DCAUtilsException {
 		try {
-			if (mealId == null) {
+			Query<Meal> query = datastore.createQuery(Meal.class)
+					.filter("day", day).filter("time", time);
+			Meal existedMeal = query.get();
+			if (existedMeal == null) {
 				Meal meal = new Meal();
 				meal.setDay(day);
 				meal.setTime(time);
@@ -44,7 +47,8 @@ public class MealDAO extends AbstractDAO<Meal> {
 							+ meal.getIndex());
 				}
 			} else {
-				pushToArray(mealId, "recipeIds", recipeId, Meal.class);
+				pushToArray(existedMeal.getId(), "recipeIds", recipeId,
+						Meal.class);
 			}
 		} catch (Exception ex) {
 			throw new DAOException();
