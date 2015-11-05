@@ -32,41 +32,47 @@ public class FollowUserModel extends AbstractModel {
 		
 	}
 	
-	// 	
+	//
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
+		boolean success = false;
 		switch (flag) {
 			case FOLLOW_FLAG:
 				// add following
-				FollowingDAO.getInstance().following(myId, starId);
-				// add follower
-				FollowingDAO.getInstance().addFollower(starId, myId);
-				
-				// increase following number
-				UserDAO.getInstance().increateFollowingNumber(starId);
-				// increase follower number
-				UserDAO.getInstance().increateFollowerNumber(myId);
-				// Cache update
-				UserCache.getInstance().get(myId).increaseNumberFollowing();
-				UserCache.getInstance().get(starId).increaseNumberFollower();
-				
-				// Notification
-				NotificationActionImp.getInstance().addNotification(null, null, myId, starId, Notification.NEW_FOLLOWER_TYPE);
+				success = FollowingDAO.getInstance().following(myId, starId);
+				if (success) {
+					// add follower
+					FollowingDAO.getInstance().addFollower(starId, myId);
+					
+					// increase following number
+					UserDAO.getInstance().increateFollowingNumber(starId);
+					// increase follower number
+					UserDAO.getInstance().increateFollowerNumber(myId);
+					// Cache update
+					UserCache.getInstance().get(myId).increaseNumberFollowing();
+					UserCache.getInstance().get(starId).increaseNumberFollower();
+					
+					// Notification
+					NotificationActionImp.getInstance().addNotification(null, null, myId, starId,
+							Notification.NEW_FOLLOWER_TYPE);
+				}
 				break;
 			case UNFOLLOW_FLAG:
 				// add following
-				FollowingDAO.getInstance().unfollow(myId, starId);
-				// add follower
-				FollowingDAO.getInstance().removeFollower(starId, myId);
-				
-				// increase following number
-				UserDAO.getInstance().decreaseFollowingNumber(starId);
-				// increase follower number
-				UserDAO.getInstance().decreaseFollowerNumber(myId);
-				// Cache update
-				UserCache.getInstance().get(myId).decreaseNumberFollowing();
-				UserCache.getInstance().get(starId).decreaseNumberFollower();
+				success = FollowingDAO.getInstance().unfollow(myId, starId);
+				if (success) {
+					// add follower
+					FollowingDAO.getInstance().removeFollower(starId, myId);
+					
+					// increase following number
+					UserDAO.getInstance().decreaseFollowingNumber(starId);
+					// increase follower number
+					UserDAO.getInstance().decreaseFollowerNumber(myId);
+					// Cache update
+					UserCache.getInstance().get(myId).decreaseNumberFollowing();
+					UserCache.getInstance().get(starId).decreaseNumberFollower();
+				}
 				break;
 		}
 		

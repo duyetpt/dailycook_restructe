@@ -34,6 +34,7 @@ public class FavoriteRecipeModel extends AbstractModel {
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
 		
+		boolean success = false;
 		switch (flag) {
 			case FAVORITE_FLAG:
 				/**
@@ -41,9 +42,11 @@ public class FavoriteRecipeModel extends AbstractModel {
 				 * Push into Favorite, Favorited
 				 * Return
 				 */
-				FavoriteDAO.getInstance().push(myId, recipeId);
-				FavoritedDAO.getInstance().push(recipeId, myId);
-				RecipeDAO.getInstance().increateFavoriteNumber(recipeId);
+				success = FavoriteDAO.getInstance().push(myId, recipeId);
+				if (success) {
+					FavoritedDAO.getInstance().push(recipeId, myId);
+					RecipeDAO.getInstance().increateFavoriteNumber(recipeId);
+				}
 				
 				break;
 			case UNFAVORITE_FLAG:
@@ -52,14 +55,17 @@ public class FavoriteRecipeModel extends AbstractModel {
 				 * Pull into Favorite, Favorited
 				 * Return
 				 */
-				FavoriteDAO.getInstance().pull(myId, recipeId);
-				FavoritedDAO.getInstance().pull(recipeId, myId);
-				RecipeDAO.getInstance().decreateFavoriteNumber(recipeId);
+				success = FavoriteDAO.getInstance().pull(myId, recipeId);
+				if (success) {
+					FavoritedDAO.getInstance().pull(recipeId, myId);
+					RecipeDAO.getInstance().decreateFavoriteNumber(recipeId);
+				}
 		}
 		Recipe recipe = RecipeDAO.getInstance().get(recipeId);
-		if (flag.equals(FAVORITE_FLAG)) {
+		if (flag.equals(FAVORITE_FLAG) && success) {
 			// Notification
-			NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, recipe.getOwner(), Notification.NEW_FAVORITE_TYPE);
+			NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, recipe.getOwner(),
+					Notification.NEW_FAVORITE_TYPE);
 		}
 		
 		FavoriteResponseData data = new FavoriteResponseData();

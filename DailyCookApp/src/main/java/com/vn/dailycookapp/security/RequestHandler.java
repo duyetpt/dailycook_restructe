@@ -44,13 +44,22 @@ public class RequestHandler implements ContainerRequestFilter {
 		// if (query != null && query.endsWith("testMode=true")) {
 		// logger.info("run in test mode...");
 		// } else {
+		String token = requestContext.getHeaderString(HeaderField.TOKEN);
+		String userId = null;
 		if (NotAuthUrls.isNotAuth(url)) {
-			logger.info("user login or register...");
+			logger.info("don't need auth for this url...");
+			if (token != null) {
+				try {
+					userId = Authorizer.getInstance().authorize(token);
+					requestContext.getHeaders().add(HeaderField.USER_ID, userId);
+				} catch (AuthorizationException e) {
+					logger.error("authorzation exception", e);
+				}
+			}
 		} else {
 			logger.info("authorzation...");
-			String token = requestContext.getHeaderString(HeaderField.TOKEN);
 			try {
-				String userId = Authorizer.getInstance().authorize(token);
+				userId = Authorizer.getInstance().authorize(token);
 				requestContext.getHeaders().add(HeaderField.USER_ID, userId);
 			} catch (AuthorizationException e) {
 				logger.error("authorzation exception", e);
