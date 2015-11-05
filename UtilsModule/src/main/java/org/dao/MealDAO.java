@@ -7,6 +7,7 @@ import java.util.Set;
 import org.DCAUtilsException;
 import org.entity.Meal;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 import com.mongodb.DuplicateKeyException;
 
@@ -26,7 +27,8 @@ public class MealDAO extends AbstractDAO<Meal> {
 			String userId) throws DCAUtilsException {
 		try {
 			Query<Meal> query = datastore.createQuery(Meal.class)
-					.filter("day", day).filter("time", time).filter("userId", userId);
+					.filter("day", day).filter("time", time)
+					.filter("userId", userId);
 			Meal existedMeal = query.get();
 			if (existedMeal == null) {
 				Meal meal = new Meal();
@@ -55,10 +57,16 @@ public class MealDAO extends AbstractDAO<Meal> {
 		}
 	}
 
-	public void removeRecipeToMeal(String mealId, String recipeId)
-			throws DAOException {
+	public void removeRecipeToMeal(String userId, String day, String time,
+			String recipeId) throws DAOException {
 		try {
-			pullToArray(mealId, "recipeIds", recipeId, Meal.class);
+			Query<Meal> query = datastore.createQuery(Meal.class)
+					.field("userId").equal(userId);
+			UpdateOperations<Meal> pushOperation = datastore
+					.createUpdateOperations(Meal.class).removeAll("recipeIds	",
+							recipeId);
+
+			datastore.update(query, pushOperation);
 		} catch (Exception ex) {
 			throw new DAOException();
 		}
@@ -76,10 +84,12 @@ public class MealDAO extends AbstractDAO<Meal> {
 	}
 
 	// TODO
-	public Meal getMeal(String userId, String day, String time) throws DCAUtilsException {
+	public Meal getMeal(String userId, String day, String time)
+			throws DCAUtilsException {
 		try {
 			Query<Meal> query = datastore.createQuery(Meal.class)
-					.filter("day", day).filter("time", time).filter("userId", userId);
+					.filter("day", day).filter("time", time)
+					.filter("userId", userId);
 			return query.get();
 		} catch (Exception ex) {
 			throw new DAOException();

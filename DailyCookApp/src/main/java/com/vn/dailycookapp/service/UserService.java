@@ -127,9 +127,9 @@ public class UserService {
 	// add/meal/{day}/{time}/{recipeId}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/meal/{mealId}/remove/{recipeId}")
-	public Response removeRecipeToMeal(@PathParam("recipeId") String recipeId, @PathParam("mealId") String mealId) {
-		String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE_TO_MEAL).doProcess(mealId, recipeId);
+	@Path("/meal/day/time/remove/{recipeId}")
+	public Response removeRecipeToMeal(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("recipeId") String recipeId, @PathParam("day") String day, @PathParam("time") String time) {
+		String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE_TO_MEAL).doProcess(owner, recipeId, day, time);
 		return Response.ok(data).build();
 	}
 	

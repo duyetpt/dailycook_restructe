@@ -38,26 +38,27 @@ public class RequestHandler implements ContainerRequestFilter {
 		String url = requestContext.getUriInfo().getPath();
 		logger.info("=> => => Request Url => " + url);
 		
-		String query = requestContext.getUriInfo().getRequestUri().getQuery();
+		// String query =
+		// requestContext.getUriInfo().getRequestUri().getQuery();
 		
-		if (query != null && query.endsWith("testMode=true")) {
-			logger.info("run in test mode...");
+		// if (query != null && query.endsWith("testMode=true")) {
+		// logger.info("run in test mode...");
+		// } else {
+		if (NotAuthUrls.isNotAuth(url)) {
+			logger.info("user login or register...");
 		} else {
-			if (NotAuthUrls.isNotAuth(url)) {
-				logger.info("user login or register...");
-			} else {
-				logger.info("authorzation...");
-				String token = requestContext.getHeaderString(HeaderField.TOKEN);
-				try {
-					String userId = Authorizer.getInstance().authorize(token);
-					requestContext.getHeaders().add(HeaderField.USER_ID, userId);
-				} catch (AuthorizationException e) {
-					logger.error("authorzation exception", e);
-					DCAResponse response = new DCAResponse(e.getErrorCode());
-					requestContext.abortWith(Response.ok(JsonTransformer.getInstance().marshall(response)).build());
-				}
+			logger.info("authorzation...");
+			String token = requestContext.getHeaderString(HeaderField.TOKEN);
+			try {
+				String userId = Authorizer.getInstance().authorize(token);
+				requestContext.getHeaders().add(HeaderField.USER_ID, userId);
+			} catch (AuthorizationException e) {
+				logger.error("authorzation exception", e);
+				DCAResponse response = new DCAResponse(e.getErrorCode());
+				requestContext.abortWith(Response.ok(JsonTransformer.getInstance().marshall(response)).build());
 			}
 		}
+		// }
 		
 	}
 	
