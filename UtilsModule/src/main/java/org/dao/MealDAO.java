@@ -26,7 +26,7 @@ public class MealDAO extends AbstractDAO<Meal> {
 			String userId) throws DCAUtilsException {
 		try {
 			Query<Meal> query = datastore.createQuery(Meal.class)
-					.filter("day", day).filter("time", time);
+					.filter("day", day).filter("time", time).filter("userId", userId);
 			Meal existedMeal = query.get();
 			if (existedMeal == null) {
 				Meal meal = new Meal();
@@ -70,6 +70,17 @@ public class MealDAO extends AbstractDAO<Meal> {
 					.field("userId").equal(userId);
 
 			return query.asList();
+		} catch (Exception ex) {
+			throw new DAOException();
+		}
+	}
+
+	// TODO
+	public Meal getMeal(String userId, String day, String time) throws DCAUtilsException {
+		try {
+			Query<Meal> query = datastore.createQuery(Meal.class)
+					.filter("day", day).filter("time", time).filter("userId", userId);
+			return query.get();
 		} catch (Exception ex) {
 			throw new DAOException();
 		}

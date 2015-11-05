@@ -21,19 +21,21 @@ import com.vn.dailycookapp.utils.ErrorCodeConstant;
 public class GetPlanMealDetail extends AbstractModel {
 	
 	// owner, mealId
-	private String	mealId;
+	private String	day;
+	private String time;
 	
 	@Override
 	protected void preExecute(String... data) throws InvalidParamException {
 		myId = data[0];
-		mealId = data[1];
+		day = data[1];
+		time = data[2];
 	}
 	
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
 		List<SearchRecipeResponseData> result = new ArrayList<SearchRecipeResponseData>();
-		Meal meal = MealDAO.getInstance().get(mealId, Meal.class);
+		Meal meal = MealDAO.getInstance().getMeal(myId, day, time);
 		
 		if (meal != null) {
 			Favorite favorite = null;

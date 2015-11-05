@@ -136,9 +136,9 @@ public class UserService {
 	// TODO - DESCRIPTON DOCUMENT
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/planmeal/{mealId}/detail")
-	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("mealId") String mealId) {
-		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL_DETAIL).doProcess(owner, mealId);
+	@Path("/planmeal/{day}/{time}")
+	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("day") String day, @PathParam("time") String time) {
+		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL_DETAIL).doProcess(owner, day, time);
 		return Response.ok(data).build();
 	}
 }

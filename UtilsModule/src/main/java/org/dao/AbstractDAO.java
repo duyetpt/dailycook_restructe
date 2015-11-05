@@ -45,7 +45,7 @@ abstract class AbstractDAO<T> {
 	protected boolean pushToArray(String id, String arrayName, String value, Class<T> entityClass) throws DAOException {
 		try {
 			Query<T> query = datastore.createQuery(entityClass).field("_id").equal(new ObjectId(id));
-			UpdateOperations<T> pushOperation = datastore.createUpdateOperations(entityClass).add(arrayName, value, true);
+			UpdateOperations<T> pushOperation = datastore.createUpdateOperations(entityClass).add(arrayName, value, false);
 			
 			UpdateResults result = datastore.update(query, pushOperation);
 			return result.getUpdatedCount() == 1;
