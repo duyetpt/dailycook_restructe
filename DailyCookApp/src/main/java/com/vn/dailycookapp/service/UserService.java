@@ -30,8 +30,8 @@ public class UserService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/logout")
-	public Response logout(@HeaderParam(HeaderField.USER_ID) String userId) {
-		String data = ModelResolver.getApi(ModelDefine.LOGOUT).doProcess(userId);
+	public Response logout(@HeaderParam(HeaderField.TOKEN) String token) {
+		String data = ModelResolver.getApi(ModelDefine.LOGOUT).doProcess(token);
 		return Response.ok(data).build();
 	}
 	

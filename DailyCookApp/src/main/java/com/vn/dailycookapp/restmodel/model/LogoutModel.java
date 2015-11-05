@@ -15,7 +15,7 @@ public class LogoutModel extends AbstractModel {
 	@Override
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		SessionManager.getInstance().closeSessionOfUser(myId);
+		SessionManager.getInstance().closeSessionOfToken(myId);
 		return response;
 	}
 	

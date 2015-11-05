@@ -3,7 +3,6 @@ package com.vn.dailycookapp.security.session;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.TimeUtils;
 import org.bson.types.ObjectId;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -25,8 +24,6 @@ public class SessionManagerTest {
 	public void testGetSession() throws TokenInvalidException, SessionClosedException {
 		
 		String userId = new ObjectId().toString();
-		
-		long beforeTime = TimeUtils.getCurrentGMTTime();
 		String token =sessionManager.addSession(userId);
 		
 		Session session = sessionManager.getSession(token);
@@ -35,9 +32,5 @@ public class SessionManagerTest {
 		assertEquals(token, session.getToken());
 		assertEquals(userId, session.getUserId());
 		
-		long currentTime = TimeUtils.getCurrentGMTTime();
-		
-		assertEquals(true, session.getLastActiveTime() <= currentTime);
-		assertEquals(true, session.getLastActiveTime() >= beforeTime);
 	}
 }

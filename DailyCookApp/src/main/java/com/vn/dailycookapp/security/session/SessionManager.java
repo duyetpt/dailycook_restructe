@@ -1,9 +1,10 @@
 package com.vn.dailycookapp.security.session;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
-import org.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,24 +66,38 @@ public class SessionManager implements Runnable {
 		Session session = new Session();
 		session.setToken(token);
 		session.setUserId(userId);
-		session.setLastActiveTime(TimeUtils.getCurrentGMTTime());
 		
 		tokenMap.put(token, session);
 		
 		return token;
 	}
 	
-	public void closeSessionOfUser(String userId) {
+	public void closeAllSessionOfUser(String userId) {
+		List<String> removedList = new ArrayList<>();
+		// find all token of this user
 		for (Map.Entry<String, Session> entry : tokenMap.entrySet()) {
 			try {
 				Session session = entry.getValue();
 				if (session.getUserId().equals(userId)) {
-					logger.info("=====>:User close session: " + entry.getKey());
-					tokenMap.remove(entry.getKey());
+					removedList.add(entry.getKey());
 				}
 			} catch (Exception e) {
 				logger.error("logout: remove session error", e);
 			}
+		}
+		
+		// remove token
+		for (String str : removedList) {
+			logger.info("=====>:User close session: " + str);
+			tokenMap.remove(str);
+		}
+	}
+	
+	public void closeSessionOfToken(String token) {
+		Session session = tokenMap.get(token);
+		if (session != null) {
+			logger.info("=====>:User close session: token=" + token + ", userId=" + session.getUserId());
+			tokenMap.remove(token);
 		}
 	}
 	
@@ -98,15 +113,19 @@ public class SessionManager implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			long currentTime = TimeUtils.getCurrentGMTTime();
+			List<String> removedToken = new ArrayList<String>();
 			for (Map.Entry<String, Session> entry : tokenMap.entrySet()) {
 				Session session = entry.getValue();
-				if (currentTime - session.getLastActiveTime() > Session.TTL) {
-					logger.info("=====>:Scan close session: " + entry.getKey());
-					tokenMap.remove(entry.getKey());
+				session.downTimeToLife(SLEEP_TIME);
+				if (session.getTimeToLife() <= 0) {
+					removedToken.add(entry.getKey());
 				}
 			}
 			
+			for (String token : removedToken) {
+				logger.info("=====>:Scan close session: " + token);
+				tokenMap.remove(token);
+			}
 			try {
 				Thread.sleep(SLEEP_TIME);
 			} catch (InterruptedException e) {

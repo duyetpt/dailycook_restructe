@@ -4,11 +4,15 @@ import org.TimeUtils;
 
 public final class Session {
 	
-	static final long	TTL	= 10 * 24 * 60 * 60 * 1000;		// ten day
-																
-	private String				token;
-	private long				lastActiveTime;
-	private String				userId;
+	static final long	TTL	= 30 * 24 * 60 * 60 * 1000l;	// ten day
+															
+	private String		token;
+	private long		timeToLife;
+	private String		userId;
+	
+	public Session() {
+		timeToLife = TTL;
+	}
 	
 	public String getToken() {
 		return token;
@@ -25,16 +29,28 @@ public final class Session {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-	public long getLastActiveTime() {
-		return lastActiveTime;
+	
+	public long getTimeToLife() {
+		return timeToLife;
 	}
-
-	public void setLastActiveTime(long lastActiveTime) {
-		this.lastActiveTime = lastActiveTime;
+	
+	/**
+	 * Reset time to life as Default
+	 */
+	public void resetTimeToLife() {
+		this.timeToLife = TTL;
+	}
+	
+	/**
+	 * Decrease time to life
+	 * 
+	 * @param time
+	 */
+	public void downTimeToLife(long time) {
+		this.timeToLife -= time;
 	}
 	
 	public void updateLastActiveTime() {
-		this.lastActiveTime = TimeUtils.getCurrentGMTTime();
+		this.timeToLife = TimeUtils.getCurrentGMTTime();
 	}
 }

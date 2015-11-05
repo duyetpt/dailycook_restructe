@@ -30,6 +30,7 @@ public class RequestHandler implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		requestContext.getHeaders().add("Accept", "*/*");
 		logger.info("			=====================  Start reqeust  =====================			");
+		logger.info("HTTP-METHOD: " + requestContext.getMethod());
 		MultivaluedMap<String, String> headers = requestContext.getHeaders();
 		JSONObject json = new JSONObject(headers);
 		logger.info("=> => => Request header => " + json.toString());
