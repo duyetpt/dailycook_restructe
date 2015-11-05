@@ -67,4 +67,13 @@ abstract class AbstractDAO<T> {
 		}
 	}
 	
+    public void delete(String id, Class<T> entityClass) throws DAOException {
+        try {
+            Query<T> query = datastore.createQuery(entityClass).filter("_id", new ObjectId(id));
+            this.datastore.delete(query);
+        } catch (Exception ex) {
+            logger.error("delete error", ex);
+            throw new DAOException();
+        }
+    }
 }

@@ -58,4 +58,14 @@ public class ReportDAO extends AbstractDAO{
         return false;
     }
     
+    public boolean updateAdminReport(String reportId, String adminId, long time){
+        try {
+            Query<Report> query = datastore.createQuery(Report.class).field("_id").equal(new ObjectId(reportId));
+            UpdateOperations<Report> updateO = datastore.createUpdateOperations(Report.class).set("verify_by", adminId).set("verify_time", time);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+        }
+        return false;
+    }
 }
