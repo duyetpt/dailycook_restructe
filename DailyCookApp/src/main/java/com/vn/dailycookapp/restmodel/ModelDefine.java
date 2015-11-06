@@ -8,6 +8,7 @@ import com.vn.dailycookapp.restmodel.model.FollowUserModel;
 import com.vn.dailycookapp.restmodel.model.GetCommentModel;
 import com.vn.dailycookapp.restmodel.model.GetFavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetIngredientTypesModel;
+import com.vn.dailycookapp.restmodel.model.GetLeftSideInfoModel;
 import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetPlanMeal;
 import com.vn.dailycookapp.restmodel.model.GetPlanMealDetail;
@@ -40,6 +41,7 @@ public enum ModelDefine {
 	GET_PLAN_MEAL("get_plan_meal", GetPlanMeal.class),
 	GET_PLAN_MEAL_DETAIL("get_plan_meal_detail", GetPlanMealDetail.class),
 	REMOVE_RECIPE_TO_MEAL("remove_recipe_to_meal", RemoveRecipeFromMealModel.class),
+	GET_LEFT_SIDE_INFO("get_left_side_info", GetLeftSideInfoModel.class),
 	
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),

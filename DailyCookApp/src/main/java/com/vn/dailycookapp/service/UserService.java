@@ -123,22 +123,32 @@ public class UserService {
 		return Response.ok(data).build();
 	}
 	
-	// TODO - DESCRIPTON DOCUMENT
 	// add/meal/{day}/{time}/{recipeId}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/meal/day/time/remove/{recipeId}")
-	public Response removeRecipeToMeal(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("recipeId") String recipeId, @PathParam("day") String day, @PathParam("time") String time) {
+	public Response removeRecipeToMeal(@HeaderParam(HeaderField.USER_ID) String owner,
+			@PathParam("recipeId") String recipeId, @PathParam("day") String day, @PathParam("time") String time) {
 		String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE_TO_MEAL).doProcess(owner, recipeId, day, time);
 		return Response.ok(data).build();
 	}
 	
-	// TODO - DESCRIPTON DOCUMENT
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/planmeal/{day}/{time}")
-	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("day") String day, @PathParam("time") String time) {
+	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @PathParam("day") String day,
+			@PathParam("time") String time) {
 		String data = ModelResolver.getApi(ModelDefine.GET_PLAN_MEAL_DETAIL).doProcess(owner, day, time);
 		return Response.ok(data).build();
 	}
+	
+	// http://dailycook.cloudapp.net:8998/dailycook/user/leftside
+	@GET
+	@Path("/leftside")
+	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
+	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner) {
+		String data = ModelResolver.getApi(ModelDefine.GET_LEFT_SIDE_INFO).doProcess(owner);
+		return Response.ok(data).build();
+	}
+	
 }
