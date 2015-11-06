@@ -11,6 +11,7 @@ public class CompactUserInfo {
 	private String	coverUrl;
 	private String	introduce;
 	private String	language;
+	private int		numberNotification;
 	
 	public String getUserId() {
 		return userId;
@@ -84,6 +85,14 @@ public class CompactUserInfo {
 		this.introduce = introduce;
 	}
 	
+	public int getNumberNotification() {
+		return numberNotification;
+	}
+
+	public void setNumberNotification(int numberNotification) {
+		this.numberNotification = numberNotification;
+	}
+
 	public void increaseNumberRecipe() {
 		this.numberRecipes++;
 	}
@@ -94,6 +103,10 @@ public class CompactUserInfo {
 	
 	public void increaseNumberFollower() {
 		this.numberFollower++;
+	}
+	
+	public void increaseNumberNotificaion() {
+		this.numberNotification++;
 	}
 	
 	public void decreaseNumberRecipe() {
@@ -108,6 +121,10 @@ public class CompactUserInfo {
 		this.numberFollower--;
 	}
 	
+	public void decreaseNumberNotificaion() {
+		this.numberNotification--;
+	}
+	
 	public String getLanguage() {
 		return language;
 	}
@@ -115,4 +132,6 @@ public class CompactUserInfo {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	
+	
 }

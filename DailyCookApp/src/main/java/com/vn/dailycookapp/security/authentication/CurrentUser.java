@@ -26,6 +26,7 @@ public class CurrentUser {
 	private int					numberRecipes;
 	private int					numberFollower;
 	private int					numberFollowing;
+	private int					numberNotification;
 	
 	public void login(FbToken fbToken) throws DCAException, DAOException {
 		// get data into database
@@ -188,4 +189,11 @@ public class CurrentUser {
 		this.numberFollowing = numberFollowing;
 	}
 	
+	public int getNumberNotification() {
+		return numberNotification;
+	}
+	
+	public void setNumberNotification(int notificationNumber) {
+		this.numberNotification = notificationNumber;
+	}
 }

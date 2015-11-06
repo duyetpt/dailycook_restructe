@@ -6,6 +6,7 @@ import java.util.List;
 import org.dao.DAOException;
 import org.dao.FollowingDAO;
 import org.dao.NotificationDAO;
+import org.dao.UserDAO;
 import org.entity.Following;
 import org.entity.Notification;
 import org.slf4j.Logger;
@@ -22,6 +23,10 @@ public class NotificationWorker extends Thread {
 			logger.info("Notificaion worker is running...");
 			try {
 				Notification noti = NotificationActionImp.getInstance().getNoti();
+				// increate notification number
+				CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
+				toUser.increaseNumberNotificaion();
+				UserDAO.getInstance().increateNotificationNumber(toUser.getUserId());
 				
 				List<Notification> list = null;
 				switch (noti.getType()) {

@@ -138,7 +138,16 @@ public class UserDAO extends AbstractDAO<User> {
         // return updateRecipeNumber(userId, -1);
         return increaseForField(userId, -1, User.class, "n_follower");
     }
+    
+    public boolean increateNotificationNumber(String userId) throws DAOException {
+        return increaseForField(userId, 1, User.class, "n_notification");
+    }
 
+    public boolean decreaseNotificationNumber(String userId) throws DAOException {
+        // return updateRecipeNumber(userId, -1);
+        return increaseForField(userId, -1, User.class, "n_notification");
+    }
+    
     public boolean increateReportNumber(String userId) {
         return updateReportNumber(userId, 1);
     }
@@ -146,7 +155,7 @@ public class UserDAO extends AbstractDAO<User> {
     public boolean decreaseReportNumber(String userId) {
         return updateReportNumber(userId, -1);
     }
-
+    
     private boolean updateReportNumber(String userId, int number) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));

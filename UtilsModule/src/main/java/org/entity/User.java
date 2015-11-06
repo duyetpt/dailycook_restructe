@@ -8,227 +8,231 @@ import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
 
 @Entity(value = "User", noClassnameStored = true)
-// @Indexes({ @Index(fields = @Field("email"), options = @IndexOptions(unique =
-// true, background = true)),
-// @Index(fields = @Field("fbId"), options = @IndexOptions(unique = true,
-// background = true)) })
 @JsonIgnoreEmpty
 public class User {
 
-    public static final String LANG_ENGLISH = "en";
-    public static final String LANG_VIETNAMESE = "vi";
+	public static final String LANG_ENGLISH = "en";
+	public static final String LANG_VIETNAMESE = "vi";
 
-    public static final String NORMAL_USER_ROLE = "normal_user";
-    public static final String SUPER_ADMIN_ROLE = "super_admin";
-    public static final String ADMIN_ROLE = "admin";
+	public static final String NORMAL_USER_ROLE = "normal_user";
+	public static final String SUPER_ADMIN_ROLE = "super_admin";
+	public static final String ADMIN_ROLE = "admin";
 
-    public static final int ACTIVE_FLAG = 1;
-    public static final int BAN_FLAG_ONCE = 0;
-    public static final int BAN_FLAG_SECOND = -1;
-    public static final int DELETED_FLAG = -2;
+	public static final int ACTIVE_FLAG = 1;
+	public static final int BAN_FLAG_ONCE = 0;
+	public static final int BAN_FLAG_SECOND = -1;
+	public static final int DELETED_FLAG = -2;
 
-    @Id
-    private String id;
+	@Id
+	private String id;
 
-    @Property("display_name")
-    private String displayName;
+	@Property("display_name")
+	private String displayName;
 
-    // @Property("fb_id")
-    // @Indexed(unique=true, name="_fb_id", value=IndexDirection.ASC)
-    // private String fbId;
-    @Property("email")
-    @Indexed(background = true, unique = true)
-    private String email;
+	@Property("email")
+	@Indexed(background = true, unique = true)
+	private String email;
 
-    @Property("pass")
-    private String password;
+	@Property("pass")
+	private String password;
 
-    @Property("login_method")
-    private String loginMethod;
+	@Property("login_method")
+	private String loginMethod;
 
-    @Property("n_recipes")
-    private int numberRecipes;
-    
-    @Property("n_reports")
-    private int numberReport;
+	@Property("n_recipes")
+	private int numberRecipes;
 
-    @Property("n_follower")
-    private int numberFollower;
+	@Property("n_reports")
+	private int numberReport;
 
-    @Property("n_following")
-    private int numberFollowing;
+	@Property("n_follower")
+	private int numberFollower;
 
-    @Property("avatar_url")
-    private String avatarUrl;
+	@Property("n_following")
+	private int numberFollowing;
 
-    @Property("cover_url")
-    private String coverUrl;
+	@Property("avatar_url")
+	private String avatarUrl;
 
-    @Property("introduce")
-    private String introduce;
+	@Property("cover_url")
+	private String coverUrl;
 
-    @Property("role")
-    private String role = NORMAL_USER_ROLE;
+	@Property("introduce")
+	private String introduce;
 
-    @Property("registered_time")
-    private long registeredTime;
+	@Property("role")
+	private String role = NORMAL_USER_ROLE;
 
-    @Property("lang")
-    private String language = LANG_ENGLISH;
+	@Property("registered_time")
+	private long registeredTime;
 
-    @Property("active_flag")
-    private int activeFlag = ACTIVE_FLAG;
+	@Property("lang")
+	private String language = LANG_ENGLISH;
 
-    @Property("dob")
-    private String dob;
+	@Property("active_flag")
+	private int activeFlag = ACTIVE_FLAG;
 
-    @Property("phone")
-    @JsonIgnoreProperty
-    private String phone;
+	@Property("dob")
+	private String dob;
 
-    public String getId() {
-        return id;
-    }
+	@Property("phone")
+	@JsonIgnoreProperty
+	private String phone;
 
-    @JsonIgnoreProperty
-    public void setId(String id) {
-        this.id = id;
-    }
+	@Property("n_notification")
+	private int notificationNumber;
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+	@JsonIgnoreProperty
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getLoginMethod() {
-        return loginMethod;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setLoginMethod(String loginMethod) {
-        this.loginMethod = loginMethod;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public int getNumberRecipes() {
-        return numberRecipes;
-    }
+	public String getLoginMethod() {
+		return loginMethod;
+	}
 
-    public void setNumberRecipes(int numberRecipes) {
-        this.numberRecipes = numberRecipes;
-    }
+	public void setLoginMethod(String loginMethod) {
+		this.loginMethod = loginMethod;
+	}
 
-    public int getNumberReport() {
-        return numberReport;
-    }
+	public int getNumberRecipes() {
+		return numberRecipes;
+	}
 
-    public void setNumberReport(int numberReport) {
-        this.numberReport = numberReport;
-    }
+	public void setNumberRecipes(int numberRecipes) {
+		this.numberRecipes = numberRecipes;
+	}
 
-    public int getNumberFollower() {
-        return numberFollower;
-    }
+	public int getNumberReport() {
+		return numberReport;
+	}
 
-    public void setNumberFollower(int numberFollower) {
-        this.numberFollower = numberFollower;
-    }
+	public void setNumberReport(int numberReport) {
+		this.numberReport = numberReport;
+	}
 
-    public int getNumberFollowing() {
-        return numberFollowing;
-    }
+	public int getNumberFollower() {
+		return numberFollower;
+	}
 
-    public void setNumberFollowing(int numberFollowing) {
-        this.numberFollowing = numberFollowing;
-    }
+	public void setNumberFollower(int numberFollower) {
+		this.numberFollower = numberFollower;
+	}
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
+	public int getNumberFollowing() {
+		return numberFollowing;
+	}
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
+	public void setNumberFollowing(int numberFollowing) {
+		this.numberFollowing = numberFollowing;
+	}
 
-    public String getCoverUrl() {
-        return coverUrl;
-    }
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
 
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
 
-    public String getIntroduce() {
-        return introduce;
-    }
+	public String getCoverUrl() {
+		return coverUrl;
+	}
 
-    public void setIntroduce(String introduce) {
-        this.introduce = introduce;
-    }
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public String getIntroduce() {
+		return introduce;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 
-    public long getRegisteredTime() {
-        return registeredTime;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setRegisteredTime(long registeredTime) {
-        this.registeredTime = registeredTime;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public long getRegisteredTime() {
+		return registeredTime;
+	}
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
+	public void setRegisteredTime(long registeredTime) {
+		this.registeredTime = registeredTime;
+	}
 
-    public int getActiveFlag() {
-        return activeFlag;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public void setActiveFlag(int activeFlag) {
-        this.activeFlag = activeFlag;
-    }
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
-    public String getDob() {
-        return dob;
-    }
+	public int getActiveFlag() {
+		return activeFlag;
+	}
 
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
+	public void setActiveFlag(int activeFlag) {
+		this.activeFlag = activeFlag;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getDob() {
+		return dob;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public int getNotificationNumber() {
+		return notificationNumber;
+	}
+
+	public void setNotificationNumber(int notificationNumber) {
+		this.notificationNumber = notificationNumber;
+	}
 
 }
