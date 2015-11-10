@@ -126,7 +126,7 @@ public class UserService {
 	// add/meal/{day}/{time}/{recipeId}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/meal/day/time/remove/{recipeId}")
+	@Path("/meal/{day}/{time}/remove/{recipeId}")
 	public Response removeRecipeToMeal(@HeaderParam(HeaderField.USER_ID) String owner,
 			@PathParam("recipeId") String recipeId, @PathParam("day") String day, @PathParam("time") String time) {
 		String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE_TO_MEAL).doProcess(owner, recipeId, day, time);
