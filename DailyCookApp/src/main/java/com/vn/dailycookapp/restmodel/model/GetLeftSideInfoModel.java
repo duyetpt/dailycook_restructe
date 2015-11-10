@@ -10,9 +10,11 @@ import com.vn.dailycookapp.utils.ErrorCodeConstant;
 
 public class GetLeftSideInfoModel extends AbstractModel {
 	
+	private String token;
 	@Override
 	protected void preExecute(String... data) throws InvalidParamException {
 		myId = data[0];
+		token = data[1];
 	}
 	
 	@Override
@@ -28,6 +30,8 @@ public class GetLeftSideInfoModel extends AbstractModel {
 		cUser.setNumberFollowing(user.getNumberFollowing());
 		cUser.setNumberRecipes(user.getNumberRecipes());
 		cUser.setNumberFollower(user.getNumberNotification());
+		// get token
+		cUser.setToken(token);
 		
 		response.setData(cUser);
 		return response;

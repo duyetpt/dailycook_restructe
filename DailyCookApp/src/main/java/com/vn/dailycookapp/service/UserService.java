@@ -146,8 +146,8 @@ public class UserService {
 	@GET
 	@Path("/leftside")
 	@Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
-	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner) {
-		String data = ModelResolver.getApi(ModelDefine.GET_LEFT_SIDE_INFO).doProcess(owner);
+	public Response getPlanMealDetail(@HeaderParam(HeaderField.USER_ID) String owner, @HeaderParam(HeaderField.TOKEN) String token) {
+		String data = ModelResolver.getApi(ModelDefine.GET_LEFT_SIDE_INFO).doProcess(owner, token);
 		return Response.ok(data).build();
 	}
 	
