@@ -61,7 +61,7 @@ public class MealDAO extends AbstractDAO<Meal> {
 			String recipeId) throws DAOException {
 		try {
 			Query<Meal> query = datastore.createQuery(Meal.class)
-					.field("userId").equal(userId);
+					.field("userId").equal(userId).filter("day", day).field("time").equal(time);
 			UpdateOperations<Meal> pullOperation = datastore
 					.createUpdateOperations(Meal.class).removeAll("recipeIds",
 							recipeId);

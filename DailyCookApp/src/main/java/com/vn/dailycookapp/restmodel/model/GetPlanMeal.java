@@ -23,6 +23,7 @@ public class GetPlanMeal extends AbstractModel {
 		
 		if (list != null)
 			for (Meal meal : list) {
+				if (meal.getRecipeIds().size() == 0) continue;
 				meal.setNumRecipe(meal.getRecipeIds() == null ? 0 : meal.getRecipeIds().size());
 			}
 		response.setData(list);
