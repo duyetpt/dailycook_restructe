@@ -1,13 +1,18 @@
 package org.dao;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.DCAUtilsException;
+import org.TimeUtils;
 import org.bson.types.ObjectId;
 import org.entity.User;
+import org.mongodb.morphia.aggregation.Accumulator;
+import org.mongodb.morphia.aggregation.Group;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
@@ -158,7 +163,6 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     // TODO - REMOVED - DUPLICATE
-
     private boolean updateReportNumber(String userId, int number) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
@@ -200,4 +204,13 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return null;
     }
+
+    // count number user registed in period
+    public long getNumberRegisteredUser(long from, long to) {
+
+        Query<User> query = datastore.createQuery(User.class);
+        query.and(query.criteria("registered_time").greaterThanOrEq(from).and(query.criteria("registered_time").lessThanOrEq(to)));
+        return query.countAll();
+    }
+
 }

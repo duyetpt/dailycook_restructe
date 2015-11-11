@@ -1,5 +1,6 @@
 package org.entity;
 
+import org.TimeUtils;
 import org.json.JsonIgnoreEmpty;
 import org.json.JsonIgnoreProperty;
 import org.mongodb.morphia.annotations.Entity;
@@ -64,7 +65,7 @@ public class User {
 	private String role = NORMAL_USER_ROLE;
 
 	@Property("registered_time")
-	private long registeredTime;
+	private long registeredTime = TimeUtils.getCurrentGMTTime();
 
 	@Property("lang")
 	private String language = LANG_ENGLISH;

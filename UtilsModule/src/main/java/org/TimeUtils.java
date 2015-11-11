@@ -28,4 +28,19 @@ public class TimeUtils {
         Format format = new SimpleDateFormat("dd-MM-yyyy");
         return format.format(date);
     }
+
+    public static long getStartDay(long time) {
+
+        TimeZone timezone = TimeZone.getTimeZone(STANDARD_TIME_ZONE);
+        long currentTime = System.currentTimeMillis();
+        currentTime = currentTime - timezone.getOffset(currentTime);
+
+        Date date = new Date(currentTime);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+
+        return date.getTime();
+    }
 }
