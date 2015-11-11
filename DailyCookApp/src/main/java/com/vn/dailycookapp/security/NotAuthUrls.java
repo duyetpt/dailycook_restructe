@@ -14,6 +14,7 @@ class NotAuthUrls {
 		// regex
 		regexUrl.add("dailycook[/]recipe[/](name|ingredients|tags){1}[/]suggest{1}");
 		regexUrl.add("dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}");
+                regexUrl.add("dailycook[/]recipe[/]report[/](en|vi)[/]reasons");
 		//dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}
 		
 		// admin

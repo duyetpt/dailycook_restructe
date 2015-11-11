@@ -1,29 +1,35 @@
 {
-	"language" : "vi",
-	"ingredient_type": [
-		"Thịt",		
-		"Trứng",
-		"Hải sản",
-		"Sản phẩm từ sữa",
-		"Rau",
-		"Ngũ cốc",
-		"Hoa quả",
-		"Rau thơm"
-	],
-	"notification_msg":{
-		"new_comment":"đã bình luận trên một công thức của bạn",
-		"new_follower":"đang theo dõi bạn",
-		"new_favorite":"đã thích một công thức của bạn",
-		"new_recipe_of_following":"đã thêm một công thức mới",
-		"warm":""
-	},
-	"units":[
-		"Kg",
-		"Gram",
-		"Thìa cà phê",
-		"Lạng",
-		"Quả",
-		"Lit",
-		"Mililit"
-	]      
+    "language": "vi",
+    "ingredient_type": [
+        "Thịt",
+        "Trứng",
+        "Hải sản",
+        "Sản phẩm từ sữa",
+        "Rau",
+        "Ngũ cốc",
+        "Hoa quả",
+        "Rau thơm"
+    ],
+    "notification_msg": {
+        "new_comment": "đã bình luận trên một công thức của bạn",
+        "new_follower": "đang theo dõi bạn",
+        "new_favorite": "đã thích một công thức của bạn",
+        "new_recipe_of_following": "đã thêm một công thức mới",
+        "warm": ""
+    },
+    "units": [
+        "Kg",
+        "Gram",
+        "Thìa cà phê",
+        "Lạng",
+        "Quả",
+        "Lit",
+        "Mililit"
+    ],
+    "report_reason": [
+        "Công thưc này là 'rác'",
+        "Chứa nội dung khiếm nhã",
+        "Nội dung gây khó chụi và không thú vị",
+        "Tôi nghĩ nó không nên có trên Dailycook"
+    ]
 }

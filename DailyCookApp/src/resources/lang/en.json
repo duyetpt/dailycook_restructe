@@ -1,27 +1,33 @@
 {
-	"language" : "en",
-	"ingredient_type": [
-		"Meat",
-		"Seafood",
-		"Eggs",
-		"Vegetables",
-		"Milk",
-		"Cereals",
-		"Fruits",
-		"Aromatic vegetables"
-	],
-	"notification_msg":{
-		"new_comment":"was commented in your recipe",
-		"new_follower":"was followed you",
-		"new_favorite":"was favorited a your recipe",
-		"new_recipe_of_following":"added a new recipe",
-		"warm":""
-	},
-	"units":[
-		"Kg",
-		"Gram",
-		"Teaspoon",
-		"Lit",
-		"Mililit"
-	]         
+    "language": "en",
+    "ingredient_type": [
+        "Meat",
+        "Seafood",
+        "Eggs",
+        "Vegetables",
+        "Milk",
+        "Cereals",
+        "Fruits",
+        "Aromatic vegetables"
+    ],
+    "notification_msg": {
+        "new_comment": "was commented in your recipe",
+        "new_follower": "was followed you",
+        "new_favorite": "was favorited a your recipe",
+        "new_recipe_of_following": "added a new recipe",
+        "warm": ""
+    },
+    "units": [
+        "Kg",
+        "Gram",
+        "Teaspoon",
+        "Lit",
+        "Mililit"
+    ],
+    "report_reason": [
+        "It is spam",
+        "It is impolite",
+        "It's annoying or not interesting",
+        "I think it shouldn't be on Dailycook"
+    ]
 }

@@ -13,12 +13,14 @@ import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetPlanMeal;
 import com.vn.dailycookapp.restmodel.model.GetPlanMealDetail;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
+import com.vn.dailycookapp.restmodel.model.GetReportReasonModel;
 import com.vn.dailycookapp.restmodel.model.GetUnitsModel;
 import com.vn.dailycookapp.restmodel.model.LoginModel;
 import com.vn.dailycookapp.restmodel.model.LogoutModel;
 import com.vn.dailycookapp.restmodel.model.NewFeedModel;
 import com.vn.dailycookapp.restmodel.model.RegisterModel;
 import com.vn.dailycookapp.restmodel.model.RemoveRecipeFromMealModel;
+import com.vn.dailycookapp.restmodel.model.ReportRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
 import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
@@ -47,7 +49,9 @@ public enum ModelDefine {
 	NEW_FEED("new_feed", NewFeedModel.class),
 	FAVORITE("favorite", FavoriteRecipeModel.class),
 	COMMENT("comment", CommentModel.class),
-	
+	REPORT_RECIPE("report_recipe", ReportRecipeModel.class),
+        GET_REPORT_REASON("get_report_reason", GetReportReasonModel.class),
+        
 	SUGGEST_SEARCHING("suggest_searching", suggestSearchingModel.class),
 	SEARCH_RECIPE("search_recipe", SearchRecipeModel.class),
 	SEARCH_USER("search_user", SearchUserModel.class);
