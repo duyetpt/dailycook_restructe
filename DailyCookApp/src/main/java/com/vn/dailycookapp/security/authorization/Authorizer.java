@@ -3,7 +3,7 @@ package com.vn.dailycookapp.security.authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vn.dailycookapp.security.session.Session;
+import org.entity.Session;
 import com.vn.dailycookapp.security.session.SessionClosedException;
 import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.security.session.TokenInvalidException;

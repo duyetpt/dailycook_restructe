@@ -52,8 +52,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     }
 
     /**
-     * TODO -ERROR -WHEN SORT WITH HOT, FOLLOWING - CHECK MO TO Get recipe for
-     * new feed api
      *
      * @param skip
      * @param take
@@ -65,7 +63,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> getRecipes(int skip, int take, String sort,
             List<String> followingIds) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class)
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG)
                     .offset(skip).limit(take);
             switch (sort) {
                 case SORT_BY_FOLLOWING:
@@ -109,7 +107,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                 listObjId.add(new ObjectId(recipeId));
             }
             Query<Recipe> query = datastore.createQuery(Recipe.class)
-                    .field("_id").in(listObjId).offset(skip).limit(take)
+                    .field("_id").in(listObjId).offset(skip).limit(take).filter("status_flag", Recipe.APPROVED_FLAG)
                     .order("-created_time");
             return query.asList();
         } catch (Exception ex) {
@@ -126,7 +124,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             }
 
             Query<Recipe> query = datastore.createQuery(Recipe.class)
-                    .field("_id").in(listObjId);
+                    .field("_id").in(listObjId).filter("status_flag", Recipe.APPROVED_FLAG);
 
             return query.asList();
 
@@ -147,7 +145,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> listRecipeByIngredient(List<String> ingredientIds)
             throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
             Criteria[] criterias = new Criteria[ingredientIds.size()];
 
             for (int i = 0; i < ingredientIds.size(); i++) {
@@ -175,7 +173,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> listRecipeByTag(List<String> tagIds)
             throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
             Criteria[] criterias = new Criteria[tagIds.size()];
 
             for (int i = 0; i < tagIds.size(); i++) {
@@ -202,7 +200,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
      */
     public List<Recipe> getRecipeForSuggestion(String name, int skip, int take) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
             query.field("normalize_title").contains(name).order("-view")
                     .order("-popularPoint").limit(take).offset(skip);
 
@@ -221,7 +219,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
      */
     public List<Recipe> searchRecipeByName(String name) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
             query.field("normalize_title").contains(name);
 
             return query.asList();

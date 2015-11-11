@@ -9,8 +9,10 @@ import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import org.dao.RecipeDAO;
 import org.dao.ReportDAO;
 import org.dao.UserDAO;
+import org.entity.Recipe;
 import org.entity.Report;
 import org.json.JsonTransformer;
 
@@ -35,7 +37,7 @@ public class ReportRecipeModel extends AbstractModel {
         // save to dao
         ReportDAO.getInstance().save(report);
         UserDAO.getInstance().increateReportNumber(myId);
-        
+        RecipeDAO.getInstance().updateRecipeStatus(report.getRecipe(), Recipe.REPORTED_FLAG);
         return response;
     }
 
