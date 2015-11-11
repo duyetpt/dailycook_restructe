@@ -108,8 +108,8 @@ public class RecipeService {
     
     @GET
     @Path("/report/{language}/reasons")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response report(@PathParam("language") String language) {
+    @Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
+    public Response getReason(@PathParam("language") String language) {
         String data = ModelResolver.getApi(ModelDefine.GET_REPORT_REASON).doProcess(language);
         return Response.ok().entity(data).build();
     }

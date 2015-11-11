@@ -5,6 +5,9 @@
  */
 package org.entity;
 
+import org.TimeUtils;
+import org.json.JsonIgnoreEmpty;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
@@ -12,6 +15,8 @@ import org.mongodb.morphia.annotations.Property;
  *
  * @author Nguyen Hoai Nam
  */
+@Entity(noClassnameStored=true)
+@JsonIgnoreEmpty
 public class Report {
 
     public static final int APPROVE_FLAG = 1;
@@ -39,7 +44,7 @@ public class Report {
     private long verifyTime;
 
     @Property("reported_time")
-    private long reportTime;
+    private long reportTime = TimeUtils.getCurrentGMTTime();
 
     public String getId() {
         return id;
