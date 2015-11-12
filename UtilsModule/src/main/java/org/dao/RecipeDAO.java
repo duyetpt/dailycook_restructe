@@ -261,4 +261,12 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
         return null;
     }
+    
+    // count number recipe create in period
+    public long getNumberCreatedRecipe(long from, long to) {
+
+        Query<Recipe> query = datastore.createQuery(Recipe.class);
+        query.and(query.criteria("created_time").greaterThanOrEq(from).and(query.criteria("created_time").lessThanOrEq(to)));
+        return query.countAll();
+    }
 }
