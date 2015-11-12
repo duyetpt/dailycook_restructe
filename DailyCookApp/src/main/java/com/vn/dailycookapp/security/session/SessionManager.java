@@ -72,7 +72,6 @@ public class SessionManager implements Runnable {
      * @return token of this session
      */
     public String addSession(String userId) {
-
         // Generate token
         String token = TokenGenerator.getToken();
 

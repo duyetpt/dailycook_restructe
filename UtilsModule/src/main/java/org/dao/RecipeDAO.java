@@ -239,6 +239,20 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return null;
     }
 
+    // for webservice when user report recipe
+    public boolean updateRecipeStatus(String recipeId, int flag) {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).field("_id").equal(new ObjectId(recipeId));
+            UpdateOperations<Recipe> updateO = datastore.createUpdateOperations(Recipe.class).set("status_flag", flag);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+            logger.error("update recipe status fail", ex);
+        }
+        return false;
+    }
+    
+    // for webapp admin when admin verify report
     public boolean updateRecipeStatus(String recipeId, int flag, long time) {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class).field("_id").equal(new ObjectId(recipeId));
