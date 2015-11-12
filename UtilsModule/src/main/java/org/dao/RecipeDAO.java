@@ -239,10 +239,10 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return null;
     }
 
-    public boolean updateRecipeStatus(String recipeId, int flag) {
+    public boolean updateRecipeStatus(String recipeId, int flag, long time) {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class).field("_id").equal(new ObjectId(recipeId));
-            UpdateOperations<Recipe> updateO = datastore.createUpdateOperations(Recipe.class).set("status_flag", flag);
+            UpdateOperations<Recipe> updateO = datastore.createUpdateOperations(Recipe.class).set("status_flag", flag).set("deleted_time", time);
             UpdateResults result = datastore.update(query, updateO);
             return result.getUpdatedCount() == 1;
         } catch (Exception ex) {
@@ -267,6 +267,13 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
         Query<Recipe> query = datastore.createQuery(Recipe.class);
         query.and(query.criteria("created_time").greaterThanOrEq(from).and(query.criteria("created_time").lessThanOrEq(to)));
+        return query.countAll();
+    }
+    
+    public long getNumberDeletedRecipe(long from, long to) {
+
+        Query<Recipe> query = datastore.createQuery(Recipe.class);
+        query.and(query.criteria("deleted_time").greaterThanOrEq(from).and(query.criteria("deleted_time").lessThanOrEq(to)));
         return query.countAll();
     }
 }
