@@ -1,11 +1,12 @@
 package org.entity;
 
-import org.TimeUtils;
+import org.json.JsonIgnoreEmpty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
 @Entity(noClassnameStored = true)
+@JsonIgnoreEmpty
 public final class Session {
 
     static final long TTL = 30 * 24 * 60 * 60 * 1000l;	// ten day
@@ -42,6 +43,13 @@ public final class Session {
         return timeToLife;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     /**
      * Reset time to life as Default
      */
