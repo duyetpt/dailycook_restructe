@@ -1,18 +1,13 @@
 package org.dao;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.DCAUtilsException;
-import org.TimeUtils;
 import org.bson.types.ObjectId;
 import org.entity.User;
-import org.mongodb.morphia.aggregation.Accumulator;
-import org.mongodb.morphia.aggregation.Group;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
@@ -167,6 +162,17 @@ public class UserDAO extends AbstractDAO<User> {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
             UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).inc("n_reports", number);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+        }
+        return false;
+    }
+    //reset passWord
+    public boolean updateAdminPassWord(String userId, String pass) {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("pass", pass);
             UpdateResults result = datastore.update(query, updateO);
             return result.getUpdatedCount() == 1;
         } catch (Exception ex) {
