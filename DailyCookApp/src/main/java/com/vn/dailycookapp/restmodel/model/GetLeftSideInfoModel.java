@@ -23,6 +23,7 @@ public class GetLeftSideInfoModel extends AbstractModel {
 		CompactUserInfo user = UserCache.getInstance().get(myId);
 		
 		CurrentUser cUser = new CurrentUser();
+                cUser.setUserId(user.getUserId());
 		cUser.setAvatarUrl(user.getAvatarUrl());
 		cUser.setCoverUrl(user.getCoverUrl());
 		cUser.setDisplayName(user.getDisplayName());
