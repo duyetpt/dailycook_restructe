@@ -213,7 +213,6 @@ public class UserDAO extends AbstractDAO<User> {
 
     // count number user registed in period
     public long getNumberRegisteredUser(long from, long to) {
-
         Query<User> query = datastore.createQuery(User.class);
         query.and(query.criteria("registered_time").greaterThanOrEq(from).and(query.criteria("registered_time").lessThanOrEq(to)));
         return query.countAll();

@@ -8,6 +8,7 @@
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
+                <goal>package</goal>
                 <goal>-Dmaven.test.skip=true</goal>
             </goals>
         </action>
