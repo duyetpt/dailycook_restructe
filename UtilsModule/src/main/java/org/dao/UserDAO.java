@@ -218,5 +218,9 @@ public class UserDAO extends AbstractDAO<User> {
         query.and(query.criteria("registered_time").greaterThanOrEq(from).and(query.criteria("registered_time").lessThanOrEq(to)));
         return query.countAll();
     }
+    public long getNumberUser() {
+        Query<User> query = datastore.createQuery(User.class);
+        return query.countAll();
+    }
 
 }

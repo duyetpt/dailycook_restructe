@@ -290,4 +290,8 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         query.and(query.criteria("deleted_time").greaterThanOrEq(from).and(query.criteria("deleted_time").lessThanOrEq(to)));
         return query.countAll();
     }
+    public long getNumberRecipe() {
+        Query<Recipe> query = datastore.createQuery(Recipe.class);
+        return query.countAll();
+    }
 }

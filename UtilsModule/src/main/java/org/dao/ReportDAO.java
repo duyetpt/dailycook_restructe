@@ -68,4 +68,9 @@ public class ReportDAO extends AbstractDAO{
         }
         return false;
     }
+    
+    public long getNumberReport() {
+        Query<Report> query = datastore.createQuery(Report.class);
+        return query.countAll();
+    }
 }
