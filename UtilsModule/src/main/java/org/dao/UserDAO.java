@@ -168,7 +168,9 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return false;
     }
+
     //reset passWord
+
     public boolean updateAdminPassWord(String userId, String pass) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
@@ -217,9 +219,32 @@ public class UserDAO extends AbstractDAO<User> {
         query.and(query.criteria("registered_time").greaterThanOrEq(from).and(query.criteria("registered_time").lessThanOrEq(to)));
         return query.countAll();
     }
+
     public long getNumberUser() {
         Query<User> query = datastore.createQuery(User.class);
         return query.countAll();
     }
 
+    public void updateLanguage(String userId, String language) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("language", language);
+            datastore.update(query, updateO);
+        } catch (Exception ex) {
+            logger.error("update language error", ex);
+            throw new DAOException();
+        }
+    }
+
+    public boolean updatePassword(String userId, String oldPassword, String password) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId)).filter("pass", oldPassword);
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("pass", password);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+            logger.error("update password error", ex);
+            throw new DAOException();
+        }
+    }
 }

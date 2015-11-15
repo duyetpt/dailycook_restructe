@@ -1,6 +1,8 @@
 package com.vn.dailycookapp.restmodel;
 
 import com.vn.dailycookapp.restmodel.model.AddRecipeToMeal;
+import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
+import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
 import com.vn.dailycookapp.restmodel.model.CommentModel;
 import com.vn.dailycookapp.restmodel.model.CreateRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
@@ -44,6 +46,8 @@ public enum ModelDefine {
 	GET_LEFT_SIDE_INFO("get_left_side_info", GetLeftSideInfoModel.class),
 	GET_USER_PROFILE("get_user_profile", GetUserProfileModel.class),
 	GET_RECIPE_OF_USER("get_recipe_of_user", GetRecipeOfUserModel.class),
+        CHANGE_LANGUAGE("change_language", ChangeUserLanguageModel.class),
+        CHANGE_PASSWORD("change_password", ChangePasswordModel.class),
         
         GET_INGREDIENT_TYPE("get_ingredient_type", GetIngredientTypesModel.class),
 	GET_UNITS("get_units", GetUnitsModel.class),

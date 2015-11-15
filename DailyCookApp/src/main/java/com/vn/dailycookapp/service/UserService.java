@@ -168,5 +168,21 @@ public class UserService {
         String data = ModelResolver.getApi(ModelDefine.GET_RECIPE_OF_USER).doProcess(owner, userId, skip, take);
         return Response.ok(data).build();
     }
-
+    
+    //language?lang=vi|en
+    @GET
+    @Path("/language")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response changeLanguage(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("lang") String lang) {
+        String data = ModelResolver.getApi(ModelDefine.CHANGE_LANGUAGE).doProcess(owner, lang);
+        return Response.ok(data).build();
+    }
+    
+    @POST
+    @Path("/password")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response changePassword(@HeaderParam(HeaderField.USER_ID) String owner, String requestData) {
+        String data = ModelResolver.getApi(ModelDefine.CHANGE_PASSWORD).doProcess(owner, requestData);
+        return Response.ok(data).build();
+    }
 }
