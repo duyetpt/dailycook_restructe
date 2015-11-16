@@ -17,67 +17,56 @@ import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import com.vn.dailycookapp.utils.validate.Validator;
 
 /**
- * 
- * @author duyetpt
- *         transform data to RegisterInfo
- *         Validate data
- *         Encrypt password
- *         Save to DB
- *         Get session
- *         Response
+ *
+ * @author duyetpt transform data to RegisterInfo Validate data Encrypt password
+ * Save to DB Get session Response
  */
 public class RegisterModel extends AbstractModel {
-	
-	private User			user;
-	private RegisterInfo	regInfo;
-	
-	@Override
-	protected void preExecute(String... data) throws Exception {
-		String userInfo = null;
-		try {
-			userInfo = data[0];
-			regInfo = JsonTransformer.getInstance().unmarshall(userInfo, RegisterInfo.class);
-		} catch (Exception ex) {
-			throw new InvalidParamException();
-		}
-		validateInfo();
-		
-	}
-	
-	@Override
-	protected DCAResponse execute() throws Exception {
-		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		String encryptPass = EncryptHelper.encrypt(regInfo.getPassword());
-		
-		user = new User();
-		user.setEmail(regInfo.getEmail());
-		user.setPassword(encryptPass);
-		user.setDisplayName(regInfo.getEmail().split("@")[0]);
-		user.setLanguage(regInfo.getLanguage());
-		// save to db
-		UserDAO.getInstance().saveWithSynchronized(user);
-		// get session token
-		String token = SessionManager.getInstance().addSession(user.getId());
-		
-		// login
-		CurrentUser cUser = new CurrentUser();
-		cUser.setDisplayName(user.getDisplayName());
-		cUser.setLanguage(user.getLanguage());
-		cUser.setToken(token);
-		
-		// Cache user info
-		UserCache.getInstance().cache(user);
-		// response
-		response.setData(cUser);
-		return response;
-	}
-	
-	private void validateInfo() throws DCAException {
-		Validator.getInstance().validateEmail(regInfo.getEmail());
-		Validator.getInstance().validatePassword(regInfo.getPassword());
-		if (!regInfo.getPassword().equals(regInfo.getRe_password())) {
-			throw new InvalidParamException();
-		}
-	}
-	
+
+    private User user;
+    private RegisterInfo regInfo;
+
+    @Override
+    protected void preExecute(String... data) throws InvalidParamException, DCAException {
+        regInfo = JsonTransformer.getInstance().unmarshall(data[0], RegisterInfo.class);
+        validateInfo();
+
+    }
+
+    @Override
+    protected DCAResponse execute() throws Exception {
+        DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
+        String encryptPass = EncryptHelper.encrypt(regInfo.getPassword());
+
+        user = new User();
+        user.setEmail(regInfo.getEmail());
+        user.setPassword(encryptPass);
+        user.setDisplayName(regInfo.getEmail().split("@")[0]);
+        user.setLanguage(regInfo.getLanguage());
+        // save to db
+        UserDAO.getInstance().saveWithSynchronized(user);
+        // get session token
+        String token = SessionManager.getInstance().addSession(user.getId());
+
+        // login
+        CurrentUser cUser = new CurrentUser();
+        cUser.setDisplayName(user.getDisplayName());
+        cUser.setLanguage(user.getLanguage());
+        cUser.setToken(token);
+
+        // Cache user info
+        UserCache.getInstance().cache(user);
+        // response
+        response.setData(cUser);
+        return response;
+    }
+
+    private void validateInfo() throws DCAException {
+        Validator.getInstance().validateEmail(regInfo.getEmail());
+        Validator.getInstance().validatePassword(regInfo.getPassword());
+        if (!regInfo.getPassword().equals(regInfo.getRe_password())) {
+            throw new InvalidParamException();
+        }
+    }
+
 }
