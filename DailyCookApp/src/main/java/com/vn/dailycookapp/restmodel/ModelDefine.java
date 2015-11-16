@@ -1,6 +1,7 @@
 package com.vn.dailycookapp.restmodel;
 
 import com.vn.dailycookapp.restmodel.model.AddRecipeToMeal;
+import com.vn.dailycookapp.restmodel.model.BanUserModel;
 import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
 import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
 import com.vn.dailycookapp.restmodel.model.CommentModel;
@@ -28,6 +29,7 @@ import com.vn.dailycookapp.restmodel.model.ReportRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
 import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
+import com.vn.dailycookapp.restmodel.model.UpdateProfileModel;
 import com.vn.dailycookapp.restmodel.model.suggestSearchingModel;
 
 public enum ModelDefine {
@@ -48,6 +50,10 @@ public enum ModelDefine {
 	GET_RECIPE_OF_USER("get_recipe_of_user", GetRecipeOfUserModel.class),
         CHANGE_LANGUAGE("change_language", ChangeUserLanguageModel.class),
         CHANGE_PASSWORD("change_password", ChangePasswordModel.class),
+        UPDATE_USER_PROFILE("update_user_profile", UpdateProfileModel.class),
+        
+        // API FOR ADMIN
+        BAN_USER("ban_user", BanUserModel.class),
         
         GET_INGREDIENT_TYPE("get_ingredient_type", GetIngredientTypesModel.class),
 	GET_UNITS("get_units", GetUnitsModel.class),

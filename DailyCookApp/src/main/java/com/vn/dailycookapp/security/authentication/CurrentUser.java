@@ -55,17 +55,21 @@ public class CurrentUser {
                 }
             }
         } else {
-            this.userId = user.getId();
-            displayName = user.getDisplayName();
-            avatarUrl = user.getAvatarUrl();
-            coverUrl = user.getCoverUrl();
-            dob = user.getDob();
-            language = user.getLanguage();
-            this.numberFollower = user.getNumberFollower();
-            this.numberFollowing = user.getNumberFollowing();
-            this.numberRecipes = user.getNumberRecipes();
+            if (user.getActiveFlag() == User.ACTIVE_FLAG) {
+                this.userId = user.getId();
+                displayName = user.getDisplayName();
+                avatarUrl = user.getAvatarUrl();
+                coverUrl = user.getCoverUrl();
+                dob = user.getDob();
+                language = user.getLanguage();
+                this.numberFollower = user.getNumberFollower();
+                this.numberFollowing = user.getNumberFollowing();
+                this.numberRecipes = user.getNumberRecipes();
 
-            token = SessionManager.getInstance().addSession(user.getId());
+                token = SessionManager.getInstance().addSession(user.getId());
+            } else {
+                throw new BanedUserException(ErrorCodeConstant.BANED_USER);
+            }
         }
 
     }
@@ -96,23 +100,27 @@ public class CurrentUser {
         if (user != null) {
             String password = EncryptHelper.encrypt(token.getPassword());
             if (password.equals(user.getPassword())) {
-                if (user.getDisplayName() != null) {
-                    displayName = user.getDisplayName();
-                } else {
-                    displayName = user.getEmail().split("@")[0];
-                }
-                this.userId = user.getId();
-                avatarUrl = user.getAvatarUrl();
-                coverUrl = user.getCoverUrl();
-                dob = user.getDob();
-                language = user.getLanguage();
-                this.token = SessionManager.getInstance().addSession(user.getId());
-                this.numberFollower = user.getNumberFollower();
-                this.numberFollowing = user.getNumberFollowing();
-                this.numberRecipes = user.getNumberRecipes();
+                if (user.getActiveFlag() == User.ACTIVE_FLAG) {
+                    if (user.getDisplayName() != null) {
+                        displayName = user.getDisplayName();
+                    } else {
+                        displayName = user.getEmail().split("@")[0];
+                    }
+                    this.userId = user.getId();
+                    avatarUrl = user.getAvatarUrl();
+                    coverUrl = user.getCoverUrl();
+                    dob = user.getDob();
+                    language = user.getLanguage();
+                    this.token = SessionManager.getInstance().addSession(user.getId());
+                    this.numberFollower = user.getNumberFollower();
+                    this.numberFollowing = user.getNumberFollowing();
+                    this.numberRecipes = user.getNumberRecipes();
 
-                // cache data
-                UserCache.getInstance().cache(user);
+                    // cache data
+                    UserCache.getInstance().cache(user);
+                } else {
+                    throw new BanedUserException(ErrorCodeConstant.BANED_USER);
+                }
             } else {
                 throw new LoginFailException(ErrorCodeConstant.PASSWORD_INCORRECT);
             }

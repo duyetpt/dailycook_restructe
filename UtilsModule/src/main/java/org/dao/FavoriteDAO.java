@@ -34,7 +34,7 @@ public class FavoriteDAO extends AbstractDAO<Favorite> {
 	public boolean push(String userId, String recipeId) throws DAOException {
 		Query<Favorite> query = datastore.createQuery(Favorite.class)
 				.field("_id").equal(new ObjectId(userId));
-		if (query.countAll() == 0) {
+		if (query.get() == null) {
 			Favorite fav = new Favorite();
 			fav.setId(new ObjectId(userId));
 

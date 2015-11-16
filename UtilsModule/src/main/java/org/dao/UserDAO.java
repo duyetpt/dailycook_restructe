@@ -170,7 +170,6 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     //reset passWord
-
     public boolean updateAdminPassWord(String userId, String pass) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
@@ -244,6 +243,20 @@ public class UserDAO extends AbstractDAO<User> {
             return result.getUpdatedCount() == 1;
         } catch (Exception ex) {
             logger.error("update password error", ex);
+            throw new DAOException();
+        }
+    }
+
+    public void updatUserProfile(String userId, String avatarUrl, String displayName, String dob) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("_id", new ObjectId(userId));
+            UpdateOperations<User> updateOperation = datastore.createUpdateOperations(User.class);
+            updateOperation.set("avatar_url", avatarUrl);
+            updateOperation.set("display_name", displayName);
+            updateOperation.set("dob", dob);
+            datastore.update(query, updateOperation);
+        } catch (Exception ex) {
+            logger.error("update user profile error", ex);
             throw new DAOException();
         }
     }

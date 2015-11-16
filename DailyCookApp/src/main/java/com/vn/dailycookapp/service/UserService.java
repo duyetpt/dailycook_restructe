@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import com.vn.dailycookapp.restmodel.ModelDefine;
 import com.vn.dailycookapp.restmodel.ModelResolver;
 import com.vn.dailycookapp.service.mediatypeopen.MediaTypeWithUtf8;
+import javax.ws.rs.PUT;
 
 @Path("/dailycook/user")
 public class UserService {
@@ -168,7 +169,7 @@ public class UserService {
         String data = ModelResolver.getApi(ModelDefine.GET_RECIPE_OF_USER).doProcess(owner, userId, skip, take);
         return Response.ok(data).build();
     }
-    
+
     //language?lang=vi|en
     @GET
     @Path("/language")
@@ -177,12 +178,41 @@ public class UserService {
         String data = ModelResolver.getApi(ModelDefine.CHANGE_LANGUAGE).doProcess(owner, lang);
         return Response.ok(data).build();
     }
-    
+
+    /**
+     * Change password
+     *
+     * @param owner
+     * @param requestData
+     * @return
+     */
     @POST
     @Path("/password")
     @Produces(MediaType.APPLICATION_JSON)
     public Response changePassword(@HeaderParam(HeaderField.USER_ID) String owner, String requestData) {
         String data = ModelResolver.getApi(ModelDefine.CHANGE_PASSWORD).doProcess(owner, requestData);
+        return Response.ok(data).build();
+    }
+
+    @POST
+    @Path("/profile")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateProfile(@HeaderParam(HeaderField.USER_ID) String owner, String requestData) {
+        String data = ModelResolver.getApi(ModelDefine.UPDATE_USER_PROFILE).doProcess(owner, requestData);
+        return Response.ok(data).build();
+    }
+
+    /**
+     * Ban user api
+     *
+     * @param userId
+     * @return
+     */
+    @PUT
+    @Path("/{userId}/ban")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response banUser(@PathParam("userId") String userId) {
+        String data = ModelResolver.getApi(ModelDefine.BAN_USER).doProcess(userId);
         return Response.ok(data).build();
     }
 }
