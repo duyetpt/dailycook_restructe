@@ -168,6 +168,7 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return false;
     }
+
     //reset passWord
     public boolean updateAdminPassWord(String userId, String pass) {
         try {
@@ -213,14 +214,50 @@ public class UserDAO extends AbstractDAO<User> {
 
     // count number user registed in period
     public long getNumberRegisteredUser(long from, long to) {
-
         Query<User> query = datastore.createQuery(User.class);
         query.and(query.criteria("registered_time").greaterThanOrEq(from).and(query.criteria("registered_time").lessThanOrEq(to)));
         return query.countAll();
     }
+
     public long getNumberUser() {
         Query<User> query = datastore.createQuery(User.class);
         return query.countAll();
     }
 
+    public void updateLanguage(String userId, String language) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("language", language);
+            datastore.update(query, updateO);
+        } catch (Exception ex) {
+            logger.error("update language error", ex);
+            throw new DAOException();
+        }
+    }
+
+    public boolean updatePassword(String userId, String oldPassword, String password) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId)).filter("pass", oldPassword);
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("pass", password);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+            logger.error("update password error", ex);
+            throw new DAOException();
+        }
+    }
+
+    public void updatUserProfile(String userId, String avatarUrl, String displayName, String dob) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("_id", new ObjectId(userId));
+            UpdateOperations<User> updateOperation = datastore.createUpdateOperations(User.class);
+            updateOperation.set("avatar_url", avatarUrl);
+            updateOperation.set("display_name", displayName);
+            updateOperation.set("dob", dob);
+            datastore.update(query, updateOperation);
+        } catch (Exception ex) {
+            logger.error("update user profile error", ex);
+            throw new DAOException();
+        }
+    }
 }

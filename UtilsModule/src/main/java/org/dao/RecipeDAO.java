@@ -25,7 +25,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     private RecipeDAO() {
         datastore.ensureIndexes(Recipe.class);
     }
-    
 
     public static RecipeDAO getInstance() {
         return instance;
@@ -251,7 +250,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         }
         return false;
     }
-    
+
     // for webapp admin when admin verify report
     public boolean updateRecipeStatus(String recipeId, int flag, long time) {
         try {
@@ -264,7 +263,8 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         }
         return false;
     }
-    
+
+    // TOD0 - removed - duplicate
     public Recipe getRecipe(String recipeId) {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class).field("_id").equal(new ObjectId(recipeId));
@@ -275,7 +275,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
 
         return null;
     }
-    
+
     // count number recipe create in period
     public long getNumberCreatedRecipe(long from, long to) {
 
@@ -283,15 +283,28 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         query.and(query.criteria("created_time").greaterThanOrEq(from).and(query.criteria("created_time").lessThanOrEq(to)));
         return query.countAll();
     }
-    
+
     public long getNumberDeletedRecipe(long from, long to) {
 
         Query<Recipe> query = datastore.createQuery(Recipe.class);
         query.and(query.criteria("deleted_time").greaterThanOrEq(from).and(query.criteria("deleted_time").lessThanOrEq(to)));
         return query.countAll();
     }
+
     public long getNumberRecipe() {
         Query<Recipe> query = datastore.createQuery(Recipe.class);
         return query.countAll();
+    }
+    
+    // get recipe of user
+    public List<Recipe> getRecipeOfUser(String userId, int skip, int take) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("owner", userId).limit(take).offset(skip);
+            
+            return query.asList();
+        } catch (Exception ex) {
+            logger.error("get recipe of user error:" + userId, ex);
+            throw new DAOException();
+        }
     }
 }

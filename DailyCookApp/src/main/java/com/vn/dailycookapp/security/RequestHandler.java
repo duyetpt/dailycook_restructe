@@ -51,7 +51,7 @@ public class RequestHandler implements ContainerRequestFilter {
 			if (token != null) {
 				try {
 					userId = Authorizer.getInstance().authorize(token);
-					requestContext.getHeaders().add(HeaderField.USER_ID, userId);
+                                        requestContext.getHeaders().putSingle(HeaderField.USER_ID, userId);
 				} catch (AuthorizationException e) {
 					logger.error("authorzation exception", e);
 				}

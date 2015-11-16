@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
-import java.util.logging.Level;
 import org.dao.DAOException;
 import org.dao.SessionDAO;
 import org.entity.Session;
@@ -45,7 +44,7 @@ public class SessionManager implements Runnable {
      * @throws SessionClosedException
      */
     public Session getSession(String token) throws TokenInvalidException, SessionClosedException {
-        if (token == null || token.length() != TOKEN_LENGTH) {
+        if (token == null || token.length() > TOKEN_LENGTH) {
             logger.error("!!!!! token invalid token:" + token);
             throw new TokenInvalidException(ErrorCodeConstant.INVALID_TOKEN.getErrorCode());
         }

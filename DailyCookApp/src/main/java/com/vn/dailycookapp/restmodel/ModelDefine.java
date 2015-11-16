@@ -1,6 +1,9 @@
 package com.vn.dailycookapp.restmodel;
 
 import com.vn.dailycookapp.restmodel.model.AddRecipeToMeal;
+import com.vn.dailycookapp.restmodel.model.BanUserModel;
+import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
+import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
 import com.vn.dailycookapp.restmodel.model.CommentModel;
 import com.vn.dailycookapp.restmodel.model.CreateRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
@@ -13,8 +16,10 @@ import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetPlanMeal;
 import com.vn.dailycookapp.restmodel.model.GetPlanMealDetail;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
+import com.vn.dailycookapp.restmodel.model.GetRecipeOfUserModel;
 import com.vn.dailycookapp.restmodel.model.GetReportReasonModel;
 import com.vn.dailycookapp.restmodel.model.GetUnitsModel;
+import com.vn.dailycookapp.restmodel.model.GetUserProfileModel;
 import com.vn.dailycookapp.restmodel.model.LoginModel;
 import com.vn.dailycookapp.restmodel.model.LogoutModel;
 import com.vn.dailycookapp.restmodel.model.NewFeedModel;
@@ -24,14 +29,11 @@ import com.vn.dailycookapp.restmodel.model.ReportRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
 import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
+import com.vn.dailycookapp.restmodel.model.UpdateProfileModel;
 import com.vn.dailycookapp.restmodel.model.suggestSearchingModel;
 
 public enum ModelDefine {
 	
-	GET_INGREDIENT_TYPE("get_ingredient_type", GetIngredientTypesModel.class),
-	GET_UNITS("get_units", GetUnitsModel.class),
-	CREATE_RECIPE("create_recipe", CreateRecipeModel.class),
-	GET_RECIPE("get_recipe", GetRecipeModel.class),
 	REGISTER("register", RegisterModel.class),
 	LOGIN("login", LoginModel.class),
 	LOGOUT("logout", LogoutModel.class),
@@ -44,7 +46,19 @@ public enum ModelDefine {
 	GET_PLAN_MEAL_DETAIL("get_plan_meal_detail", GetPlanMealDetail.class),
 	REMOVE_RECIPE_TO_MEAL("remove_recipe_to_meal", RemoveRecipeFromMealModel.class),
 	GET_LEFT_SIDE_INFO("get_left_side_info", GetLeftSideInfoModel.class),
-	
+	GET_USER_PROFILE("get_user_profile", GetUserProfileModel.class),
+	GET_RECIPE_OF_USER("get_recipe_of_user", GetRecipeOfUserModel.class),
+        CHANGE_LANGUAGE("change_language", ChangeUserLanguageModel.class),
+        CHANGE_PASSWORD("change_password", ChangePasswordModel.class),
+        UPDATE_USER_PROFILE("update_user_profile", UpdateProfileModel.class),
+        
+        // API FOR ADMIN
+        BAN_USER("ban_user", BanUserModel.class),
+        
+        GET_INGREDIENT_TYPE("get_ingredient_type", GetIngredientTypesModel.class),
+	GET_UNITS("get_units", GetUnitsModel.class),
+	CREATE_RECIPE("create_recipe", CreateRecipeModel.class),
+	GET_RECIPE("get_recipe", GetRecipeModel.class),
 	GET_COMMENT("get_comment", GetCommentModel.class),
 	NEW_FEED("new_feed", NewFeedModel.class),
 	FAVORITE("favorite", FavoriteRecipeModel.class),

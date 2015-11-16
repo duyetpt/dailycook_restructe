@@ -80,6 +80,7 @@ public class FollowUserModel extends AbstractModel {
 		FollowResponseData data = new FollowResponseData();
 		data.setFollowingNumber(user.getNumberFollowing());
 		
+                response.setData(data);
 		return response;
 	}
 	

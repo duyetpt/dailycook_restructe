@@ -37,7 +37,7 @@ public class FavoritedDAO extends AbstractDAO<Favorited> {
 			
 			save(fav);
 		} else {
-			pushToArray(recipeId, "user_ids", recipeId, Favorited.class);
+			pushToArray(recipeId, "user_ids", userId, Favorited.class);
 		}
 	}
 	
