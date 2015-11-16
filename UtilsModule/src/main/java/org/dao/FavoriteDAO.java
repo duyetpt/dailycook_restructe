@@ -58,7 +58,7 @@ public class FavoriteDAO extends AbstractDAO<Favorite> {
 		try {
 			Query<Favorite> query = datastore.createQuery(Favorite.class)
 					.field("_id").equal(new ObjectId(userId));
-			query.field("recipe_ids").equal(recipeId);
+			query.field("recipe_ids").hasThisElement(recipeId);
 
 			Favorite fav = query.get();
 			if (fav != null) {
