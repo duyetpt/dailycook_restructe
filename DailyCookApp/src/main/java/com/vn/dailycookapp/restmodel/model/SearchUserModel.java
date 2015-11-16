@@ -72,9 +72,9 @@ public class SearchUserModel extends AbstractModel {
 			info.setUserId(cUser.getUserId());
 			info.setUsername(cUser.getDisplayName());
 			
-			if (myId == null)
+			if (myId == null || following == null)
 				info.setFollowing(false);
-			else
+                        else
 				info.setFollowing(following.getStarIds().contains(cUser.getUserId()));
 			
 			data.add(info);
