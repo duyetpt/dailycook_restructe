@@ -307,4 +307,11 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             throw new DAOException();
         }
     }
+    
+    // count number recipe with flag
+    public long getNumberRecipeWithFlag(int flag) {
+        Query<Recipe> query = datastore.createQuery(Recipe.class);
+        query.and(query.criteria("status_flag").equal(flag));
+        return query.countAll();
+    }
 }

@@ -45,6 +45,9 @@ public class User {
 
     @Property("n_reports")
     private int numberReport;
+    
+    @Property("n_bans")
+    private int numberBans;
 
     @Property("n_follower")
     private int numberFollower;
@@ -144,6 +147,14 @@ public class User {
         this.numberReport = numberReport;
     }
 
+    public int getNumberBans() {
+        return numberBans;
+    }
+
+    public void setNumberBans(int numberBans) {
+        this.numberBans = numberBans;
+    }
+    
     public int getNumberFollower() {
         return numberFollower;
     }
