@@ -5,6 +5,8 @@
  */
 package com.vn.dailycookapp.restmodel.model;
 
+import com.vn.dailycookapp.cache.user.CompactUserInfo;
+import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.request.UpdateUserInfo;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
@@ -29,6 +31,12 @@ public class UpdateProfileModel extends AbstractModel{
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         UserDAO.getInstance().updatUserProfile(myId, updateUserInfo.getAvatarUrl(), updateUserInfo.getDisplayName(), updateUserInfo.getDob());
+        
+        // update cache
+        CompactUserInfo user = UserCache.getInstance().get(myId);
+        user.setAvatarUrl(updateUserInfo.getAvatarUrl());
+        user.setDisplayName(updateUserInfo.getDisplayName());
+        
         return response;
     }
     
