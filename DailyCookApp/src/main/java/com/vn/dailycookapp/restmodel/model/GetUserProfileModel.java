@@ -34,9 +34,9 @@ public class GetUserProfileModel extends AbstractModel{
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         CompactUserInfo user = UserCache.getInstance().get(userId);
         
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
         boolean following = false;
-        if (!userId.equals(myId)) {
+        if (!userId.equals(myId) && myId != null) {
             following = FollowingDAO.getInstance().isFollowing(myId, userId);
         }
         
