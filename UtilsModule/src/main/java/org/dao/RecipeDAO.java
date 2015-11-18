@@ -11,6 +11,7 @@ import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.Query;
 
 import com.mongodb.DBRef;
+import org.Unicode;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 
@@ -219,7 +220,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> searchRecipeByName(String name) throws DAOException {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
-            query.field("normalize_title").contains(name);
+            query.field("normalize_title").contains(Unicode.toAscii(name));
 
             return query.asList();
         } catch (Exception ex) {
@@ -227,9 +228,41 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         }
     }
 
+    public List<Recipe> searchRecipeByName(String name, int skip, int take) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
+            query.field("normalize_title").contains(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time");
+            
+            return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
+    
+    /**
+     * count number recipe match name
+     * @param name
+     * @param skip
+     * @param take
+     * @return
+     * @throws DAOException 
+     */
+    public long getSearchResultNumber(String name) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG);
+            query.field("normalize_title").contains(Unicode.toAscii(name));
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
+    
     public List<Recipe> getAllRecipe() {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class);
+            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time");
+            
             return query.asList();
         } catch (Exception ex) {
             logger.error("getAllRecipe fail", ex);
@@ -238,6 +271,18 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         return null;
     }
 
+    public List<Recipe> getRecipes(int skip, int take) {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).offset(skip).limit(take);
+            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time");
+            return query.asList();
+        } catch (Exception ex) {
+            logger.error("getAllRecipe fail", ex);
+        }
+
+        return null;
+    }
+    
     // for webservice when user report recipe
     public boolean updateRecipeStatus(String recipeId, int flag) {
         try {
