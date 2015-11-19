@@ -47,7 +47,8 @@ public class UserCache {
         cUser.setIntroduce(user.getIntroduce());
         cUser.setLanguage(user.getLanguage());
         cUser.setNumberNotification(user.getNotificationNumber());
-
+        cUser.setDob(user.getDob());
+        
         userMap.put(user.getId(), cUser);
         emailMap.put(user.getEmail(), user.getId());
     }

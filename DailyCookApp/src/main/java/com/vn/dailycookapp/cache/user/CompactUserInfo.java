@@ -13,6 +13,7 @@ public class CompactUserInfo {
     private String introduce;
     private String language;
     private int numberNotification;
+    private String dob;
 
     public String getUserId() {
         return userId;
@@ -132,6 +133,14 @@ public class CompactUserInfo {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
 }

@@ -1,22 +1,14 @@
 package org.UtilsModule;
 
-import org.mail.MailCompose;
-import org.mail.MailManagement;
-import org.mail.MailWorker;
+import org.dao.RecipeDAO;
 
 public class TestSentMail {
 
-	public static void main(String[] args) {
-		MailWorker worker = new MailWorker();
-		worker.start();
-
-		MailCompose mail = new MailCompose();
-		mail.setContent("Xin chao, toi dang test chuc nang gui mail");
-		mail.setTitle("Test");
-		mail.setFrom("duyetentertainment@gmail.com");
-		mail.setPassword("nguoiviet1993");
-		mail.setTo("duyetptse02451@fpt.edu.vn");
-
-		MailManagement.getInstance().addMail(mail);
-	}
+    public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        RecipeDAO.getInstance().getAllRecipe();
+        long end = System.currentTimeMillis();
+        
+        System.out.println("time(seconds): " + (end - start)/1000);
+    }
 }
