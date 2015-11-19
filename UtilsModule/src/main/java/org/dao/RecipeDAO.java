@@ -179,7 +179,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             for (int i = 0; i < tagIds.size(); i++) {
                 String tag = tagIds.get(i);
                 DBRef dbR = new DBRef("Tag", new ObjectId(tag));
-                criterias[i] = query.criteria("ingredients")
+                criterias[i] = query.criteria("tags")
                         .hasThisElement(dbR);
             }
 
