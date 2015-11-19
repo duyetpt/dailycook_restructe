@@ -53,6 +53,7 @@ public class RegisterModel extends AbstractModel {
         cUser.setDisplayName(user.getDisplayName());
         cUser.setLanguage(user.getLanguage());
         cUser.setToken(token);
+        cUser.setUserId(user.getId());
 
         // Cache user info
         UserCache.getInstance().cache(user);

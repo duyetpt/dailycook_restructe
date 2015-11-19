@@ -52,7 +52,7 @@ public class NewFeedModel extends AbstractModel {
         List<String> followingIds = null;
         if (SORT_BY_FOLLOWING.equals(sort) && myId != null) {
             Following following = FollowingDAO.getInstance().get(myId, Following.class);
-            followingIds = following.getStarIds();
+            if (following != null) followingIds = following.getStarIds();
         }
         // Get recipes
         List<Recipe> recipes = RecipeDAO.getInstance().getRecipes(skip, take, sort, followingIds);
