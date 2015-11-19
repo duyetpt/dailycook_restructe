@@ -68,7 +68,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             switch (sort) {
                 case SORT_BY_FOLLOWING:
                     if (followingIds != null) {
-                        query.field("owner").in(followingIds).order("-create_time");
+                        query.field("owner").in(followingIds).order("-created_time");
                     } else {
                         return new ArrayList<>();
                     }
