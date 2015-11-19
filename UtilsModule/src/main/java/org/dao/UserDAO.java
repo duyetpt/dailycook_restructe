@@ -251,9 +251,10 @@ public class UserDAO extends AbstractDAO<User> {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("_id", new ObjectId(userId));
             UpdateOperations<User> updateOperation = datastore.createUpdateOperations(User.class);
-            updateOperation.set("avatar_url", avatarUrl);
-            updateOperation.set("display_name", displayName);
-            updateOperation.set("dob", dob);
+            if (avatarUrl != null) updateOperation.set("avatar_url", avatarUrl);
+            if (displayName != null) updateOperation.set("display_name", displayName);
+            if (dob != null) updateOperation.set("dob", dob);
+            
             datastore.update(query, updateOperation);
         } catch (Exception ex) {
             logger.error("update user profile error", ex);
