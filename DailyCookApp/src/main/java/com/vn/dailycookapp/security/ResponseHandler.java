@@ -29,6 +29,11 @@ public class ResponseHandler implements ContainerResponseFilter {
 		responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
 		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 		
+                // only for test, no-cache
+                responseContext.getHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
+                responseContext.getHeaders().add("Pragma", "no-cache");
+                responseContext.getHeaders().add("Expires", "0");
+                
 		logger.info("			=====================  End reqeust  =====================			");
 	}
 }
