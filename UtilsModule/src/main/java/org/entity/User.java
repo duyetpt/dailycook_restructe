@@ -18,6 +18,11 @@ public class User {
     public static final String NORMAL_USER_ROLE = "normal_user";
     public static final String SUPER_ADMIN_ROLE = "super_admin";
     public static final String ADMIN_ROLE = "admin";
+    
+//    public static final String SORT_BY_NAME = "display_name";/
+    public static final String SORT_BY_DATE = "-registered_time";
+    public static final String SORT_BY_RECIPE = "-n_recipes";
+    public static final String SORT_BY_BAN = "-n_bans";
 
     public static final int ACTIVE_FLAG = 1;
     public static final int BAN_FLAG_ONCE = 0;

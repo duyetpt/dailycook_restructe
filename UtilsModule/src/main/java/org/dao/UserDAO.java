@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.DCAUtilsException;
+import org.Unicode;
 import org.bson.types.ObjectId;
 import org.entity.User;
 import org.mongodb.morphia.query.Query;
@@ -223,8 +224,14 @@ public class UserDAO extends AbstractDAO<User> {
         Query<User> query = datastore.createQuery(User.class);
         return query.countAll();
     }
+
     public long getNumberUserNomal() {
         Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+        return query.countAll();
+    }
+    public long getNumberResultSearchUserNomal(String name) {
+        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+        query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
     }
 
@@ -255,21 +262,51 @@ public class UserDAO extends AbstractDAO<User> {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("_id", new ObjectId(userId));
             UpdateOperations<User> updateOperation = datastore.createUpdateOperations(User.class);
-            if (avatarUrl != null) updateOperation.set("avatar_url", avatarUrl);
-            if (displayName != null) updateOperation.set("display_name", displayName);
-            if (dob != null) updateOperation.set("dob", dob);
-            
+            if (avatarUrl != null) {
+                updateOperation.set("avatar_url", avatarUrl);
+            }
+            if (displayName != null) {
+                updateOperation.set("display_name", displayName);
+            }
+            if (dob != null) {
+                updateOperation.set("dob", dob);
+            }
+
             datastore.update(query, updateOperation);
         } catch (Exception ex) {
             logger.error("update user profile error", ex);
             throw new DAOException();
         }
     }
-    
+
     // count number user with flag
     public long getNumberUserWithFlag(int flag) {
         Query<User> query = datastore.createQuery(User.class);
         query.and(query.criteria("active_flag").equal(flag).and(query.criteria("role").equal(User.NORMAL_USER_ROLE)));
         return query.countAll();
+    }
+
+//    public List<Recipe> searchAllRecipeByName(String name, int skip, int take, String order) throws DAOException {
+//        try {
+//            Query<Recipe> query = datastore.createQuery(Recipe.class);
+//            query.field("normalize_title").contains(Unicode.toAscii(name)).offset(skip).limit(take);
+//            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(order);
+//            
+//            return query.asList();
+//        } catch (Exception ex) {
+//            throw new DAOException();
+//        }
+//    }
+    public List<User> searchAllUserNomal(String name, int skip, int take, String order) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+            query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
+            return query.asList();
+        }
+        catch (Exception ex) {
+            throw new DAOException();
+        }
+
     }
 }
