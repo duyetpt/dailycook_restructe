@@ -223,6 +223,10 @@ public class UserDAO extends AbstractDAO<User> {
         Query<User> query = datastore.createQuery(User.class);
         return query.countAll();
     }
+    public long getNumberUserNomal() {
+        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+        return query.countAll();
+    }
 
     public void updateLanguage(String userId, String language) throws DAOException {
         try {

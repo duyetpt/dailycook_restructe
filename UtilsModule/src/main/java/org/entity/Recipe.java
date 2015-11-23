@@ -17,6 +17,13 @@ public class Recipe {
 	public static final int APPROVED_FLAG = 1;
 	public static final int REPORTED_FLAG = 0;
 	public static final int REMOVED_FLAG = -1;
+        
+	public static final String SORT_BY_TITLE = "title";
+	public static final String SORT_BY_DATE = "-created_time";
+	public static final String SORT_BY_OWNER = "owner";
+	public static final String SORT_BY_FAVORITE_NUMBER = "-favorite_number";
+        
+        
 
 	public static final int MAX_CATEGORY_NUMBER = 5;
 
