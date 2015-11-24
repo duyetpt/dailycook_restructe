@@ -153,4 +153,14 @@ public class UserCache {
 
         return users;
     }
+    
+    public List<CompactUserInfo> list(List<String> userIds) throws DAOException {
+        List<CompactUserInfo> users = new ArrayList<CompactUserInfo>();
+        for (String userId : userIds) {
+            CompactUserInfo user = get(userId);
+            users.add(user);
+        }
+
+        return users;
+    }
 }

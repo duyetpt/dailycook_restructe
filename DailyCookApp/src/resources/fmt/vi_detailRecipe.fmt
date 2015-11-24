@@ -1,64 +1,63 @@
 <html>
-<head>
-    <title>${title}</title>
-    <meta name="description" content="${story}">
-    <meta content="Dailycook" property="og:site_name"/>
-   				<meta content="${story}" itemprop="description" property="og:description"/>
-    <meta property="og:image" itemprop="thumbnailUrl" content="${pictureUrl}" />
-    <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!--  css resource  -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-</head>
-
-<body>
-    <div class="center-block" ng-controller="detailRecipe as recipe">
-        <img src=${pictureUrl} />
-        <p>${title}</p>
-        <p>${story}</p>
-        <p>Lượt xem: ${viewNumber} | Lượt thích: ${favoriteNumber}</p>
-        <#list tags as tag>
-            <a href="#" class="pull-left">${tag}&nbsp;</a>
-        </#list>
-
-        <hr>
-        <p>Người tạo: ${owner}</p>
-        <hr>
-        <div>
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#ingredients">Ingredients</a></li>
-                <li><a data-toggle="tab" href="#direction">Direction</a></li>
-            </ul>
-        </div>
-
-        <div class="tab-content">
-            <div id="ingredients" class="tab-pane fade in active panel panel-default">
-                <#list ingredients as ingredient>
-                    <div class="panel-body">
-                        <p>${ingredient.name} : ${ingredient.quantity} &nbsp; ${ingredient.unit} | ${ingredient.group}</p>
-                    </div>
-                </#list>
+   <head>
+      <title>${title}</title>
+      <meta name="description" content="${story}">
+      <meta content="Dailycook" property="og:site_name"/>
+      <meta content="${story}" itemprop="description" property="og:description"/>
+      <meta property="og:image" itemprop="thumbnailUrl" content="${pictureUrl}" />
+      <meta charset="UTF-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <!--  css resource  -->
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+   </head>
+   <body>
+      <div class="container">
+         <div class="jumbotron">
+            <h2 class="text-center text-primary">${title}</h2>
+            <img class="center-block" src=${pictureUrl} />
+            <p>${story}</p>
+            View: <span class="badge">${viewNumber}</span> | Favorite: <span class="badge">${favoriteNumber}</span>
+            <#list tags as tag>
+            <span class="label label-primary">#${tag}</span>
+            </#list>
+            <hr>
+            <p>Username: ${owner}</p>
+            <hr>
+            <div>
+               <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#ingredients">Ingredients</a></li>
+                  <li><a data-toggle="tab" href="#direction">Direction</a></li>
+               </ul>
             </div>
-            <div id="direction" class="tab-pane fade panel panel-default">
-                <#list steps as step>
-
-                    <div class="panel-body">
-                        <h2>&#43;&nbsp;Step-${step.stepNo}</h2>
-                        <img src=${step.pictureUrl} />
-                        <p>${step.description}</p>
-                    </div>
-
-                </#list>
+            <div class="tab-content">
+               <div id="ingredients" class="tab-pane fade in active panel panel-default">
+                  <#list ingredients as ingredient>
+                  <div class="panel-body">
+                     <p>${ingredient.name} : ${ingredient.quantity} &nbsp; ${ingredient.unit} | ${ingredient.group}</p>
+                  </div>
+                  </#list>
+               </div>
+               <div id="direction" class="tab-pane fade panel panel-default">
+                  <#list steps as step>
+                  <div class="panel-body">
+                     <div class="row">
+                        <div class="col-sm-4"><img src=${step.pictureUrl} alt="Cinque Terre" max-width="304" max-height="236" /></div>
+                        <div class="col-sm-8" style="background-color:lavenderblush;">
+                           <span class="label label-primary">Step-${step.stepNo}</span>
+                           <p>${step.description}</p>
+                        </div>
+                     </div>
+                  </div>
+                  </#list>
+               </div>
             </div>
-        </div>
-    </div>
-</body>
+         </div>
+      </div>
+   </body>
 </html>

@@ -10,6 +10,7 @@ import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FollowUserModel;
 import com.vn.dailycookapp.restmodel.model.GetCommentModel;
 import com.vn.dailycookapp.restmodel.model.GetFavoriteRecipeModel;
+import com.vn.dailycookapp.restmodel.model.GetFollowingModel;
 import com.vn.dailycookapp.restmodel.model.GetIngredientTypesModel;
 import com.vn.dailycookapp.restmodel.model.GetLeftSideInfoModel;
 import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
@@ -52,6 +53,7 @@ public enum ModelDefine {
         CHANGE_LANGUAGE("change_language", ChangeUserLanguageModel.class),
         CHANGE_PASSWORD("change_password", ChangePasswordModel.class),
         UPDATE_USER_PROFILE("update_user_profile", UpdateProfileModel.class),
+        GET_FOLLOWING("get_following", GetFollowingModel.class),
         
         // API FOR ADMIN
         BAN_USER("ban_user", BanUserModel.class),

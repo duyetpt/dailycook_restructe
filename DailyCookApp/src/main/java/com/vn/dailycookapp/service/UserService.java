@@ -202,6 +202,14 @@ public class UserService {
         return Response.ok(data).build();
     }
 
+    // follow= follower | following
+    @GET
+    @Path("/{userId}/{follow}/list")
+    public Response getFollowing(@HeaderParam(HeaderField.USER_ID) String myId, @PathParam("userId") String userId, @PathParam("follow") String follow) {
+        String data = ModelResolver.getApi(ModelDefine.GET_FOLLOWING).doProcess(userId, follow, myId);
+        return Response.ok(data).build();
+    }
+    
     /**
      * Ban user api
      *
