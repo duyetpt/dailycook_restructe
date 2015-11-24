@@ -234,6 +234,12 @@ public class UserDAO extends AbstractDAO<User> {
         query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
     }
+    public long getNumberResultSearchAndFillUserNomal(String name, int flag) {
+        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+        query.filter("active_flag", flag);
+        query.field("display_name").contains(Unicode.toAscii(name));
+        return query.countAll();
+    }
 
     public void updateLanguage(String userId, String language) throws DAOException {
         try {
@@ -286,20 +292,33 @@ public class UserDAO extends AbstractDAO<User> {
         return query.countAll();
     }
 
-//    public List<Recipe> searchAllRecipeByName(String name, int skip, int take, String order) throws DAOException {
+
+    public List<User> searchAllUserNomal(String name, int skip, int take, String order) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+            query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
+            return query.asList();
+        }
+        catch (Exception ex) {
+            throw new DAOException();
+        }
+
+    }
+//    public List<Recipe> searchAllAndFilterRecipeByName(String name, int skip, int take,int flag,String Oder) throws DAOException {
 //        try {
-//            Query<Recipe> query = datastore.createQuery(Recipe.class);
-//            query.field("normalize_title").contains(Unicode.toAscii(name)).offset(skip).limit(take);
-//            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(order);
-//            
+//            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", flag);
+//            query.field("normalize_title").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+//            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(Oder);
 //            return query.asList();
 //        } catch (Exception ex) {
 //            throw new DAOException();
 //        }
 //    }
-    public List<User> searchAllUserNomal(String name, int skip, int take, String order) throws DAOException {
+    public List<User> searchAndFillAllUserNomal(String name, int skip, int take, String order, int flag) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+            query.filter("active_flag", flag);
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
             query.retrievedFields(true, "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
             return query.asList();
