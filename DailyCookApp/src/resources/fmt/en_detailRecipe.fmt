@@ -27,7 +27,7 @@
             <span class="label label-primary">#${tag}</span>
             </#list>
             <hr>
-            <p>Username: ${owner}</p>
+            <p>Author: ${owner}</p>
             <hr>
             <div>
                <ul class="nav nav-tabs">
