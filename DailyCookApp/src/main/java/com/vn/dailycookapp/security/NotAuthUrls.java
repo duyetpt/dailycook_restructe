@@ -30,6 +30,7 @@ class NotAuthUrls {
 		
 		// recipe
 		list.add("dailycook/recipe/get");
+		list.add("dailycook/recipe/detailpage");
 		list.add("dailycook/recipe/search");
 		list.add("dailycook/file/upload");
                 

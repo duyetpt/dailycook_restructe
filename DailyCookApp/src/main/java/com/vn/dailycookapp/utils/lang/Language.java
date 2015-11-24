@@ -44,7 +44,6 @@ public class Language {
     private void init() throws Exception {
         File directory = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
         String langDirectoryPath = directory.getParent() + File.separator + "lang";
-        System.out.println(langDirectoryPath);
         File langDir = new File(langDirectoryPath);
         File[] files = langDir.listFiles();
         Map<String, JSONObject> language = new HashMap<>();

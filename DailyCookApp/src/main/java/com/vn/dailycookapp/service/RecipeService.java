@@ -11,7 +11,10 @@ import javax.ws.rs.core.Response;
 
 import com.vn.dailycookapp.restmodel.ModelDefine;
 import com.vn.dailycookapp.restmodel.ModelResolver;
+import com.vn.dailycookapp.restmodel.model.GetRecipeDetailPageModel;
 import com.vn.dailycookapp.service.mediatypeopen.MediaTypeWithUtf8;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
 @Path("/dailycook/recipe")
@@ -31,6 +34,20 @@ public class RecipeService {
     public Response getRecipe(@HeaderParam(HeaderField.USER_ID) String userId, @QueryParam("recipe") String recipeId) {
         String responseData = ModelResolver.getApi(ModelDefine.GET_RECIPE).doProcess(userId, recipeId);
         return Response.ok().entity(responseData).build();
+    }
+    
+    @GET
+    @Path("/detailpage")
+    @Produces(MediaTypeWithUtf8.TEXT_HTML_UTF8)
+    public Response getRecipeDetailPage(@QueryParam("recipe") String recipeId) {
+        GetRecipeDetailPageModel.getInstance().setRecipeId(recipeId);
+        String responseData;
+        try {
+            responseData = GetRecipeDetailPageModel.getInstance().execute();
+            return Response.ok().entity(responseData).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
     }
 
     @GET
