@@ -28,7 +28,10 @@ public class User {
     public static final int BAN_FLAG_ONCE = 0;
     public static final int BAN_FLAG_SECOND = -1;
     public static final int DELETED_FLAG = -2;
-
+    
+    public static final long BAN_FIRST_TIME = 7 * 24 * 60 * 60 * 1000L;
+    public static final long BAN_SECOND_TIME = 30 * 24 * 60 * 60 * 1000L;
+    
     @Id
     private String id;
 
