@@ -48,7 +48,7 @@ public class UserCache {
         cUser.setLanguage(user.getLanguage());
         cUser.setNumberNotification(user.getNotificationNumber());
         cUser.setDob(user.getDob());
-        
+
         userMap.put(user.getId(), cUser);
         emailMap.put(user.getEmail(), user.getId());
     }
@@ -65,8 +65,10 @@ public class UserCache {
         CompactUserInfo cUser = userMap.get(userId);
         if (cUser == null) {
             User user = UserDAO.getInstance().get(userId, User.class);
-            cache(user);
-            cUser = get(userId);
+            if (user != null) {
+                cache(user);
+                cUser = get(userId);
+            }
         }
 
         return cUser;
@@ -153,7 +155,7 @@ public class UserCache {
 
         return users;
     }
-    
+
     public List<CompactUserInfo> list(List<String> userIds) throws DAOException {
         List<CompactUserInfo> users = new ArrayList<CompactUserInfo>();
         for (String userId : userIds) {
