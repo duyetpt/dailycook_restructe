@@ -41,7 +41,7 @@ public class NotificationDAO extends AbstractDAO<Notification> {
         try {
             Query<Notification> query = datastore
                     .createQuery(Notification.class);
-            query.field("to").equal(userId).order("status").order("sentDate")
+            query.field("to").equal(userId).order("-status").order("-sentDate")
                     .offset(skip).limit(take);
 
             return query.asList();

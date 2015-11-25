@@ -36,7 +36,6 @@ public class ReportRecipeModel extends AbstractModel {
         report.setReporter(myId);
         // save to dao
         ReportDAO.getInstance().save(report);
-        UserDAO.getInstance().increateReportNumber(myId);
         RecipeDAO.getInstance().updateRecipeStatus(report.getRecipe(), Recipe.REPORTED_FLAG);
         return response;
     }
