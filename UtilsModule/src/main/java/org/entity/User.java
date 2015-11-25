@@ -36,7 +36,7 @@ public class User {
     private String displayName;
 
     @Property("email")
-    @Indexed(background = true, unique = true)
+    @Indexed(background = false, unique = true)
     private String email;
 
     @Property("pass")
