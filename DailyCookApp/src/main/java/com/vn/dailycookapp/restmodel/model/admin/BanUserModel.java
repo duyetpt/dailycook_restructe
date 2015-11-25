@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vn.dailycookapp.restmodel.model;
+package com.vn.dailycookapp.restmodel.model.admin;
 
 import com.vn.dailycookapp.entity.request.RegisterInfo;
 import com.vn.dailycookapp.entity.response.DCAResponse;
@@ -12,7 +12,6 @@ import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.security.authentication.LoginFailException;
 import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
-import org.EncryptHelper;
 import org.dao.UserDAO;
 import org.entity.User;
 import org.json.JsonTransformer;
@@ -34,13 +33,8 @@ public class BanUserModel extends AbstractModel{
     // TODO : ENCRYPTE ADMIN INFOR
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-        User user = UserDAO.getInstance().getUserInfoByEmail(adminAcc.getEmail());
-        if (user == null) {
-            throw new LoginFailException(ErrorCodeConstant.USER_NOT_FOUND);
-//        } else if (!user.getPassword().equals(EncryptHelper.encrypt(adminAcc.getPassword()))) {
-        } else if (!user.getPassword().equals(adminAcc.getPassword())) {
-            throw new LoginFailException(ErrorCodeConstant.PASSWORD_INCORRECT);
-        }
+        // authentiation admin
+        AdminAuth.auth(adminAcc);
         
         SessionManager.getInstance().closeAllSessionOfUser(myId);
         return response;

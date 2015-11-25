@@ -103,4 +103,16 @@ public class NotificationDAO extends AbstractDAO<Notification> {
             throw new DAOException();
         }
     }
+
+    public List<Notification> allNotificationOfRecipe(String recipeId) throws DAOException {
+        try {
+            Query<Notification> query = datastore.createQuery(Notification.class);
+            query.filter("recipe_id", recipeId).filter("status", Notification.UNREAD_STATUS);
+            
+            return query.asList();
+        } catch (Exception ex) {
+            logger.error("delete notificaton errror", ex);
+            throw new DAOException();
+        }
+    }
 }
