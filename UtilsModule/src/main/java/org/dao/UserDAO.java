@@ -182,10 +182,23 @@ public class UserDAO extends AbstractDAO<User> {
         return false;
     }
 
+    //ban admin
     public boolean banUser(String userId, int flag) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
-            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("active_flag", flag).inc("n_bans", 1);
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("active_flag", flag);
+            UpdateResults result = datastore.update(query, updateO);
+            return result.getUpdatedCount() == 1;
+        } catch (Exception ex) {
+        }
+        return false;
+    }
+    
+    //ban normal user
+    public boolean banUser(String userId, int flag, long banToTime) {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("active_flag", flag).inc("n_bans", 1).set("ban_to_time", banToTime);
             UpdateResults result = datastore.update(query, updateO);
             return result.getUpdatedCount() == 1;
         } catch (Exception ex) {

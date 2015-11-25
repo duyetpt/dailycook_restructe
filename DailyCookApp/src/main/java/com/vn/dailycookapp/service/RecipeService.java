@@ -13,8 +13,6 @@ import com.vn.dailycookapp.restmodel.ModelDefine;
 import com.vn.dailycookapp.restmodel.ModelResolver;
 import com.vn.dailycookapp.restmodel.model.GetRecipeDetailPageModel;
 import com.vn.dailycookapp.service.mediatypeopen.MediaTypeWithUtf8;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
 @Path("/dailycook/recipe")

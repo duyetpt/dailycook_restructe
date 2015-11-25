@@ -1,7 +1,7 @@
 package com.vn.dailycookapp.restmodel;
 
 import com.vn.dailycookapp.restmodel.model.AddRecipeToMeal;
-import com.vn.dailycookapp.restmodel.model.BanUserModel;
+import com.vn.dailycookapp.restmodel.model.admin.BanUserModel;
 import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
 import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
 import com.vn.dailycookapp.restmodel.model.CommentModel;

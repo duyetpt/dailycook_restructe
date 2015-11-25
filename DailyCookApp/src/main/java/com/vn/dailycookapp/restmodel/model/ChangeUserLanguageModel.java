@@ -5,6 +5,7 @@
  */
 package com.vn.dailycookapp.restmodel.model;
 
+import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
@@ -27,6 +28,7 @@ public class ChangeUserLanguageModel extends AbstractModel{
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         UserDAO.getInstance().updateLanguage(myId, lang);
+        UserCache.getInstance().get(myId).setLanguage(lang);
         return response;
     }
     

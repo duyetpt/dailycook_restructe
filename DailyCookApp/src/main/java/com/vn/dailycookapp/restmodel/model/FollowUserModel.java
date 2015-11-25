@@ -47,13 +47,12 @@ public class FollowUserModel extends AbstractModel {
                     FollowingDAO.getInstance().addFollower(starId, myId);
 
                     // increase following number
-                    UserDAO.getInstance().increateFollowingNumber(starId);
+                    UserDAO.getInstance().increateFollowingNumber(myId);
                     // increase follower number
-                    UserDAO.getInstance().increateFollowerNumber(myId);
+                    UserDAO.getInstance().increateFollowerNumber(starId);
                     // Cache update
                     UserCache.getInstance().get(myId).increaseNumberFollowing();
                     UserCache.getInstance().get(starId).increaseNumberFollower();
-
                     // Notification
                     NotificationActionImp.getInstance().addNotification(null, null, myId, starId,
                             Notification.NEW_FOLLOWER_TYPE);
@@ -65,11 +64,11 @@ public class FollowUserModel extends AbstractModel {
                 if (success) {
                     // add follower
                     FollowingDAO.getInstance().removeFollower(starId, myId);
-
+                    FollowingDAO.getInstance().removeFollowing(myId, starId);
                     // increase following number
-                    UserDAO.getInstance().decreaseFollowingNumber(starId);
+                    UserDAO.getInstance().decreaseFollowingNumber(myId);
                     // increase follower number
-                    UserDAO.getInstance().decreaseFollowerNumber(myId);
+                    UserDAO.getInstance().decreaseFollowerNumber(starId);
                     // Cache update
                     UserCache.getInstance().get(myId).decreaseNumberFollowing();
                     UserCache.getInstance().get(starId).decreaseNumberFollower();

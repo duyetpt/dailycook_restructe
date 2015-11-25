@@ -41,7 +41,7 @@ public class NotificationDAO extends AbstractDAO<Notification> {
         try {
             Query<Notification> query = datastore
                     .createQuery(Notification.class);
-            query.field("to").equal(userId).order("status").order("sentDate")
+            query.field("to").equal(userId).order("-status").order("-sentDate")
                     .offset(skip).limit(take);
 
             return query.asList();
@@ -98,6 +98,18 @@ public class NotificationDAO extends AbstractDAO<Notification> {
             query.filter("recipe_id", recipeId);
 
             datastore.delete(query);
+        } catch (Exception ex) {
+            logger.error("delete notificaton errror", ex);
+            throw new DAOException();
+        }
+    }
+
+    public List<Notification> allNotificationOfRecipe(String recipeId) throws DAOException {
+        try {
+            Query<Notification> query = datastore.createQuery(Notification.class);
+            query.filter("recipe_id", recipeId).filter("status", Notification.UNREAD_STATUS);
+            
+            return query.asList();
         } catch (Exception ex) {
             logger.error("delete notificaton errror", ex);
             throw new DAOException();

@@ -30,7 +30,7 @@ public class GetLeftSideInfoModel extends AbstractModel {
 		cUser.setNumberFollower(user.getNumberFollower());
 		cUser.setNumberFollowing(user.getNumberFollowing());
 		cUser.setNumberRecipes(user.getNumberRecipes());
-		cUser.setNumberFollower(user.getNumberNotification());
+		cUser.setNumberNotification(user.getNumberNotification());
 		// get token
 		cUser.setToken(token);
 		
