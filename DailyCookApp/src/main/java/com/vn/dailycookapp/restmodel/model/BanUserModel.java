@@ -31,12 +31,14 @@ public class BanUserModel extends AbstractModel{
     }
 
     @Override
+    // TODO : ENCRYPTE ADMIN INFOR
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         User user = UserDAO.getInstance().getUserInfoByEmail(adminAcc.getEmail());
         if (user == null) {
             throw new LoginFailException(ErrorCodeConstant.USER_NOT_FOUND);
-        } else if (!user.getPassword().equals(EncryptHelper.encrypt(adminAcc.getPassword()))) {
+//        } else if (!user.getPassword().equals(EncryptHelper.encrypt(adminAcc.getPassword()))) {
+        } else if (!user.getPassword().equals(adminAcc.getPassword())) {
             throw new LoginFailException(ErrorCodeConstant.PASSWORD_INCORRECT);
         }
         
