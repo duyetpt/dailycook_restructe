@@ -133,7 +133,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.vn.dailycookapp.server.DCAServer</mainClass>
+                            <mainClass>com.vn.dailycookapp.server.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

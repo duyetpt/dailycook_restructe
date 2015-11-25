@@ -39,13 +39,7 @@ import com.vn.dailycookapp.security.session.SessionManager;
  */
 public class DCAServer {
 	private final static Logger	logger	= LoggerFactory.getLogger(DCAServer.class);
-	
-	/**
-	 * 
-	 * @param args
-	 *            : args[0] : multi language folder
-	 */
-	public static void main(String[] args) {
+	public static void start() {
 		logger.info("starting config server...");
 		
 		// Path to as-built jetty-distribution directory
