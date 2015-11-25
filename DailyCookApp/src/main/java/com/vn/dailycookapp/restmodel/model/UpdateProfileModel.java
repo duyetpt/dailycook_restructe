@@ -37,8 +37,12 @@ public class UpdateProfileModel extends AbstractModel {
 
         // update cache
         CompactUserInfo user = UserCache.getInstance().get(myId);
-        user.setAvatarUrl(updateUserInfo.getAvatarUrl());
-        user.setDisplayName(updateUserInfo.getDisplayName());
+        if (updateUserInfo.getAvatarUrl() != null) {
+            user.setAvatarUrl(updateUserInfo.getAvatarUrl());
+        }
+        if (updateUserInfo.getDisplayName() != null && !updateUserInfo.getDisplayName().isEmpty()) {
+            user.setDisplayName(updateUserInfo.getDisplayName());
+        }
         user.setDob(updateUserInfo.getDob());
 
         return response;
