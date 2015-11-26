@@ -17,6 +17,7 @@ class NotAuthUrls {
                 regexUrl.add("dailycook[/]recipe[/]report[/](en|vi)[/]reasons");
                 regexUrl.add("dailycook[/]user[/][a-zA-Z0-9]+[/](following|follower)[/]list");
 		regexUrl.add("dailycook[/]user[/]{1}[a-zA-Z0-9]+[/]ban");
+		regexUrl.add("dailycook[/]recipe[/]{1}[a-zA-Z0-9]+[/]remove");
 		regexUrl.add("dailycook[/]user[/]{1}[a-zA-Z0-9]+[/]profile");
 		regexUrl.add("dailycook[/]user[/]{1}[a-zA-Z0-9]+[/]recipes");
 		//dailycook[/]recipe[/]{1}[a-zA-Z1-9]+[/]comment[/]get{1}
