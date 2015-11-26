@@ -36,14 +36,19 @@ public class suggestSearchingModel extends AbstractModel {
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
 		 List<String> result = new ArrayList<String>();
+                 String[] keywords;
 		 switch (type) {
 		 case INGREDIENT_TYPE:
+                         keywords = keyword.split(",+");
+                         keyword = keywords[keywords.length -1];
 			 List<Ingredient> list = IngredientDAO.getInstance().list(keyword, 0, 3);
 			 if (list != null)
 				 for (Ingredient in : list)
 					 result.add(in.getName());
 		 break;
 		 case TAG_TYPE:
+                         keywords = keyword.split(",+");
+                         keyword = keywords[keywords.length -1];
 			 List<Tag> tags = TagDAO.getInstance().list(keyword, 0, 3);
 			 if (tags != null)
 				 for (Tag tag : tags)

@@ -62,6 +62,7 @@ public class SearchRecipeModel extends AbstractModel {
                     List<String> ingredientIds = new ArrayList<String>();
                     for (Ingredient in : listIngredient) {
                         ingredientIds.add(in.getId());
+                        System.out.println(in.getId());
                     }
                     // get all recipe match ingredient list
                     recipes = RecipeDAO.getInstance().listRecipeByIngredient(ingredientIds);
@@ -69,7 +70,7 @@ public class SearchRecipeModel extends AbstractModel {
                     for (Recipe recipe : recipes) {
                         int count = 0;
                         for (Ingredient ing : recipe.getIngredients()) {
-                            if (listIngredient.contains(ing)) {
+                            if (ingredientIds.contains(ing.getId())) {
                                 count++;
                             }
                         }
@@ -152,12 +153,4 @@ public class SearchRecipeModel extends AbstractModel {
         Collections.sort(result);
         return result;
     }
-
-	// public static void main(String[] args) {
-    // List<String> lit = new ArrayList<String>();
-    // lit.add("a");
-    // lit.add("b");
-    //
-    // System.out.print(lit.subList(1, 2));
-    // }
 }

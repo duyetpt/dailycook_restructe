@@ -108,19 +108,19 @@ public class SearchRecipeResponseData implements Comparable<SearchRecipeResponse
 	@Override
 	public int compareTo(SearchRecipeResponseData other) {
 		if (this.percentMatch != other.getPercentMatch()) {
-			return this.percentMatch > other.percentMatch ? 1 : -1;
+			return this.percentMatch > other.percentMatch ? -1 : 1;
 		}
 		
 		if (this.favorite != other.favorite) {
-			return this.favorite ? 1 : -1;
+			return this.favorite ? -1 : 1;
 		}
 		
 		if (this.nFavorite != other.nFavorite) {
-			return this.nFavorite > other.nFavorite ? 1 : -1;
+			return this.nFavorite > other.nFavorite ? -1 : 1;
 		}
 		
 		if (this.createTime != other.createTime) {
-			return this.createTime > other.createTime ? 1 : -1;
+			return this.createTime > other.createTime ? -1 : 1;
 		}
 		
 		return 0;
