@@ -102,7 +102,7 @@ public class SearchRecipeModel extends AbstractModel {
             skip = 0;
             take = 0;
         } else {
-            take = resultLength - skip < take ? resultLength : take;
+            take = resultLength - skip < take ? resultLength : take + skip;
         }
         response.setData(result.subList(skip, take));
         return response;
@@ -152,5 +152,22 @@ public class SearchRecipeModel extends AbstractModel {
 
         Collections.sort(result);
         return result;
+    }
+    
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        list.add("10");
+        
+        List<String> result = list.subList(2, 7);
+        System.out.println(result);
     }
 }
