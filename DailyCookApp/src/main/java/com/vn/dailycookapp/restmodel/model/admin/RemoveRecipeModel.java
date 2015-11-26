@@ -15,12 +15,10 @@ import java.util.List;
 import org.dao.CommentDAO;
 import org.dao.FavoriteDAO;
 import org.dao.FavoritedDAO;
-import org.dao.IngredientDAO;
 import org.dao.NotificationDAO;
 import org.dao.RecipeDAO;
 import org.dao.UserDAO;
 import org.entity.Favorited;
-import org.entity.Ingredient;
 import org.entity.Notification;
 import org.entity.Recipe;
 import org.json.JsonTransformer;
@@ -59,14 +57,18 @@ public class RemoveRecipeModel extends AbstractModel{
                 FavoriteDAO.getInstance().pull(userId, recipeId);
             }
         }
+        FavoritedDAO.getInstance().delete(recipeId, Favorited.class);
+        
         // all comment
         CommentDAO.getInstance().removeAllCommentOfRecipe(recipeId);
         // all ingredients, step
-        Recipe recipe = RecipeDAO.getInstance().get(recipeId);
-        for (Ingredient ingr: recipe.getIngredients()) {
-            IngredientDAO.getInstance().delete(ingr.getId(), Ingredient.class);
-        }
-
+//        Recipe recipe = RecipeDAO.getInstance().get(recipeId);
+//        for (Ingredient ingr: recipe.getIngredients()) {
+//            IngredientDAO.getInstance().delete(ingr.getId(), Ingredient.class);
+//        }
+        
+//        RecipeDAO.getInstance().delete(recipeId, Recipe.class);
+        RecipeDAO.getInstance().updateRecipeStatus(recipeId, Recipe.REMOVED_FLAG);
         return response;
     }
     

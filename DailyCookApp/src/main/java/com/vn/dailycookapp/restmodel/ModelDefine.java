@@ -32,6 +32,7 @@ import com.vn.dailycookapp.restmodel.model.SearchRecipeModel;
 import com.vn.dailycookapp.restmodel.model.SearchUserModel;
 import com.vn.dailycookapp.restmodel.model.UpdateNotificationModel;
 import com.vn.dailycookapp.restmodel.model.UpdateProfileModel;
+import com.vn.dailycookapp.restmodel.model.admin.RemoveRecipeModel;
 import com.vn.dailycookapp.restmodel.model.suggestSearchingModel;
 
 public enum ModelDefine {
@@ -57,6 +58,7 @@ public enum ModelDefine {
         
         // API FOR ADMIN
         BAN_USER("ban_user", BanUserModel.class),
+        REMOVE_RECIPE("remove_recipe", RemoveRecipeModel.class),
         
         GET_INGREDIENT_TYPE("get_ingredient_type", GetIngredientTypesModel.class),
 	GET_UNITS("get_units", GetUnitsModel.class),

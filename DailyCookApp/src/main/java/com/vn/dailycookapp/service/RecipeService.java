@@ -13,6 +13,7 @@ import com.vn.dailycookapp.restmodel.ModelDefine;
 import com.vn.dailycookapp.restmodel.ModelResolver;
 import com.vn.dailycookapp.restmodel.model.GetRecipeDetailPageModel;
 import com.vn.dailycookapp.service.mediatypeopen.MediaTypeWithUtf8;
+import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 
 @Path("/dailycook/recipe")
@@ -126,6 +127,14 @@ public class RecipeService {
     @Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
     public Response getReason(@PathParam("language") String language) {
         String data = ModelResolver.getApi(ModelDefine.GET_REPORT_REASON).doProcess(language);
+        return Response.ok().entity(data).build();
+    }
+    
+    @PUT
+    @Path("/{recipeId}/remove")
+    @Produces(MediaTypeWithUtf8.APPLICATION_JSON_UTF8)
+    public Response removeRecipe(@PathParam("recipeId") String recipeId, String accInfo) {
+        String data = ModelResolver.getApi(ModelDefine.REMOVE_RECIPE).doProcess(recipeId, accInfo);
         return Response.ok().entity(data).build();
     }
 }
