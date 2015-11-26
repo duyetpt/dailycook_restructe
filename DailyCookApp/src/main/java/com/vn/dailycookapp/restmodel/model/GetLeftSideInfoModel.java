@@ -6,6 +6,8 @@ import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.security.authentication.CurrentUser;
+import com.vn.dailycookapp.security.session.SessionClosedException;
+import com.vn.dailycookapp.utils.DCAException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
 
 public class GetLeftSideInfoModel extends AbstractModel {
@@ -34,6 +36,8 @@ public class GetLeftSideInfoModel extends AbstractModel {
             cUser.setNumberNotification(user.getNumberNotification());
             // get token
             cUser.setToken(token);
+        } else {
+            throw new SessionClosedException(ErrorCodeConstant.CLOSED_SESSION.getErrorCode());
         }
 
         response.setData(cUser);
