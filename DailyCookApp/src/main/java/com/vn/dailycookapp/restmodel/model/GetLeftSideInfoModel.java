@@ -9,33 +9,35 @@ import com.vn.dailycookapp.security.authentication.CurrentUser;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
 
 public class GetLeftSideInfoModel extends AbstractModel {
-	
-	private String token;
-	@Override
-	protected void preExecute(String... data) throws InvalidParamException {
-		myId = data[0];
-		token = data[1];
-	}
-	
-	@Override
-	protected DCAResponse execute() throws Exception {
-		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		CompactUserInfo user = UserCache.getInstance().get(myId);
-		
-		CurrentUser cUser = new CurrentUser();
-                cUser.setUserId(user.getUserId());
-		cUser.setAvatarUrl(user.getAvatarUrl());
-		cUser.setCoverUrl(user.getCoverUrl());
-		cUser.setDisplayName(user.getDisplayName());
-		cUser.setNumberFollower(user.getNumberFollower());
-		cUser.setNumberFollowing(user.getNumberFollowing());
-		cUser.setNumberRecipes(user.getNumberRecipes());
-		cUser.setNumberNotification(user.getNumberNotification());
-		// get token
-		cUser.setToken(token);
-		
-		response.setData(cUser);
-		return response;
-	}
-	
+
+    private String token;
+
+    @Override
+    protected void preExecute(String... data) throws InvalidParamException {
+        myId = data[0];
+        token = data[1];
+    }
+
+    @Override
+    protected DCAResponse execute() throws Exception {
+        DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
+        CurrentUser cUser = new CurrentUser();
+        if (myId != null) {
+            CompactUserInfo user = UserCache.getInstance().get(myId);
+            cUser.setUserId(user.getUserId());
+            cUser.setAvatarUrl(user.getAvatarUrl());
+            cUser.setCoverUrl(user.getCoverUrl());
+            cUser.setDisplayName(user.getDisplayName());
+            cUser.setNumberFollower(user.getNumberFollower());
+            cUser.setNumberFollowing(user.getNumberFollowing());
+            cUser.setNumberRecipes(user.getNumberRecipes());
+            cUser.setNumberNotification(user.getNumberNotification());
+            // get token
+            cUser.setToken(token);
+        }
+
+        response.setData(cUser);
+        return response;
+    }
+
 }

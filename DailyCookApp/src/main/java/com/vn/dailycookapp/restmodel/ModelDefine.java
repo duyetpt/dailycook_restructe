@@ -16,7 +16,6 @@ import com.vn.dailycookapp.restmodel.model.GetLeftSideInfoModel;
 import com.vn.dailycookapp.restmodel.model.GetNotificationsModel;
 import com.vn.dailycookapp.restmodel.model.GetPlanMeal;
 import com.vn.dailycookapp.restmodel.model.GetPlanMealDetail;
-import com.vn.dailycookapp.restmodel.model.GetRecipeDetailPageModel;
 import com.vn.dailycookapp.restmodel.model.GetRecipeModel;
 import com.vn.dailycookapp.restmodel.model.GetRecipeOfUserModel;
 import com.vn.dailycookapp.restmodel.model.GetReportReasonModel;
