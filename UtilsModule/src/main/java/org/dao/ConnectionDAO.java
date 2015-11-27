@@ -24,8 +24,8 @@ class ConnectionDAO {
 		// can be called multiple times with different packages or classes
 		morphia.mapPackage("com.vn.dailycookapp.entity");
 
-//		MongoClient mongoClient = new MongoClient("localhost");
-		MongoClient mongoClient = new MongoClient("dailycook.cloudapp.net");
+		MongoClient mongoClient = new MongoClient("localhost");
+//		MongoClient mongoClient = new MongoClient("dailycook.cloudapp.net");
 		
 		// create the Datastore connecting to the default port on the local host
 		datastore = morphia.createDatastore(mongoClient, DBNAME);
