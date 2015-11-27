@@ -383,7 +383,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     // get recipe of user
     public List<Recipe> getRecipeOfUser(String userId, int skip, int take) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("owner", userId).limit(take).offset(skip);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG).filter("owner", userId).limit(take).offset(skip).order("-created_time");
             
             return query.asList();
         } catch (Exception ex) {

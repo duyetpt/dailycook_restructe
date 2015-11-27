@@ -11,7 +11,9 @@ import com.vn.dailycookapp.entity.response.FollowResponseData;
 import com.vn.dailycookapp.notification.NotificationActionImp;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
+import com.vn.dailycookapp.security.authentication.BanedUserException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import org.entity.User;
 
 public class FollowUserModel extends AbstractModel {
 
@@ -41,6 +43,10 @@ public class FollowUserModel extends AbstractModel {
         switch (flag) {
             case FOLLOW_FLAG:
                 // add following
+                User user = UserDAO.getInstance().getUser(starId);
+                if (user.getActiveFlag() != User.ACTIVE_FLAG) {
+                    throw new BanedUserException(ErrorCodeConstant.BANED_USER);
+                }
                 success = FollowingDAO.getInstance().following(myId, starId);
                 if (success) {
                     // add follower
@@ -76,9 +82,9 @@ public class FollowUserModel extends AbstractModel {
                 break;
         }
 
-        CompactUserInfo user = UserCache.getInstance().get(myId);
+        CompactUserInfo user = UserCache.getInstance().get(starId);
         FollowResponseData data = new FollowResponseData();
-        data.setFollowingNumber(user.getNumberFollowing());
+        data.setFollowingNumber(user.getNumberFollower());
 
         response.setData(data);
         return response;
