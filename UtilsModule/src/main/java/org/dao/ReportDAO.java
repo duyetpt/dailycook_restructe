@@ -27,7 +27,7 @@ public class ReportDAO extends AbstractDAO{
         return instance;
     }
     
-    public Report getReport(String reportId) {
+    public Report getReport(String reportId) throws DAOException{
         try {
             Query<Report> query = datastore.createQuery(Report.class).field("_id").equal(new ObjectId(reportId));
             Report report = query.get();
@@ -38,7 +38,7 @@ public class ReportDAO extends AbstractDAO{
         return null;
     }
     
-    public List<Report> getAllReport(){
+    public List<Report> getAllReport() throws DAOException{
         try{
             Query<Report> query = datastore.createQuery(Report.class);
             return query.asList();
@@ -72,5 +72,16 @@ public class ReportDAO extends AbstractDAO{
     public long getNumberReport() {
         Query<Report> query = datastore.createQuery(Report.class);
         return query.countAll();
+    }
+    
+    public Report getReportByRecipe(String recipeId) throws DAOException{
+        try {
+            Query<Report> query = datastore.createQuery(Report.class).field("recipe").equal(new ObjectId(recipeId));
+            Report report = query.get();
+
+            return report;
+        } catch (Exception ex) {
+        }
+        return null;
     }
 }
