@@ -76,7 +76,7 @@ public class ReportDAO extends AbstractDAO{
     
     public Report getReportByRecipe(String recipeId) throws DAOException{
         try {
-            Query<Report> query = datastore.createQuery(Report.class).field("recipe").equal(new ObjectId(recipeId));
+            Query<Report> query = datastore.createQuery(Report.class).field("recipe").equal(recipeId);
             Report report = query.get();
 
             return report;
