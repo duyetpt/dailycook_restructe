@@ -65,11 +65,11 @@ public class DeviceToken {
         this.userId = userId;
     }
 
-    public String getDeviceToke() {
+    public String getDeviceToken() {
         return deviceToken;
     }
 
-    public void setDeviceToke(String deviceToke) {
+    public void setDeviceToken(String deviceToke) {
         this.deviceToken = deviceToke;
     }
 
