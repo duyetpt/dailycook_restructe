@@ -36,9 +36,9 @@ public class DeviceTokenRegisterModel extends AbstractModel {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         token.setUserId(myId);
         token.setPlatform(platform);
-        token.setDeviceTokenByte(TokenUtil.tokenStringToByteArray(token.getDeviceToke()));
+        token.setDeviceTokenByte(TokenUtil.tokenStringToByteArray(token.getDeviceToken()));
         
-        if (DeviceTokenDAO.getInstance().getDevice(token.getDeviceToke()) != null) {
+        if (DeviceTokenDAO.getInstance().getDevice(token.getDeviceToken()) != null) {
             response.setError(ErrorCodeConstant.EXISTED_DEVICE_TOKEN.getErrorCode());
             return response;
         }
@@ -48,7 +48,7 @@ public class DeviceTokenRegisterModel extends AbstractModel {
     }
 
     public void validate() throws InvalidParamException {
-        if (token.getDeviceToke().length() != 64) {
+        if (token.getDeviceToken().length() != 64) {
             logger.error("device token length invalid");
             throw new InvalidParamException();
         }
