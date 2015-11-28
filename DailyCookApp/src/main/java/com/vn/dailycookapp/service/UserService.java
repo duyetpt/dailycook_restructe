@@ -210,6 +210,14 @@ public class UserService {
         return Response.ok(data).build();
     }
     
+    @POST
+    @Path("{platform}/device")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deviceRegister(@HeaderParam(HeaderField.USER_ID) String owner, String requestData, @PathParam("platform") String platform) {
+        String data = ModelResolver.getApi(ModelDefine.DEVICE_TOKEN_REGISTER).doProcess(owner, requestData, platform);
+        return Response.ok(data).build();
+    }
+    // ==== Admin API
     /**
      * Ban user api
      *

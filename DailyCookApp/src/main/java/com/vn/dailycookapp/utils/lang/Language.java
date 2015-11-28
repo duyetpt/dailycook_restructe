@@ -1,5 +1,6 @@
 package com.vn.dailycookapp.utils.lang;
 
+import com.vn.dailycookapp.utils.ConfigurationLoader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +43,8 @@ public class Language {
     }
 
     private void init() throws Exception {
-        File directory = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        String langDirectoryPath = directory.getParent() + File.separator + "lang";
+//        File directory = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        String langDirectoryPath = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "lang";
         File langDir = new File(langDirectoryPath);
         File[] files = langDir.listFiles();
         Map<String, JSONObject> language = new HashMap<>();
@@ -107,7 +108,8 @@ public class Language {
             delegate.put(Notification.NEW_FAVORITE_TYPE, arr.getString("new_favorite"));
             delegate.put(Notification.NEW_FOLLOWER_TYPE, arr.getString("new_follower"));//
             delegate.put(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE, arr.getString("new_recipe_of_following"));
-            delegate.put(Notification.WARM_TYPE, arr.getString("warm"));
+            delegate.put(Notification.UNBAN_USER_TYPE, arr.getString("unban_user"));
+            delegate.put(Notification.REMOVE_RECIPE_TYPE, arr.getString("remove_recipe"));
         }
     }
     

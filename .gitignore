@@ -2,3 +2,4 @@
 RemoteSystemsTempFiles/
 .metadata/
 DailyCookApp/opt/
+DailyCookApp/src/main/java/com/vn/dailycookapp/notification/appleservice/Demo.java

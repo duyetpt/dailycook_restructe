@@ -6,6 +6,7 @@ import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
 import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
 import com.vn.dailycookapp.restmodel.model.CommentModel;
 import com.vn.dailycookapp.restmodel.model.CreateRecipeModel;
+import com.vn.dailycookapp.restmodel.model.DeviceTokenRegisterModel;
 import com.vn.dailycookapp.restmodel.model.FavoriteRecipeModel;
 import com.vn.dailycookapp.restmodel.model.FollowUserModel;
 import com.vn.dailycookapp.restmodel.model.GetCommentModel;
@@ -54,6 +55,7 @@ public enum ModelDefine {
         CHANGE_PASSWORD("change_password", ChangePasswordModel.class),
         UPDATE_USER_PROFILE("update_user_profile", UpdateProfileModel.class),
         GET_FOLLOWING("get_following", GetFollowingModel.class),
+        DEVICE_TOKEN_REGISTER("device_token_register", DeviceTokenRegisterModel.class),
         
         // API FOR ADMIN
         BAN_USER("ban_user", BanUserModel.class),

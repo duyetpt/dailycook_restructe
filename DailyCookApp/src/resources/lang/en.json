@@ -12,10 +12,11 @@
     ],
     "notification_msg": {
         "new_comment": "was commented in your recipe",
-        "new_follower": "was followed you",
+        "new_follower": "followed you",
         "new_favorite": "was favorited a your recipe",
         "new_recipe_of_following": "added a new recipe",
-        "warm": ""
+        "unban_user": "Wellcome, you account is active.",
+        "remove_recipe": "Sorry, A your recipe is removed!"
     },
     "units": [
         "Kg",

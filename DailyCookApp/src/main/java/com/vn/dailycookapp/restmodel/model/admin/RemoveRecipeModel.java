@@ -8,6 +8,7 @@ package com.vn.dailycookapp.restmodel.model.admin;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.request.RegisterInfo;
 import com.vn.dailycookapp.entity.response.DCAResponse;
+import com.vn.dailycookapp.notification.NotificationActionImp;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
@@ -21,6 +22,7 @@ import org.dao.UserDAO;
 import org.entity.Favorited;
 import org.entity.Notification;
 import org.entity.Recipe;
+import org.entity.User;
 import org.json.JsonTransformer;
 
 /**
@@ -61,14 +63,15 @@ public class RemoveRecipeModel extends AbstractModel{
         
         // all comment
         CommentDAO.getInstance().removeAllCommentOfRecipe(recipeId);
-        // all ingredients, step
-//        Recipe recipe = RecipeDAO.getInstance().get(recipeId);
-//        for (Ingredient ingr: recipe.getIngredients()) {
-//            IngredientDAO.getInstance().delete(ingr.getId(), Ingredient.class);
-//        }
-        
-//        RecipeDAO.getInstance().delete(recipeId, Recipe.class);
         RecipeDAO.getInstance().updateRecipeStatus(recipeId, Recipe.REMOVED_FLAG);
+        
+        // NOTI TO USER
+        Recipe recipe = RecipeDAO.getInstance().getRecipe(recipeId);
+        User user = UserDAO.getInstance().get(recipe.getOwner(), User.class);
+        if (user.getActiveFlag() != User.DELETED_FLAG) {
+            NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), "Dailycook", recipe.getOwner(), Notification.REMOVE_RECIPE_TYPE);
+        }
+        
         return response;
     }
     

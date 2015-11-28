@@ -16,7 +16,8 @@ public class Notification {
     public static final String NEW_COMMENT_TYPE = "new_comment_noti";
     public static final String NEW_FOLLOWER_TYPE = "new_follower_noti";
     public static final String NEW_RECIPE_FROM_FOLLOWING_TYPE = "new_recipe_from_following_noti";
-    public static final String WARM_TYPE = "warm_noti";
+    public static final String UNBAN_USER_TYPE = "unban_user";
+    public static final String REMOVE_RECIPE_TYPE = "remove_recipe";
     public static final String NEW_FAVORITE_TYPE = "favorite_noti";
 
     @Id

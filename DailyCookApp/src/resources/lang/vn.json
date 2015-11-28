@@ -15,7 +15,8 @@
         "new_follower": "đang theo dõi bạn",
         "new_favorite": "đã thích một công thức của bạn",
         "new_recipe_of_following": "đã thêm một công thức mới",
-        "warm": ""
+        "unban_user": "Chào mừng bạn quay trở lại",
+        "remove_recipe": "Xin lỗi, chúng tôi đã phải xóa một công thức của bạn!"
     },
     "units": [
         "Kg",

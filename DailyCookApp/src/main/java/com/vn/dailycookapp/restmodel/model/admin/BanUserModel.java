@@ -9,11 +9,8 @@ import com.vn.dailycookapp.entity.request.RegisterInfo;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
-import com.vn.dailycookapp.security.authentication.LoginFailException;
 import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
-import org.dao.UserDAO;
-import org.entity.User;
 import org.json.JsonTransformer;
 
 /**

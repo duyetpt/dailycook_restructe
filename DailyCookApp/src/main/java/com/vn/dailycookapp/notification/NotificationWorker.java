@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
+import com.vn.dailycookapp.notification.appleservice.AppleNotificationManager;
 
 public class NotificationWorker extends Thread {
 
@@ -43,13 +44,18 @@ public class NotificationWorker extends Thread {
                     case Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE:
                         list = notiNewRecipe(noti);
                         break;
-                    case Notification.WARM_TYPE:
+                    case Notification.REMOVE_RECIPE_TYPE:
+                        list = notiRemoveRecipe(noti);
+                        break;
+                    case Notification.UNBAN_USER_TYPE:
                         // TODO
                         break;
                 }
 
                 // save to DB
                 NotificationDAO.getInstance().save(list);
+                // apple notificaton
+                AppleNotificationManager.getInstance().pushs(list);
             } catch (Exception e) {
                 logger.error("notification process exceiption", e);
             }
@@ -145,6 +151,18 @@ public class NotificationWorker extends Thread {
         noti.setType(Notification.NEW_FOLLOWER_TYPE);
         noti.setFromAvatar(user.getAvatarUrl());
         noti.setFromName(user.getDisplayName());
+
+        List<Notification> notis = new ArrayList<Notification>();
+        notis.add(noti);
+        return notis;
+    }
+    
+    private List<Notification> notiRemoveRecipe(Notification notification) {
+       
+        Notification noti = new Notification();
+        noti.setFrom(notification.getFrom());
+        noti.setTo(notification.getTo());
+        noti.setType(Notification.NEW_FOLLOWER_TYPE);
 
         List<Notification> notis = new ArrayList<Notification>();
         notis.add(noti);

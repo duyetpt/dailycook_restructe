@@ -5,11 +5,10 @@
  */
 package com.vn.dailycookapp.utils.lang;
 
+import com.vn.dailycookapp.utils.ConfigurationLoader;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import org.FileUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +37,8 @@ public class FmtLoader {
     }
 
     private void init() throws Exception {
-        File directory = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        String langDirectoryPath = directory.getParent() + File.separator + "fmt";
+//        File directory = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        String langDirectoryPath = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "fmt";
         this.templatePath = langDirectoryPath;
         
         File langDir = new File(langDirectoryPath);
