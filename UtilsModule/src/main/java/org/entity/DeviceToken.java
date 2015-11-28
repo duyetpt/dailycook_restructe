@@ -40,12 +40,15 @@ public class DeviceToken {
 
     private String platform;
 
+    public DeviceToken() {
+    }
+
     public DeviceToken(String userId, String deviceToke, String platform) {
         this.userId = userId;
         this.deviceToken = deviceToke;
         this.platform = platform;
     }
-
+    
     public String getId() {
         return id;
     }
