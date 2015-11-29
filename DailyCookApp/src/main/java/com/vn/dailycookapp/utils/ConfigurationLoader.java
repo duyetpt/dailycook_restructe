@@ -43,8 +43,8 @@ public class ConfigurationLoader {
             imageDirectory = properties.getProperty(IMAGE_FOLDER_KEY, "opt");
             serverPort = Integer.parseInt(properties.getProperty(SERVER_PORT, "8181"));
             publicIpAddress = properties.getProperty(PUBLIC_IP_ADDRESS);
-            deloyDirectory = getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-        } catch (IOException | NumberFormatException | URISyntaxException e) {
+            deloyDirectory = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        } catch (IOException | NumberFormatException e) {
             logger.error("Read config file error!", e);
         }
     }
