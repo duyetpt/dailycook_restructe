@@ -77,7 +77,7 @@ public class CreateRecipeModel extends AbstractModel {
 		UserCache.getInstance().get(myId).increaseNumberRecipe();
 		
 		// notification, add recipe to user_recipe
-		NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), myId, null,
+		NotificationActionImp.getInstance().addNotification(recipe.getId(), recipe.getTitle(), myId, null,
 				Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
 		
 		return response;
