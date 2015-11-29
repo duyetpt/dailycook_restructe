@@ -35,9 +35,6 @@ public class DeviceToken {
     @Property("device_token")
     private String deviceToken;
 
-    @Property("device_token_byte")
-    private byte[] deviceTokenByte;
-
     private String platform;
 
     public DeviceToken() {
@@ -80,13 +77,4 @@ public class DeviceToken {
     public void setPlatform(String platform) {
         this.platform = platform;
     }
-
-    public byte[] getDeviceTokenByte() {
-        return deviceTokenByte;
-    }
-
-    public void setDeviceTokenByte(byte[] deviceTokenByte) {
-        this.deviceTokenByte = deviceTokenByte;
-    }
-
 }

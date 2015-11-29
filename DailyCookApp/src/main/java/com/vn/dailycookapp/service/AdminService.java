@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 import org.json.JsonTransformer;
 
 import com.vn.dailycookapp.security.session.SessionManager;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 
 @Path("/dailycook/admin/putin93/")
 public class AdminService {
@@ -19,5 +21,13 @@ public class AdminService {
 		String result = null;
 		result = JsonTransformer.getInstance().marshall(SessionManager.getInstance().getAllSession());
 		return result;
+	}
+        
+        @GET
+        @Path("/push/{userId}/noti")
+        @Produces(MediaType.APPLICATION_JSON)
+	public String pushNotification(@PathParam("userId") String userId) {
+            
+            return "Ok";
 	}
 }

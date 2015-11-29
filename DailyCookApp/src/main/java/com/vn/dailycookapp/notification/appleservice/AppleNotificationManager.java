@@ -9,8 +9,10 @@ import com.relayrides.pushy.apns.ApnsEnvironment;
 import com.relayrides.pushy.apns.PushManager;
 import com.relayrides.pushy.apns.PushManagerConfiguration;
 import com.relayrides.pushy.apns.util.ApnsPayloadBuilder;
+import com.relayrides.pushy.apns.util.MalformedTokenStringException;
 import com.relayrides.pushy.apns.util.SSLContextUtil;
 import com.relayrides.pushy.apns.util.SimpleApnsPushNotification;
+import com.relayrides.pushy.apns.util.TokenUtil;
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.utils.ConfigurationLoader;
@@ -27,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import org.dao.DAOException;
 import org.dao.DeviceTokenDAO;
 import org.entity.DeviceToken;
@@ -46,7 +49,6 @@ public class AppleNotificationManager {
     private PushManager<SimpleApnsPushNotification> pushManager;
 //    private final ExecutorService exeService;
 //    private final PushManagerConfiguration pushManagerConfig;
-    
 
     private AppleNotificationManager() {
 //        exeService = new ThreadPoolExecutor(2, 4, 3, TimeUnit.MINUTES, new SynchronousQueue<Runnable>());
@@ -82,6 +84,7 @@ public class AppleNotificationManager {
 
             List<DeviceToken> deviceTokens = DeviceTokenDAO.getInstance().getUserDevices(noti.getTo());
             if (deviceTokens == null || deviceTokens.isEmpty()) {
+                logger.warn(toUser.getDisplayName() + " don't regist any device");
                 return;
             }
 
@@ -94,27 +97,61 @@ public class AppleNotificationManager {
             payloadBuilder.setSoundFileName("ring-ring.aiff");
             payloadBuilder.setAlertTitle("Dailycook");
             payloadBuilder.setBadgeNumber(toUser.getNumberNotification());
-            
+
             final String payload = payloadBuilder.buildWithDefaultMaximumLength();
 
             for (DeviceToken token : deviceTokens) {
-                logger.info("APNS-" +  token.getDeviceToken());
-                pushManager.getQueue().put(new SimpleApnsPushNotification(token.getDeviceTokenByte(), payload));
+                logger.info("APNS-" + token.getDeviceToken());
+                pushManager.getQueue().put(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
             }
 
             pushManager.requestExpiredTokens();
-        } catch (DAOException | InterruptedException ex) {
+        } catch (DAOException | InterruptedException | MalformedTokenStringException ex) {
             logger.error("push notification error", ex);
         }
     }
-    
+
     public void pushs(List<Notification> listNotification) {
         for (Notification noti : listNotification) {
             push(noti);
         }
     }
-    
+
+    public void testPush(String userId) {
+        try {
+            StringBuilder sbuffer = new StringBuilder();
+
+            List<DeviceToken> deviceTokens = DeviceTokenDAO.getInstance().getUserDevices(userId);
+            if (deviceTokens == null || deviceTokens.isEmpty()) {
+                logger.warn("Not registed any device:" + userId);
+                return;
+            }
+
+            String msg = "I am admin of Dailycook";
+            sbuffer.append(msg);
+
+            final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+
+            payloadBuilder.setAlertBody(sbuffer.toString());
+            payloadBuilder.setSoundFileName("ring-ring.aiff");
+            payloadBuilder.setAlertTitle("Dailycook");
+            payloadBuilder.setBadgeNumber(1);
+
+            final String payload = payloadBuilder.buildWithDefaultMaximumLength();
+
+            for (DeviceToken token : deviceTokens) {
+                logger.info("APNS-" + token.getDeviceToken());
+                pushManager.getQueue().put(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
+            }
+
+            pushManager.requestExpiredTokens();
+        } catch (DAOException | InterruptedException | MalformedTokenStringException ex) {
+            logger.error("push notification error", ex);
+        }
+    }
+
     private static AppleNotificationManager instance = new AppleNotificationManager();
+
     public static AppleNotificationManager getInstance() {
         return instance;
     }

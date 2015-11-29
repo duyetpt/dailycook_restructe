@@ -36,8 +36,7 @@ public class DeviceTokenRegisterModel extends AbstractModel {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         token.setUserId(myId);
         token.setPlatform(platform);
-        token.setDeviceTokenByte(TokenUtil.tokenStringToByteArray(token.getDeviceToken()));
-        
+
         if (DeviceTokenDAO.getInstance().getDevice(token.getDeviceToken()) != null) {
             response.setError(ErrorCodeConstant.EXISTED_DEVICE_TOKEN.getErrorCode());
             return response;
