@@ -98,6 +98,7 @@ public class AppleNotificationManager {
             final String payload = payloadBuilder.buildWithDefaultMaximumLength();
 
             for (DeviceToken token : deviceTokens) {
+                logger.info("APNS-" +  token.getDeviceToken());
                 pushManager.getQueue().put(new SimpleApnsPushNotification(token.getDeviceTokenByte(), payload));
             }
 
