@@ -24,7 +24,7 @@ class NotAuthUrls {
 
         // admin
         list.add("dailycook/admin/putin93/list/session");
-        list.add("dailycook/admin/putin93/push/[a-zA-Z0-9]+/noti");
+        regexUrl.add("dailycook[/]admin[/]putin93[/]push[/][a-zA-Z0-9]+[/]noti");
         
         //user
         list.add("dailycook/user/login");

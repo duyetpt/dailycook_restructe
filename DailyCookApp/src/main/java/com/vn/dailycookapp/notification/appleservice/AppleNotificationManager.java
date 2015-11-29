@@ -25,11 +25,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import org.dao.DAOException;
 import org.dao.DeviceTokenDAO;
 import org.entity.DeviceToken;
@@ -44,6 +39,7 @@ import org.slf4j.LoggerFactory;
 public class AppleNotificationManager {
 
     private final String P12_PATH = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12" + File.separator + "CertificatesPushDailyCook.p12";
+//    private final String P12_PATH = "C:\\Users\\duyetpt\\Documents\\dailycook_restructe\\DailyCookApp\\src\\resources\\p12\\CertificatesPushDailyCook.p12";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private PushManager<SimpleApnsPushNotification> pushManager;
@@ -70,7 +66,7 @@ public class AppleNotificationManager {
             pushManager.registerFailedConnectionListener(new AppleFailedConnectionListener());
             pushManager.registerExpiredTokenListener(new AppleExpiredTokenListener());
             pushManager.start();
-        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | UnrecoverableKeyException | KeyManagementException | IOException ex) {
+        } catch (Exception ex) {
             logger.error("init apple notificatin manager error", ex);
         }
     }
@@ -145,7 +141,7 @@ public class AppleNotificationManager {
             }
 
             pushManager.requestExpiredTokens();
-        } catch (DAOException | InterruptedException | MalformedTokenStringException ex) {
+        } catch (Exception ex) {
             logger.error("push notification error", ex);
         }
     }
