@@ -26,9 +26,11 @@ public class NotificationWorker extends Thread {
             try {
                 Notification noti = NotificationActionImp.getInstance().getNoti();
                 // increate notification number
-                CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
-                toUser.increaseNumberNotificaion();
-                UserDAO.getInstance().increateNotificationNumber(toUser.getUserId());
+                if (noti.getTo() != null) {
+                    CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
+                    toUser.increaseNumberNotificaion();
+                    UserDAO.getInstance().increateNotificationNumber(toUser.getUserId());
+                }
 
                 List<Notification> list = null;
                 switch (noti.getType()) {
@@ -63,28 +65,31 @@ public class NotificationWorker extends Thread {
         }
     }
 
-    private List<Notification> notiNewRecipe(Notification noti) {
+    private List<Notification> notiNewRecipe(Notification noti) throws DAOException {
         CompactUserInfo user = null;
-        Following follow = null;
-        try {
-            user = UserCache.getInstance().get(noti.getFrom());
-            follow = FollowingDAO.getInstance().get(noti.getFrom(), Following.class);
-        } catch (DAOException e) {
-            logger.error("process notiNewRecipe error", e);
+        Following follow = FollowingDAO.getInstance().get(noti.getFrom(), Following.class);
+        user = UserCache.getInstance().get(noti.getFrom());
+        
+        List<Notification> notis = new ArrayList<Notification>();
+        if (follow == null || follow.getFollowers() == null) {
+            return notis;
         }
 
-        List<Notification> notis = new ArrayList<Notification>();
         for (String follower : follow.getFollowers()) {
             Notification notiComp = new Notification();
             notiComp.setFrom(noti.getFrom());
             notiComp.setTo(follower);
             notiComp.setRecipeId(noti.getRecipeId());
             notiComp.setType(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE);
-            notiComp.setFromAvatar(user.getAvatarUrl());
             notiComp.setFromName(user.getDisplayName());
             notiComp.setRecipeTitle(noti.getRecipeTitle());
 
-            notis.add(noti);
+            notis.add(notiComp);
+
+            // increate noti number
+            CompactUserInfo toUser = UserCache.getInstance().get(follower);
+            toUser.increaseNumberNotificaion();
+            UserDAO.getInstance().increateNotificationNumber(follower);
         }
 
         return notis;
@@ -156,9 +161,9 @@ public class NotificationWorker extends Thread {
         notis.add(noti);
         return notis;
     }
-    
+
     private List<Notification> notiRemoveRecipe(Notification notification) {
-       
+
         Notification noti = new Notification();
         noti.setFrom(notification.getFrom());
         noti.setTo(notification.getTo());
