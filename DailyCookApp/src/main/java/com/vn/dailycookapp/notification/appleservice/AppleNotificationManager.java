@@ -46,10 +46,9 @@ public class AppleNotificationManager {
     private PushManager<SimpleApnsPushNotification> pushManager;
 //    private final ExecutorService exeService;
 //    private final PushManagerConfiguration pushManagerConfig;
-    private final StringBuffer sbuffer;
+    
 
     private AppleNotificationManager() {
-        sbuffer = new StringBuffer();
 //        exeService = new ThreadPoolExecutor(2, 4, 3, TimeUnit.MINUTES, new SynchronousQueue<Runnable>());
 
 //        pushManagerConfig = new PushManagerConfiguration();
@@ -76,6 +75,7 @@ public class AppleNotificationManager {
 
     public void push(Notification noti) {
         try {
+            final StringBuilder sbuffer = new StringBuilder();
             logger.info("prepare push Notification");
             CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
             CompactUserInfo fromUser = UserCache.getInstance().get(noti.getFrom());
