@@ -75,9 +75,9 @@ public class AppleNotificationManager {
 
     public void push(Notification noti) {
         try {
-            final StringBuilder sbuffer = new StringBuilder();
-            logger.info("prepare push Notification");
+            StringBuilder sbuffer = new StringBuilder();
             CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
+            logger.info("prepare push Notification:" + toUser.getDisplayName() + ":" + toUser.getEmail());
             CompactUserInfo fromUser = UserCache.getInstance().get(noti.getFrom());
 
             List<DeviceToken> deviceTokens = DeviceTokenDAO.getInstance().getUserDevices(noti.getTo());
@@ -93,7 +93,6 @@ public class AppleNotificationManager {
             payloadBuilder.setAlertBody(sbuffer.toString());
             payloadBuilder.setSoundFileName("ring-ring.aiff");
             payloadBuilder.setAlertTitle("Dailycook");
-//            payloadBuilder.setLocalizedActionButtonKey("VIEW");
             payloadBuilder.setBadgeNumber(toUser.getNumberNotification());
             
             final String payload = payloadBuilder.buildWithDefaultMaximumLength();
