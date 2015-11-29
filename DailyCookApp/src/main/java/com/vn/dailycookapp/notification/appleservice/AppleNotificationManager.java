@@ -91,7 +91,7 @@ public class AppleNotificationManager {
             for (DeviceToken token : deviceTokens) {
                 logger.info("APNS-" + token.getDeviceToken());
                 logger.info("PushManager is shutdown - " + pushManager.isShutDown());
-                pushManager.getQueue().put(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
+                pushManager.getQueue().add(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
             }
 
             pushManager.requestExpiredTokens();
@@ -130,7 +130,7 @@ public class AppleNotificationManager {
 
             for (DeviceToken token : deviceTokens) {
                 logger.info("APNS-" + token.getDeviceToken());
-                pushManager.getQueue().put(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
+                pushManager.getQueue().add(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
             }
 
             pushManager.requestExpiredTokens();
