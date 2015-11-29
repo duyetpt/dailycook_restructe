@@ -44,25 +44,26 @@ public class AppleNotificationManager {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private PushManager<SimpleApnsPushNotification> pushManager;
-    private final ExecutorService exeService;
-    private final PushManagerConfiguration pushManagerConfig;
+//    private final ExecutorService exeService;
+//    private final PushManagerConfiguration pushManagerConfig;
     private final StringBuffer sbuffer;
 
     private AppleNotificationManager() {
         sbuffer = new StringBuffer();
-        exeService = new ThreadPoolExecutor(2, 4, 3, TimeUnit.MINUTES, new SynchronousQueue<Runnable>());
+//        exeService = new ThreadPoolExecutor(2, 4, 3, TimeUnit.MINUTES, new SynchronousQueue<Runnable>());
 
-        pushManagerConfig = new PushManagerConfiguration();
-        pushManagerConfig.setConcurrentConnectionCount(5);
+//        pushManagerConfig = new PushManagerConfiguration();
+//        pushManagerConfig.setConcurrentConnectionCount(5);
         try {
+            // TODO config
             pushManager
                     = new PushManager<>(
                             ApnsEnvironment.getSandboxEnvironment(),
                             SSLContextUtil.createDefaultSSLContext(P12_PATH, ""),
                             null, // Optional: custom event loop group
-                            exeService, // Optional: custom ExecutorService for calling listeners
-                            new SynchronousQueue<SimpleApnsPushNotification>(), // Optional: custom BlockingQueue implementation
-                            pushManagerConfig,
+                            null, // Optional: custom ExecutorService for calling listeners
+                            null, // Optional: custom BlockingQueue implementation
+                            new PushManagerConfiguration(),
                             "DCA_IOS_NOTIFICATION");
             pushManager.registerRejectedNotificationListener(new AppleRejectedNotificationListener());
             pushManager.registerFailedConnectionListener(new AppleFailedConnectionListener());
