@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AppleNotificationManager {
 
-    private final String P12_PATH = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "P12";
+    private final String P12_PATH = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private PushManager<SimpleApnsPushNotification> pushManager;
