@@ -76,6 +76,7 @@ public class AppleNotificationManager {
 
     public void push(Notification noti) {
         try {
+            logger.info("prepare push Notification");
             CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
             CompactUserInfo fromUser = UserCache.getInstance().get(noti.getFrom());
 
