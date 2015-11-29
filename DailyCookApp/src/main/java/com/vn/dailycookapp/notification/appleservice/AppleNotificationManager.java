@@ -9,7 +9,6 @@ import com.relayrides.pushy.apns.ApnsEnvironment;
 import com.relayrides.pushy.apns.PushManager;
 import com.relayrides.pushy.apns.PushManagerConfiguration;
 import com.relayrides.pushy.apns.util.ApnsPayloadBuilder;
-import com.relayrides.pushy.apns.util.MalformedTokenStringException;
 import com.relayrides.pushy.apns.util.SSLContextUtil;
 import com.relayrides.pushy.apns.util.SimpleApnsPushNotification;
 import com.relayrides.pushy.apns.util.TokenUtil;
@@ -19,7 +18,6 @@ import com.vn.dailycookapp.utils.ConfigurationLoader;
 import com.vn.dailycookapp.utils.lang.Language;
 import java.io.File;
 import java.util.List;
-import org.dao.DAOException;
 import org.dao.DeviceTokenDAO;
 import org.entity.DeviceToken;
 import org.entity.Notification;
@@ -92,11 +90,12 @@ public class AppleNotificationManager {
 
             for (DeviceToken token : deviceTokens) {
                 logger.info("APNS-" + token.getDeviceToken());
+                logger.info("PushManager is shutdown - " + pushManager.isShutDown());
                 pushManager.getQueue().put(new SimpleApnsPushNotification(TokenUtil.tokenStringToByteArray(token.getDeviceToken()), payload));
             }
 
             pushManager.requestExpiredTokens();
-        } catch (DAOException | InterruptedException | MalformedTokenStringException ex) {
+        } catch (Exception ex) {
             logger.error("push notification error", ex);
         }
     }
