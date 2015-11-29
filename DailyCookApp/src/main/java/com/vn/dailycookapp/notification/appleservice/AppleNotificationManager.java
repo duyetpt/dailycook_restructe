@@ -92,7 +92,7 @@ public class AppleNotificationManager {
             payloadBuilder.setAlertBody(sbuffer.toString());
             payloadBuilder.setSoundFileName("ring-ring.aiff");
             payloadBuilder.setAlertTitle("Dailycook");
-            payloadBuilder.setLocalizedActionButtonKey("VIEW");
+//            payloadBuilder.setLocalizedActionButtonKey("VIEW");
             payloadBuilder.setBadgeNumber(toUser.getNumberNotification());
             
             final String payload = payloadBuilder.buildWithDefaultMaximumLength();
