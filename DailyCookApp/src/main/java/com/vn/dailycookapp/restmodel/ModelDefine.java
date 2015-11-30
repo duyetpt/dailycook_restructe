@@ -1,6 +1,7 @@
 package com.vn.dailycookapp.restmodel;
 
 import com.vn.dailycookapp.restmodel.model.AddRecipeToMeal;
+import com.vn.dailycookapp.restmodel.model.ChangeNotificationSettingModel;
 import com.vn.dailycookapp.restmodel.model.admin.BanUserModel;
 import com.vn.dailycookapp.restmodel.model.ChangePasswordModel;
 import com.vn.dailycookapp.restmodel.model.ChangeUserLanguageModel;
@@ -56,7 +57,7 @@ public enum ModelDefine {
         UPDATE_USER_PROFILE("update_user_profile", UpdateProfileModel.class),
         GET_FOLLOWING("get_following", GetFollowingModel.class),
         DEVICE_TOKEN_REGISTER("device_token_register", DeviceTokenRegisterModel.class),
-        
+        CHANGE_NOTIFICATION_FLAG("change_noti_flag", ChangeNotificationSettingModel.class),
         // API FOR ADMIN
         BAN_USER("ban_user", BanUserModel.class),
         REMOVE_RECIPE("remove_recipe", RemoveRecipeModel.class),

@@ -297,7 +297,17 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException();
         }
     }
-
+    
+    public void updateNotificationFlag(String userId, boolean notificatonFlag) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("notification_flag", notificatonFlag);
+            datastore.update(query, updateO);
+        } catch (Exception ex) {
+            logger.error("update language error", ex);
+            throw new DAOException();
+        }
+    }
     // count number user with flag
     public long getNumberUserWithFlag(int flag) {
         Query<User> query = datastore.createQuery(User.class);

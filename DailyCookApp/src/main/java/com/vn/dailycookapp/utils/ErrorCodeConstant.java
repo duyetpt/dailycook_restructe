@@ -14,8 +14,8 @@ public enum ErrorCodeConstant {
 	PASSWORD_INCORRECT(-104, "Password is incorrect"),
 	USERNAME_INCORRECT(-105, "User name is incorrect"),
         BANED_USER(-106, "User is baned"),
-        EXISTED_DEVICE_TOKEN(-107, "User is baned"),
 	//-107 existed account in uitl module
+        EXISTED_DEVICE_TOKEN(-108, "Existed device token"),
 	
 	INVALID_DATA(-203, "Incorrect param"),
 	INVALID_TOKEN(-201, "token is invalid"),

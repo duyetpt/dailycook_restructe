@@ -5,13 +5,14 @@
  */
 package com.vn.dailycookapp.restmodel.model;
 
-import com.relayrides.pushy.apns.util.TokenUtil;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import org.dao.DeviceTokenDAO;
+import org.dao.UserDAO;
 import org.entity.DeviceToken;
+import org.entity.User;
 import org.json.JsonTransformer;
 
 /**
@@ -41,7 +42,10 @@ public class DeviceTokenRegisterModel extends AbstractModel {
             response.setError(ErrorCodeConstant.EXISTED_DEVICE_TOKEN.getErrorCode());
             return response;
         }
-        DeviceTokenDAO.getInstance().save(token);
+        User user = UserDAO.getInstance().getUser(myId);
+        if (user.getNotificationFlag()) {
+            DeviceTokenDAO.getInstance().save(token);
+        }
 
         return response;
     }
