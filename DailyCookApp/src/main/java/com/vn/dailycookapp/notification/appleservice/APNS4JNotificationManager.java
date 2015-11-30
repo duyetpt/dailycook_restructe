@@ -48,6 +48,7 @@ public class APNS4JNotificationManager {
             socketFactory = SecuritySocketFactory.Builder.newBuilder().appleServer(appleNotificationServer).keyStoreWrapper(keyStoreWrapper).build();
         } catch (Exception ex) {
             ex.printStackTrace();
+            logger.error("start push notification error", ex);
         }
     }
 
