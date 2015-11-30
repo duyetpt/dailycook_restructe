@@ -97,7 +97,10 @@ public class User {
     @JsonIgnoreProperty
     @Property("ban_to_time")
     private long banToTime;
-
+    
+    @Property("notification_flag")
+    private boolean notificationFlag = true;
+    
     public String getId() {
         return id;
     }
@@ -265,6 +268,14 @@ public class User {
 
     public void setBanToTime(long banToTime) {
         this.banToTime = banToTime;
+    }
+
+    public boolean getNotificationFlag() {
+        return notificationFlag;
+    }
+
+    public void setNotificationFlag(boolean notificationFlag) {
+        this.notificationFlag = notificationFlag;
     }
 
 }

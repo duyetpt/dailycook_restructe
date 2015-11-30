@@ -29,6 +29,7 @@ public class CurrentUser {
     private int numberFollower;
     private int numberFollowing;
     private int numberNotification;
+    private boolean notificationFlag;
 
     public void login(FbToken fbToken) throws DCAException, DAOException {
         // get data into database
@@ -50,6 +51,7 @@ public class CurrentUser {
                     String userId = saveToDB(fbToken);
                     token = SessionManager.getInstance().addSession(userId);
                     this.userId = userId;
+                    this.notificationFlag = true;
                 } else {
                     throw new LoginFailException(ErrorCodeConstant.LOGIN_FB_FAIL);
                 }
@@ -65,7 +67,7 @@ public class CurrentUser {
                 this.numberFollower = user.getNumberFollower();
                 this.numberFollowing = user.getNumberFollowing();
                 this.numberRecipes = user.getNumberRecipes();
-
+                this.notificationFlag = user.getNotificationFlag();
                 token = SessionManager.getInstance().addSession(user.getId());
             } else {
                 throw new BanedUserException(ErrorCodeConstant.BANED_USER);
@@ -115,7 +117,7 @@ public class CurrentUser {
                     this.numberFollower = user.getNumberFollower();
                     this.numberFollowing = user.getNumberFollowing();
                     this.numberRecipes = user.getNumberRecipes();
-
+                    this.notificationFlag = user.getNotificationFlag();
                     // cache data
                     UserCache.getInstance().cache(user);
                 } else {
@@ -216,4 +218,14 @@ public class CurrentUser {
     public void setNumberNotification(int notificationNumber) {
         this.numberNotification = notificationNumber;
     }
+
+    public boolean getNotificationFlag() {
+        return notificationFlag;
+    }
+
+    public void setNotificationFlag(boolean notificationFlag) {
+        this.notificationFlag = notificationFlag;
+    }
+    
+    
 }
