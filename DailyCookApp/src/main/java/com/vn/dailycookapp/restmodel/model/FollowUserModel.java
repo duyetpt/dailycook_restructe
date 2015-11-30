@@ -13,6 +13,7 @@ import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.security.authentication.BanedUserException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import org.entity.Following;
 import org.entity.User;
 
 public class FollowUserModel extends AbstractModel {
@@ -40,6 +41,7 @@ public class FollowUserModel extends AbstractModel {
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         boolean success = false;
+        Following following = FollowingDAO.getInstance().get(myId, Following.class);
         switch (flag) {
             case FOLLOW_FLAG:
                 // add following
@@ -47,37 +49,46 @@ public class FollowUserModel extends AbstractModel {
                 if (user.getActiveFlag() != User.ACTIVE_FLAG) {
                     throw new BanedUserException(ErrorCodeConstant.BANED_USER);
                 }
-                success = FollowingDAO.getInstance().following(myId, starId);
-                if (success) {
-                    // add follower
-                    FollowingDAO.getInstance().addFollower(starId, myId);
+                if (following != null && following.getStarIds().contains(starId)) {
+                    logger.info(myId + " have been followed " + starId);
+                } else {
+                    success = FollowingDAO.getInstance().following(myId, starId);
+                    if (success) {
+                        // add follower
+                        FollowingDAO.getInstance().addFollower(starId, myId);
 
-                    // increase following number
-                    UserDAO.getInstance().increateFollowingNumber(myId);
-                    // increase follower number
-                    UserDAO.getInstance().increateFollowerNumber(starId);
-                    // Cache update
-                    UserCache.getInstance().get(myId).increaseNumberFollowing();
-                    UserCache.getInstance().get(starId).increaseNumberFollower();
-                    // Notification
-                    NotificationActionImp.getInstance().addNotification(null, null, myId, starId,
-                            Notification.NEW_FOLLOWER_TYPE);
+                        // increase following number
+                        UserDAO.getInstance().increateFollowingNumber(myId);
+                        // increase follower number
+                        UserDAO.getInstance().increateFollowerNumber(starId);
+                        // Cache update
+                        UserCache.getInstance().get(myId).increaseNumberFollowing();
+                        UserCache.getInstance().get(starId).increaseNumberFollower();
+                        // Notification
+                        NotificationActionImp.getInstance().addNotification(null, null, myId, starId,
+                                Notification.NEW_FOLLOWER_TYPE);
+                    }
                 }
                 break;
             case UNFOLLOW_FLAG:
                 // add following
-                success = FollowingDAO.getInstance().unfollow(myId, starId);
-                if (success) {
-                    // add follower
-                    FollowingDAO.getInstance().removeFollower(starId, myId);
-                    FollowingDAO.getInstance().removeFollowing(myId, starId);
-                    // increase following number
-                    UserDAO.getInstance().decreaseFollowingNumber(myId);
-                    // increase follower number
-                    UserDAO.getInstance().decreaseFollowerNumber(starId);
-                    // Cache update
-                    UserCache.getInstance().get(myId).decreaseNumberFollowing();
-                    UserCache.getInstance().get(starId).decreaseNumberFollower();
+                if (following != null && following.getStarIds().contains(starId)) {
+                    success = FollowingDAO.getInstance().unfollow(myId, starId);
+
+                    if (success) {
+                        // add follower
+                        FollowingDAO.getInstance().removeFollower(starId, myId);
+                        FollowingDAO.getInstance().removeFollowing(myId, starId);
+                        // increase following number
+                        UserDAO.getInstance().decreaseFollowingNumber(myId);
+                        // increase follower number
+                        UserDAO.getInstance().decreaseFollowerNumber(starId);
+                        // Cache update
+                        UserCache.getInstance().get(myId).decreaseNumberFollowing();
+                        UserCache.getInstance().get(starId).decreaseNumberFollower();
+                    }
+                } else {
+                    logger.info(myId + " has not been followed " + starId);
                 }
                 break;
         }
