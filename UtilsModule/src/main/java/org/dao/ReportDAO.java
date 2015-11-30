@@ -74,6 +74,11 @@ public class ReportDAO extends AbstractDAO{
         return query.countAll();
     }
     
+    public long getNumberCheckingReport() {
+        Query<Report> query = datastore.createQuery(Report.class).field("status").equal(Report.CHECKING_FLAG);
+        return query.countAll();
+    }
+    
     public Report getReportByRecipe(String recipeId) throws DAOException{
         try {
             Query<Report> query = datastore.createQuery(Report.class).field("recipe").equal(recipeId);
@@ -84,4 +89,17 @@ public class ReportDAO extends AbstractDAO{
         }
         return null;
     }
+    
+    public List<Report> getListCheckingReportByRecipe(String recipeId) throws DAOException{
+        try {
+            Query<Report> query = datastore.createQuery(Report.class);
+            query.and(query.criteria("recipe").equal(recipeId).and(query.criteria("status").equal(Report.CHECKING_FLAG)));
+            return query.asList();
+        } catch (Exception ex) {
+            logger.error("get list reports of recipe error:" + recipeId, ex);
+            throw new DAOException();
+        }
+    }
+    
+    
 }

@@ -398,4 +398,16 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         query.and(query.criteria("status_flag").equal(flag));
         return query.countAll();
     }
+    
+    //get all recipes of user
+    public List<Recipe> getRecipeOfUser(String userId) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class);
+            query.and(query.criteria("owner").equal(userId));
+            return query.asList();
+        } catch (Exception ex) {
+            logger.error("get recipe of user error:" + userId, ex);
+            throw new DAOException();
+        }
+    }
 }
