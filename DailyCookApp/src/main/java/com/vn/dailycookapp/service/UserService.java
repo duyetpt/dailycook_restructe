@@ -220,7 +220,7 @@ public class UserService {
     
     //deviceToken={}&flag=1|0
     @GET
-    @Path("/setting/notification")
+    @Path("setting/notification")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateNotification(@HeaderParam(HeaderField.USER_ID) String owner, @QueryParam("deviceToken") String deviceToken, @QueryParam("flag") String flag) {
         String data = ModelResolver.getApi(ModelDefine.CHANGE_NOTIFICATION_FLAG).doProcess(owner, deviceToken, flag);
