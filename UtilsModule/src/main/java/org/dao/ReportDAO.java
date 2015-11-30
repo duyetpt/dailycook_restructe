@@ -74,6 +74,11 @@ public class ReportDAO extends AbstractDAO{
         return query.countAll();
     }
     
+    public long getNumberCheckingReport() {
+        Query<Report> query = datastore.createQuery(Report.class).field("status").equal(Report.CHECKING_FLAG);
+        return query.countAll();
+    }
+    
     public Report getReportByRecipe(String recipeId) throws DAOException{
         try {
             Query<Report> query = datastore.createQuery(Report.class).field("recipe").equal(recipeId);
