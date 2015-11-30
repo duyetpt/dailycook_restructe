@@ -108,9 +108,9 @@
         </dependency>
         
         <dependency>
-            <groupId>com.relayrides</groupId>
-            <artifactId>pushy</artifactId>
-            <version>0.4.3</version>
+            <groupId>com.github.teaey</groupId>
+            <artifactId>apns4j</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 

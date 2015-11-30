@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
-import com.vn.dailycookapp.notification.appleservice.AppleNotificationManager;
+import com.vn.dailycookapp.notification.appleservice.APNS4JNotificationManager;
 
 public class NotificationWorker extends Thread {
 
@@ -57,7 +57,7 @@ public class NotificationWorker extends Thread {
                 // save to DB
                 NotificationDAO.getInstance().save(list);
                 // apple notificaton
-                AppleNotificationManager.getInstance().pushs(list);
+                APNS4JNotificationManager.getInstance().pushs(list);
             } catch (Exception e) {
                 logger.error("notification process exceiption", e);
             }
@@ -69,7 +69,7 @@ public class NotificationWorker extends Thread {
         CompactUserInfo user = null;
         Following follow = FollowingDAO.getInstance().get(noti.getFrom(), Following.class);
         user = UserCache.getInstance().get(noti.getFrom());
-        
+
         List<Notification> notis = new ArrayList<Notification>();
         if (follow == null || follow.getFollowers() == null) {
             return notis;
