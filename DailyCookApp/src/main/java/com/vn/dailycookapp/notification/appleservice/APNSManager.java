@@ -42,7 +42,8 @@ public class APNSManager {
     private APNSManager() {
         try {
             String APNS_PATH_P12 = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12" + "/Certificates2.p12";
-            service = APNS.newService().asPool(5).withCert(APNS_PATH_P12, APNS_PASS)
+//            String APNS_PATH_P12 = "C:\\Users\\duyetpt\\Documents\\dailycook_restructe\\DailyCookApp\\src\\resources\\p12\\Certificates2.p12";
+            service = APNS.newService().asPool(1).withCert(APNS_PATH_P12, APNS_PASS)
                     .withReconnectPolicy(ReconnectPolicy.Provided.NEVER)
                     .withSandboxDestination().build();
             service.start();
@@ -52,7 +53,7 @@ public class APNSManager {
     }
 
     public void testPush(String deviceId) {
-        String payload = APNS.newPayload().alertBody("Dailycook test...").alertTitle("Dailycook")
+        String payload = APNS.newPayload().alertBody("Dailycook test...")
                 .badge(1).sound("ring-ring.aiff").build();
 
         int now = (int) (new Date().getTime() / 1000);
@@ -79,7 +80,7 @@ public class APNSManager {
             String msg = Language.getInstance().getMessage(noti.getType(), toUser.getLanguage());
             sbuffer.append(fromUser.getDisplayName()).append(" ").append(msg);
 
-            String payload = APNS.newPayload().alertBody(sbuffer.toString()).alertTitle("Dailycook")
+            String payload = APNS.newPayload().alertBody(sbuffer.toString())
                     .badge(toUser.getNumberNotification()).sound("ring-ring.aiff").build();
 
             for (DeviceToken token : deviceTokens) {
