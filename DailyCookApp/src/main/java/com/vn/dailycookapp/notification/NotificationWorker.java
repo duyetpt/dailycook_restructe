@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
-import com.vn.dailycookapp.notification.appleservice.APNS4JNotificationManager;
+import com.vn.dailycookapp.notification.appleservice.APNSManager;
 
 public class NotificationWorker extends Thread {
 
@@ -57,7 +57,7 @@ public class NotificationWorker extends Thread {
                 // save to DB
                 NotificationDAO.getInstance().save(list);
                 // apple notificaton
-                APNS4JNotificationManager.getInstance().pushs(list);
+                APNSManager.getInstance().pushs(list);
             } catch (Exception e) {
                 logger.error("notification process exceiption", e);
             }

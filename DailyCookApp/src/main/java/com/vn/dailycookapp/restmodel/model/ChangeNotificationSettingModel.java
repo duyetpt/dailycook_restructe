@@ -46,4 +46,10 @@ public class ChangeNotificationSettingModel extends AbstractModel{
         return response;
     }
     
+    public void validate() throws InvalidParamException{
+        if (deviceToken.length() != 64) {
+            throw new InvalidParamException();
+        }
+    }
+    
 }
