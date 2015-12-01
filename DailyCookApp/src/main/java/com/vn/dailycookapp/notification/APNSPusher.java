@@ -40,9 +40,10 @@ public class APNSPusher {
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("notifications", notiIds);
-
+            String data = jsonObj.toString();
+            logger.info("Push notification: " + data);
             URI uri = DCAHttpRequest.getInstance().buildUrl(ConfigurationLoader.getInstance().getNotificationHost(), ConfigurationLoader.getInstance().getNotificationPort(), "", null);
-            DCAHttpRequest.getInstance().post(uri, jsonObj.toString());
+            DCAHttpRequest.getInstance().post(uri, data);
         } catch (Exception ex) {
             logger.error("push notification error", ex);
         }
