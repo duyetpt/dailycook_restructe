@@ -43,7 +43,7 @@ public class APNSManager {
         try {
             String APNS_PATH_P12 = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12" + "/Certificates2.p12";
 //            String APNS_PATH_P12 = "C:\\Users\\duyetpt\\Documents\\dailycook_restructe\\DailyCookApp\\src\\resources\\p12\\Certificates2.p12";
-            service = APNS.newService().asPool(1).withCert(APNS_PATH_P12, APNS_PASS)
+            service = APNS.newService().asPool(2).withCert(APNS_PATH_P12, APNS_PASS)
                     .withReconnectPolicy(ReconnectPolicy.Provided.NEVER)
                     .withSandboxDestination().build();
             service.start();
@@ -91,6 +91,7 @@ public class APNSManager {
                         now + 60 * 60 * 24/* Expire in one day */,
                         token.getDeviceToken(), payload);
                 // push notification
+                service.push(enhanceApnsNoti);
                 service.push(enhanceApnsNoti);
             }
         } catch (Exception ex) {
