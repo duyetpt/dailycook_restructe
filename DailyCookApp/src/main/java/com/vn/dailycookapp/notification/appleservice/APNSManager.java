@@ -13,6 +13,7 @@ import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.DeliveryError;
 import com.notnoop.apns.EnhancedApnsNotification;
 import com.notnoop.apns.ReconnectPolicy;
+import com.notnoop.apns.internal.Utilities;
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.utils.ConfigurationLoader;
@@ -52,23 +53,24 @@ public class APNSManager {
 
                         @Override
                         public void messageSent(ApnsNotification an, boolean bln) {
-                            if (!bln) {
-                                logger.error("cannot sent notification to:" + new String(an.getDeviceToken()));
-                                logger.error("Try to:" + new String(an.getDeviceToken()));
+                            if (bln) {
+                                logger.error("cannot sent notification to:" + Utilities.encodeHex(an.getDeviceToken()));
+                                logger.error("Try to resent:");
                                 service.push(an.getDeviceToken(), an.getPayload());
                             }
+                            logger.error("APNS sent notification to:" + Utilities.encodeHex(an.getDeviceToken()));
                         }
 
                         @Override
                         public void messageSendFailed(ApnsNotification an, Throwable thrwbl) {
-                            logger.error("cannot sent notification to:" + new String(an.getDeviceToken()), thrwbl);
-                            logger.error("Try to:" + new String(an.getDeviceToken()));
+                            logger.error("APNS cannot sent notification to:" + Utilities.encodeHex(an.getDeviceToken()), thrwbl);
+                            logger.error("APNS Try to resent");
                             service.push(an.getDeviceToken(), an.getPayload());
                         }
 
                         @Override
                         public void connectionClosed(DeliveryError de, int i) {
-                            logger.warn("APNS connection closed :"  + de.name());
+                            logger.warn("APNS connection closed :" + de.name());
                         }
 
                         @Override
