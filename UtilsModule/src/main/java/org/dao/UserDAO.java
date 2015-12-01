@@ -319,6 +319,7 @@ public class UserDAO extends AbstractDAO<User> {
     public List<User> searchAllUserNomal(String name, int skip, int take, String order) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+            
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
             query.retrievedFields(true,"id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
             return query.asList();
@@ -341,7 +342,11 @@ public class UserDAO extends AbstractDAO<User> {
     public List<User> searchAndFillAllUserNomal(String name, int skip, int take, String order, int flag) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
-            query.filter("active_flag", flag);
+            if (flag != 3){
+                query.filter("active_flag", flag);
+            } else {
+                query.filter("active_flag", User.BAN_FLAG_ONCE).or(query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
+            }
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
             query.retrievedFields(true,"id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
             return query.asList();
