@@ -42,7 +42,9 @@ public class APNSPusher {
             jsonObj.put("notifications", notiIds);
             String data = jsonObj.toString();
             logger.info("Push notification: " + data);
-            URI uri = DCAHttpRequest.getInstance().buildUrl(ConfigurationLoader.getInstance().getNotificationHost(), ConfigurationLoader.getInstance().getNotificationPort(), "", null);
+            URI uri = DCAHttpRequest.getInstance().buildUrl(ConfigurationLoader.getInstance().getNotificationHost(),
+                    ConfigurationLoader.getInstance().getNotificationPort(), "/dailycook/notification", null);
+            logger.info("Push notification to Uri: " + uri.getPath());
             DCAHttpRequest.getInstance().post(uri, data);
         } catch (Exception ex) {
             logger.error("push notification error", ex);
