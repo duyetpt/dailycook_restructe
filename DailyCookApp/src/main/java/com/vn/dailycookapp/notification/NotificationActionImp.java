@@ -28,31 +28,24 @@ public class NotificationActionImp implements NotificationAction {
         if (from.equals(to)) {
             return;
         }
-
-        synchronized (queue) {
-            Notification noti = new Notification();
-            noti.setFrom(from);
-            noti.setTo(to);
-            noti.setRecipeId(recipeId);
-            noti.setRecipeTitle(recipeTitle);
-            noti.setType(notiType);
-            queue.add(noti);
-            queue.notify();
-        }
+        Notification noti = new Notification();
+        noti.setFrom(from);
+        noti.setTo(to);
+        noti.setRecipeId(recipeId);
+        noti.setRecipeTitle(recipeTitle);
+        noti.setType(notiType);
+        queue.add(noti);
     }
 
     @Override
     public Notification getNoti() {
         synchronized (queue) {
-            while (queue.isEmpty()) {
-                try {
-                    queue.wait();
-                } catch (InterruptedException e) {
-                    logger.error(e.getMessage(), e);
-                }
-            }
             return queue.poll();
         }
+    }
+
+    public Queue<Notification> getQueue() {
+        return queue;
     }
 
 }

@@ -14,14 +14,25 @@ import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
+import java.util.logging.Level;
 
 public class NotificationWorker extends Thread {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Override
     public void run() {
         while (true) {
             logger.info("Notificaion worker is running...");
+            if (NotificationActionImp.getInstance().getQueue().isEmpty()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    logger.error("notification exceiption", ex);
+                }
+                continue;
+            }
+            
             try {
                 Notification noti = NotificationActionImp.getInstance().getNoti();
                 // increate notification number
