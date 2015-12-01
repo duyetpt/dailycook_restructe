@@ -48,7 +48,8 @@ public class APNSManager {
         try {
             String APNS_PATH_P12 = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12" + "/Certificates2.p12";
 //            String APNS_PATH_P12 = "C:\\Users\\duyetpt\\Documents\\dailycook_restructe\\DailyCookApp\\src\\resources\\p12\\Certificates2.p12";
-            service = APNS.newService().asPool(2).withCert(APNS_PATH_P12, APNS_PASS)
+            service = APNS.newService().asPool(3).withCert(APNS_PATH_P12, APNS_PASS)
+                    .withCacheLength(1024)
                     .withDelegate(new ApnsDelegate() {
 
                         @Override
