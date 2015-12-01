@@ -6,7 +6,11 @@
 package com.vn.dailycookapp.notification.appleservice;
 
 import com.notnoop.apns.APNS;
+import com.notnoop.apns.ApnsDelegate;
+import com.notnoop.apns.ApnsDelegateAdapter;
+import com.notnoop.apns.ApnsNotification;
 import com.notnoop.apns.ApnsService;
+import com.notnoop.apns.DeliveryError;
 import com.notnoop.apns.EnhancedApnsNotification;
 import com.notnoop.apns.ReconnectPolicy;
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
@@ -44,6 +48,40 @@ public class APNSManager {
             String APNS_PATH_P12 = ConfigurationLoader.getInstance().getDeloyDirectory() + File.separator + "p12" + "/Certificates2.p12";
 //            String APNS_PATH_P12 = "C:\\Users\\duyetpt\\Documents\\dailycook_restructe\\DailyCookApp\\src\\resources\\p12\\Certificates2.p12";
             service = APNS.newService().asPool(2).withCert(APNS_PATH_P12, APNS_PASS)
+                    .withDelegate(new ApnsDelegate() {
+
+                        @Override
+                        public void messageSent(ApnsNotification an, boolean bln) {
+                            if (!bln) {
+                                logger.error("cannot sent notification to:" + new String(an.getDeviceToken()));
+                                logger.error("Try to:" + new String(an.getDeviceToken()));
+                                service.push(an.getDeviceToken(), an.getPayload());
+                            }
+                        }
+
+                        @Override
+                        public void messageSendFailed(ApnsNotification an, Throwable thrwbl) {
+                            logger.error("cannot sent notification to:" + new String(an.getDeviceToken()), thrwbl);
+                            logger.error("Try to:" + new String(an.getDeviceToken()));
+                            service.push(an.getDeviceToken(), an.getPayload());
+                        }
+
+                        @Override
+                        public void connectionClosed(DeliveryError de, int i) {
+                            logger.warn("APNS connection closed :"  + de.name());
+                        }
+
+                        @Override
+                        public void cacheLengthExceeded(int i) {
+                            logger.warn("APNS cache length exeeded: " + i);
+                        }
+
+                        @Override
+                        public void notificationsResent(int i) {
+                            // TODO
+                            logger.warn("APNS notification resent:" + i);
+                        }
+                    })
                     .withReconnectPolicy(ReconnectPolicy.Provided.NEVER)
                     .withSandboxDestination().build();
             service.start();
@@ -92,7 +130,7 @@ public class APNSManager {
                         token.getDeviceToken(), payload);
                 // push notification
                 service.push(enhanceApnsNoti);
-                service.push(enhanceApnsNoti);
+//                service.push(enhanceApnsNoti);
             }
         } catch (Exception ex) {
             logger.error("push notification error", ex);
