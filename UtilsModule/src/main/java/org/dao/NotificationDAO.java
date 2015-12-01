@@ -1,5 +1,7 @@
 package org.dao;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -108,10 +110,24 @@ public class NotificationDAO extends AbstractDAO<Notification> {
         try {
             Query<Notification> query = datastore.createQuery(Notification.class);
             query.filter("recipe_id", recipeId).filter("status", Notification.UNREAD_STATUS);
-            
+
             return query.asList();
         } catch (Exception ex) {
             logger.error("delete notificaton errror", ex);
+            throw new DAOException();
+        }
+    }
+
+    public List<Notification> list(List<String> notifications) throws DAOException {
+        try {
+            Query<Notification> query = datastore.createQuery(Notification.class);
+            List<ObjectId> objectIds = new ArrayList<>();
+            for (String noti : notifications) {
+                objectIds.add(new ObjectId(noti));
+            }
+            return query.field("_id").in(objectIds).asList();
+        } catch (Exception ex) {
+            logger.error("list notificaton errror", ex);
             throw new DAOException();
         }
     }

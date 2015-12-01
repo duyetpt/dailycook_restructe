@@ -39,7 +39,7 @@ public class DCAServerOnlyHttp {
 		// === jetty.xml ===
         // Setup Threadpool
         QueuedThreadPool threadPool = new QueuedThreadPool();
-        threadPool.setMaxThreads(500);
+        threadPool.setMaxThreads(1500);
 
         // Server
         Server server = new Server(threadPool);

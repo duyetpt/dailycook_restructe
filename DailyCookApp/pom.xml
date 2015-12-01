@@ -100,17 +100,10 @@
             <artifactId>UtilsModule</artifactId>
             <version>${project.version}</version>
         </dependency>
-                
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.23</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.notnoop.apns</groupId>
-            <artifactId>apns</artifactId>
-            <version>1.0.0.Beta6</version>
         </dependency>
     </dependencies>
 

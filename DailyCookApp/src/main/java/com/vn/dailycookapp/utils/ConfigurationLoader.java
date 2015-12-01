@@ -12,12 +12,16 @@ import org.slf4j.LoggerFactory;
 public class ConfigurationLoader {
 
     private static final String DBKEY = "DATABASE";
+    private static final String NOTIFICATION_PORT = "NOTIFICATION_PORT";
+    private static final String NOTIFICATION_HOST = "NOTIFICATION_HOST";
     private static final String IMAGE_FOLDER_KEY = "IMAGE_FOLDER";
     private static final String SERVER_PORT = "SERVER_PORT";
     private static final String PUBLIC_IP_ADDRESS = "PUBLIC_IP_ADDRESS";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private String dbName;
+    private String notificationHost;
+    private int notificationPort;
     private String imageDirectory;
     private int serverPort;
     private String languagePath;
@@ -40,6 +44,8 @@ public class ConfigurationLoader {
         try {
             properties.load(file);
             dbName = properties.getProperty(DBKEY, "dailycook");
+            notificationHost = properties.getProperty(NOTIFICATION_HOST);
+            notificationPort = Integer.parseInt(properties.getProperty(NOTIFICATION_PORT));
             imageDirectory = properties.getProperty(IMAGE_FOLDER_KEY, "opt");
             serverPort = Integer.parseInt(properties.getProperty(SERVER_PORT, "8181"));
             publicIpAddress = properties.getProperty(PUBLIC_IP_ADDRESS);
@@ -82,6 +88,21 @@ public class ConfigurationLoader {
     public void setDeloyDirectory(String deloyDirectory) {
         this.deloyDirectory = deloyDirectory;
     }
-    
-    
+
+    public String getNotificationHost() {
+        return notificationHost;
+    }
+
+    public void setNotificationHost(String notificationHost) {
+        this.notificationHost = notificationHost;
+    }
+
+    public int getNotificationPort() {
+        return notificationPort;
+    }
+
+    public void setNotificationPort(int notificationPort) {
+        this.notificationPort = notificationPort;
+    }
+
 }

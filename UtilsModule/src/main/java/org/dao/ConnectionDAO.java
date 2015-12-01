@@ -7,10 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import com.mongodb.MongoClient;
 
-class ConnectionDAO {
-	
+public class ConnectionDAO {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionDAO.class);
 	
+	public static String DB_HOST = "localhost";
+        
 	private static final String DBNAME = "dailycook";
 	private static Morphia morphia;
 	private static Datastore datastore;
@@ -24,7 +25,7 @@ class ConnectionDAO {
 		// can be called multiple times with different packages or classes
 		morphia.mapPackage("com.vn.dailycookapp.entity");
 
-		MongoClient mongoClient = new MongoClient("localhost");
+		MongoClient mongoClient = new MongoClient(DB_HOST);
 //		MongoClient mongoClient = new MongoClient("dailycook.cloudapp.net");
 		
 		// create the Datastore connecting to the default port on the local host
