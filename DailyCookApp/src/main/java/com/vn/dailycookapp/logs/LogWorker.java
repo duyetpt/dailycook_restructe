@@ -22,8 +22,8 @@ public class LogWorker extends Thread {
 
     @Override
     public void run() {
+        logger.info("LogWorker -> starting ...");
         while (true) {
-            logger.info("LogWorker -> starting ...");
             if (LogQueue.getInstance().isEmpty()) {
                 try {
                     Thread.sleep(100);
@@ -34,7 +34,11 @@ public class LogWorker extends Thread {
                 ActivityLog log = LogQueue.getInstance().get();
                 log.setTime(TimeUtils.getStartDay(TimeUtils.getCurrentGMTTime()));
                 try {
-                    ActivityLogDAO.getInstance().save(log);
+                    ActivityLog actLog = ActivityLogDAO.getInstance().get(log.getUserId(), log.getTime());
+                    if (actLog == null) {
+                        ActivityLogDAO.getInstance().save(log);
+                    }
+
                 } catch (DAOException ex) {
                     logger.error("LogWorker -> save activity error", ex);
                 }

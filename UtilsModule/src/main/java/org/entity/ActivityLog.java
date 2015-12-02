@@ -7,6 +7,7 @@ package org.entity;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
 
 /**
@@ -18,7 +19,8 @@ public class ActivityLog {
 
     @Id
     private String id;
-    // dd_mm_yyyy
+
+    @Indexed
     private long time;
     @Property("user_id")
     private String userId;
