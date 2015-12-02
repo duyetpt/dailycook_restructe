@@ -16,9 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vn.dailycookapp.entity.response.DCAResponse;
+import com.vn.dailycookapp.logs.LogQueue;
 import com.vn.dailycookapp.security.authorization.AuthorizationException;
 import com.vn.dailycookapp.security.authorization.Authorizer;
 import com.vn.dailycookapp.service.HeaderField;
+import org.entity.ActivityLog;
 
 // mark implement interface JAX-RS need scan
 @Provider
@@ -27,6 +29,7 @@ public class RequestHandler implements ContainerRequestFilter {
 
     private final Logger logger = LoggerFactory.getLogger(RequestHandler.class);
 
+    @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         requestContext.getHeaders().add("Accept", "*/*");
         logger.info("			=====================  Start reqeust  =====================			");
@@ -38,9 +41,9 @@ public class RequestHandler implements ContainerRequestFilter {
         String url = requestContext.getUriInfo().getPath();
         logger.info("=> => => Request Url => " + url);
 
-		// String query =
+        // String query =
         // requestContext.getUriInfo().getRequestUri().getQuery();
-		// if (query != null && query.endsWith("testMode=true")) {
+        // if (query != null && query.endsWith("testMode=true")) {
         // logger.info("run in test mode...");
         // } else {
         String token = requestContext.getHeaderString(HeaderField.TOKEN);
@@ -52,6 +55,7 @@ public class RequestHandler implements ContainerRequestFilter {
                     if (!token.equals("anonymous")) {
                         userId = Authorizer.getInstance().authorize(token);
                         requestContext.getHeaders().putSingle(HeaderField.USER_ID, userId);
+                        logActivity(userId, url);
                     }
                 } catch (AuthorizationException e) {
                     logger.error("authorzation exception", e);
@@ -62,14 +66,21 @@ public class RequestHandler implements ContainerRequestFilter {
             try {
                 userId = Authorizer.getInstance().authorize(token);
                 requestContext.getHeaders().add(HeaderField.USER_ID, userId);
+                logActivity(userId, url);
             } catch (AuthorizationException e) {
                 logger.error("authorzation exception", e);
                 DCAResponse response = new DCAResponse(e.getErrorCode());
                 requestContext.abortWith(Response.ok(JsonTransformer.getInstance().marshall(response)).build());
             }
         }
-		// }
+        // }
 
     }
 
+    private void logActivity(String userId, String url) {
+        ActivityLog log = new ActivityLog();
+        log.setUserId(userId);
+        log.setAction(url);
+        LogQueue.getInstance().add(log);
+    }
 }

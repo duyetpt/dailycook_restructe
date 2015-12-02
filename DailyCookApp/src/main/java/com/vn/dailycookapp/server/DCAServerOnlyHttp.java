@@ -104,14 +104,6 @@ public class DCAServerOnlyHttp {
         server.addBean(lowResourcesMonitor);
 
         try {
-            // start notification worker
-//            NotificationWorker worker = new NotificationWorker();
-//            worker.start();
-
-            // start management session
-            Thread mSession = new Thread(SessionManager.getInstance());
-            mSession.start();
-
             // start servlet container
             server.start();
             System.out.println("Start server ....");
