@@ -161,8 +161,8 @@ public class DCAServer {
 		
 		try {
 			// start notification worker
-			NotificationWorker worker = new NotificationWorker();
-			worker.start();
+//			NotificationWorker worker = new NotificationWorker();
+//			worker.start();
 			
 			// start management session
 			Thread mSession = new Thread(SessionManager.getInstance());

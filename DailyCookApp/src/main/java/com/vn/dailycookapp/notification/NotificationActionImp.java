@@ -13,10 +13,7 @@ public class NotificationActionImp implements NotificationAction {
 
     private static final NotificationActionImp instance = new NotificationActionImp();
 
-    private final Queue<Notification> queue;
-
     private NotificationActionImp() {
-        queue = new ConcurrentLinkedDeque<Notification>();
     }
 
     public static NotificationActionImp getInstance() {
@@ -34,18 +31,12 @@ public class NotificationActionImp implements NotificationAction {
         noti.setRecipeId(recipeId);
         noti.setRecipeTitle(recipeTitle);
         noti.setType(notiType);
-        queue.add(noti);
+        NotificationWorker.getInstance().pushNotification(noti);
     }
 
     @Override
     public Notification getNoti() {
-        synchronized (queue) {
-            return queue.poll();
-        }
+        //TODO
+        return null;
     }
-
-    public Queue<Notification> getQueue() {
-        return queue;
-    }
-
 }
