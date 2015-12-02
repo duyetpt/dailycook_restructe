@@ -248,14 +248,14 @@ public class UserDAO extends AbstractDAO<User> {
         query.filter("active_flag", User.BAN_FLAG_ONCE).or(query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
         return query.countAll();
     }
-    public long getNumberResultSearchUserNomal(String name) {
-        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+    public long getNumberResultSearchUserNomal(String name, String role) {
+        Query<User> query = datastore.createQuery(User.class).filter("role", role);
         query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
     }
 
-    public long getNumberResultSearchAndFillUserNomal(String name, int flag) {
-        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+    public long getNumberResultSearchAndFillUserNomal(String name, int flag, String role) {
+        Query<User> query = datastore.createQuery(User.class).filter("role",role);
         query.filter("active_flag", flag);
         query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
