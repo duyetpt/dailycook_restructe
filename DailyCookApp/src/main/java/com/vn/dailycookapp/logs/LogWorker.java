@@ -5,7 +5,6 @@
  */
 package com.vn.dailycookapp.logs;
 
-import java.util.logging.Level;
 import org.TimeUtils;
 import org.dao.ActivityLogDAO;
 import org.dao.DAOException;
@@ -23,20 +22,22 @@ public class LogWorker extends Thread {
 
     @Override
     public void run() {
-        logger.info("LogWorker -> starting ...");
-        if (LogQueue.getInstance().isEmpty()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                logger.error("LogWorker -> sleeping error", ex);
-            }
-        } else {
-            ActivityLog log = LogQueue.getInstance().get();
-            log.setTime(TimeUtils.getStartDay(TimeUtils.getCurrentGMTTime()));
-            try {
-                ActivityLogDAO.getInstance().save(log);
-            } catch (DAOException ex) {
-                logger.error("LogWorker -> save activity error", ex);
+        while (true) {
+            logger.info("LogWorker -> starting ...");
+            if (LogQueue.getInstance().isEmpty()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    logger.error("LogWorker -> sleeping error", ex);
+                }
+            } else {
+                ActivityLog log = LogQueue.getInstance().get();
+                log.setTime(TimeUtils.getStartDay(TimeUtils.getCurrentGMTTime()));
+                try {
+                    ActivityLogDAO.getInstance().save(log);
+                } catch (DAOException ex) {
+                    logger.error("LogWorker -> save activity error", ex);
+                }
             }
         }
     }

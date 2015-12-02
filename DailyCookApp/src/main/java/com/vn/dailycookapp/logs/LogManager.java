@@ -16,9 +16,11 @@ public class LogManager {
 
     private static final int NUMBER_WORKER = 2;
     private final static Logger logger = LoggerFactory.getLogger(LogManager.class);
+
     public void start() {
         for (int i = 0; i < NUMBER_WORKER; i++) {
             try {
+                logger.error("LogManager -> start worker " + i);
                 LogWorker worker = new LogWorker();
                 worker.start();
             } catch (Exception ex) {
