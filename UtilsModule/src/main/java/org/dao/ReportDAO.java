@@ -105,7 +105,8 @@ public class ReportDAO extends AbstractDAO{
     public List<Report> searchAndFillAllReport(int skip, int take, String order, int flag) throws DAOException {
         try {
             Query<Report> query = datastore.createQuery(Report.class);
-            query.filter("status", flag);
+            if (flag != 2)
+                query.filter("status", flag);
             query.offset(skip).limit(take);
             query.order(order);
             return query.asList();
