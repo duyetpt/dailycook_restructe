@@ -26,7 +26,7 @@ public class ConnectionDAO {
 		// can be called multiple times with different packages or classes
 		morphia.mapPackage("com.vn.dailycookapp.entity");
                 
-                MongoClientOptions mongoClientOpts = MongoClientOptions.builder().connectTimeout(30000).socketTimeout(60000)
+                MongoClientOptions mongoClientOpts = MongoClientOptions.builder().connectTimeout(60000).socketTimeout(120000)
                                                         .connectionsPerHost(400).threadsAllowedToBlockForConnectionMultiplier(20).build();
 		MongoClient mongoClient = new MongoClient(DB_HOST, mongoClientOpts);
 //		MongoClient mongoClient = new MongoClient("dailycook.cloudapp.net");

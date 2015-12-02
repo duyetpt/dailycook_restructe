@@ -127,7 +127,7 @@ public class NotificationDAO extends AbstractDAO<Notification> {
             }
             return query.field("_id").in(objectIds).asList();
         } catch (Exception ex) {
-            logger.error("list notificaton errror", ex);
+            logger.error("list notificaton errror:" + notifications, ex);
             throw new DAOException();
         }
     }

@@ -18,9 +18,15 @@
     <dependencies>
         <!-- Mongodb orm -->
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>1.0.0-rc0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <!-- Hazecast option -->

@@ -350,7 +350,7 @@ public class UserDAO extends AbstractDAO<User> {
             if (flag != 3){
                 query.filter("active_flag", flag);
             } else {
-                query.filter("active_flag", User.BAN_FLAG_ONCE).or(query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
+                query.or(query.criteria("active_flag").equal(User.BAN_FLAG_ONCE),query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
             }
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
             query.retrievedFields(true,"id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
