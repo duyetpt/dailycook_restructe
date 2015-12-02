@@ -23,6 +23,7 @@ public class LogWorker extends Thread {
 
     @Override
     public void run() {
+        logger.info("LogWorker -> starting ...");
         if (LogQueue.getInstance().isEmpty()) {
             try {
                 Thread.sleep(100);

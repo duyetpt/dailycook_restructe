@@ -5,6 +5,9 @@
  */
 package com.vn.dailycookapp.logs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author duyetpt
@@ -12,11 +15,15 @@ package com.vn.dailycookapp.logs;
 public class LogManager {
 
     private static final int NUMBER_WORKER = 2;
-
+    private final static Logger logger = LoggerFactory.getLogger(LogManager.class);
     public void start() {
         for (int i = 0; i < NUMBER_WORKER; i++) {
-            LogWorker worker = new LogWorker();
-            worker.start();
+            try {
+                LogWorker worker = new LogWorker();
+                worker.start();
+            } catch (Exception ex) {
+                logger.error("LogManager -> start service error", ex);
+            }
         }
     }
 }
