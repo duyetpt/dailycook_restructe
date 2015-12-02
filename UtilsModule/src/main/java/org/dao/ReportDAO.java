@@ -6,6 +6,7 @@
 package org.dao;
 
 import java.util.List;
+import org.Unicode;
 import org.bson.types.ObjectId;
 import org.entity.Report;
 import org.mongodb.morphia.query.Query;
@@ -101,5 +102,23 @@ public class ReportDAO extends AbstractDAO{
         }
     }
     
+    public List<Report> searchAndFillAllReport(int skip, int take, String order, int flag) throws DAOException {
+        try {
+            Query<Report> query = datastore.createQuery(Report.class);
+            if (flag != 2)
+                query.filter("status", flag);
+            query.offset(skip).limit(take);
+            query.order(order);
+            return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
     
+     public long getNumberResultSearchAndFillReport(int flag) {
+        Query<Report> query = datastore.createQuery(Report.class);
+        if (flag != 2)
+            query.filter("status", flag);
+        return query.countAll();
+        }
 }

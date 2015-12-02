@@ -193,7 +193,7 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return false;
     }
-    
+
     //ban normal user
     public boolean banUser(String userId, int flag, long banToTime) {
         try {
@@ -242,19 +242,25 @@ public class UserDAO extends AbstractDAO<User> {
         Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
         return query.countAll();
     }
+
     public long getNumberBanUser() {
         Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
         query.filter("active_flag", User.BAN_FLAG_ONCE).or(query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
         return query.countAll();
     }
-    public long getNumberResultSearchUserNomal(String name) {
-        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
+    public long getNumberResultSearchUserNomal(String name, String role) {
+        Query<User> query = datastore.createQuery(User.class).filter("role", role);
         query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
     }
-    public long getNumberResultSearchAndFillUserNomal(String name, int flag) {
-        Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
-        query.filter("active_flag", flag);
+
+    public long getNumberResultSearchAndFillUserNomal(String name, int flag, String role) {
+        Query<User> query = datastore.createQuery(User.class).filter("role",role);
+        if (flag != 3){
+            query.filter("active_flag", flag);
+        }else {
+            query.or(query.criteria("active_flag").equal(User.BAN_FLAG_ONCE),query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
+        }
         query.field("display_name").contains(Unicode.toAscii(name));
         return query.countAll();
     }
@@ -302,7 +308,7 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException();
         }
     }
-    
+
     public void updateNotificationFlag(String userId, boolean notificatonFlag) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
@@ -313,50 +319,66 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException();
         }
     }
+
     // count number user with flag
+
     public long getNumberUserWithFlag(int flag) {
         Query<User> query = datastore.createQuery(User.class);
         query.and(query.criteria("active_flag").equal(flag).and(query.criteria("role").equal(User.NORMAL_USER_ROLE)));
         return query.countAll();
     }
 
-
     public List<User> searchAllUserNomal(String name, int skip, int take, String order) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
-            
+
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
-            query.retrievedFields(true,"id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
             return query.asList();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new DAOException();
         }
 
     }
-//    public List<Recipe> searchAllAndFilterRecipeByName(String name, int skip, int take,int flag,String Oder) throws DAOException {
-//        try {
-//            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", flag);
-//            query.field("normalize_title").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
-//            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(Oder);
-//            return query.asList();
-//        } catch (Exception ex) {
-//            throw new DAOException();
-//        }
-//    }
+
     public List<User> searchAndFillAllUserNomal(String name, int skip, int take, String order, int flag) throws DAOException {
         try {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.NORMAL_USER_ROLE);
-            if (flag != 3){
+            if (flag != 3) {
                 query.filter("active_flag", flag);
             } else {
                 query.or(query.criteria("active_flag").equal(User.BAN_FLAG_ONCE),query.criteria("active_flag").equal(User.BAN_FLAG_SECOND));
             }
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
-            query.retrievedFields(true,"id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "n_bans", "n_recipes", "active_flag").order(order);
             return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
         }
-        catch (Exception ex) {
+
+    }
+
+    public List<User> searchAllUserAdmin(String name, int skip, int take) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("role", User.ADMIN_ROLE);
+
+            query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone");
+            return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+
+    }
+
+    public List<User> searchAndFillAllUserAdmin(String name, int skip, int take, int flag) throws DAOException {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("role", User.ADMIN_ROLE);
+            query.filter("active_flag", flag);
+            query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone");
+            return query.asList();
+        } catch (Exception ex) {
             throw new DAOException();
         }
 
