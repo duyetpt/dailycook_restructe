@@ -117,7 +117,8 @@ public class ReportDAO extends AbstractDAO{
     
      public long getNumberResultSearchAndFillReport(int flag) {
         Query<Report> query = datastore.createQuery(Report.class);
-        query.filter("active_flag", flag);
+        if (flag != 2)
+            query.filter("status", flag);
         return query.countAll();
         }
 }
