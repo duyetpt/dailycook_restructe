@@ -44,8 +44,14 @@ public class APNSPusher {
             logger.info("Push notification: " + data);
             URI uri = DCAHttpRequest.getInstance().buildUrl(ConfigurationLoader.getInstance().getNotificationHost(),
                     ConfigurationLoader.getInstance().getNotificationPort(), "/dailycook/notification", null);
-            logger.info("Push notification to Uri: " + uri.getPath());
-            DCAHttpRequest.getInstance().post(uri, data);
+            int errorCode = DCAHttpRequest.getInstance().post(uri, data);
+            if (errorCode == 202) {
+                logger.info("PUSH - SUCCESSFUL");
+            } else {
+                logger.info("PUSH - FAIL");
+            }
+                
+            
         } catch (Exception ex) {
             logger.error("push notification error", ex);
         }

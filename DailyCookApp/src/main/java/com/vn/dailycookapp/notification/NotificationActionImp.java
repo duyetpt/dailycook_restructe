@@ -1,7 +1,5 @@
 package com.vn.dailycookapp.notification;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 import org.entity.Notification;
 import org.slf4j.Logger;

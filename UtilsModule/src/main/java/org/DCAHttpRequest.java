@@ -52,42 +52,40 @@ public class DCAHttpRequest {
         return builder.build();
     }
 
-    public String put(URI url, String entity) throws UnsupportedEncodingException, IOException {
+    public int put(URI url, String entity) throws UnsupportedEncodingException, IOException {
         HttpPut put = new HttpPut(url);
         put.setEntity(new StringEntity(entity));
-        String result = getResponse(put);
+        int result = getResponse(put);
         return result;
     }
 
-    public String get(URI url) throws IOException {
+    public int get(URI url) throws IOException {
         HttpGet get = new HttpGet(url);
-        String result = getResponse(get);
+        int result = getResponse(get);
         return result;
     }
 
-    public String post(URI url, String entity) throws IOException {
+    public int post(URI url, String entity) throws IOException {
         HttpPost post = new HttpPost(url);
         post.setEntity(new StringEntity(entity));
-        String result = getResponse(post);
+        int result = getResponse(post);
 
         return result;
     }
 
-    private String getResponse(HttpUriRequest httpRequest) throws IOException {
+    private int getResponse(HttpUriRequest httpRequest) throws IOException {
         HttpResponse httpResponse = client.execute(httpRequest);
-        if (httpResponse.getStatusLine().getStatusCode() != 200) {
-            System.out.println("Noti fail");
-        }
+        return httpResponse.getStatusLine().getStatusCode();
 
-        BufferedReader rd = new BufferedReader(
-                new InputStreamReader(httpResponse.getEntity().getContent()));
-
-        StringBuilder result = new StringBuilder();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
-
-        return result.toString();
+//        BufferedReader rd = new BufferedReader(
+//                new InputStreamReader(httpResponse.getEntity().getContent()));
+//
+//        StringBuilder result = new StringBuilder();
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            result.append(line);
+//        }
+//
+//        return result.toString();
     }
 }
