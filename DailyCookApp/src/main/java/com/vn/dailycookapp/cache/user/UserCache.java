@@ -118,6 +118,9 @@ public class UserCache {
             List<User> users = UserDAO.getInstance().listUserByName(username);
             if (users != null) {
                 for (User user : users) {
+                    if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
+                        continue;
+                    }
                     userIds.add(user.getId());
                     cache(user);
                 }
@@ -129,10 +132,10 @@ public class UserCache {
                 List<User> users = UserDAO.getInstance().listUserByName(username);
                 if (users != null) {
                     for (User user : users) {
-                        if (!user.getRole().equals(User.NORMAL_USER_ROLE) ) {
+                        if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
                             continue;
                         }
-                        
+
                         userIds.add(user.getId());
                         cache(user);
                     }
