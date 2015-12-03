@@ -8,7 +8,8 @@
         "Milk",
         "Cereals",
         "Fruits",
-        "Aromatic vegetables"
+        "Aromatic vegetables",
+        "marinade"
     ],
     "notification_msg": {
         "new_comment": "was commented in your recipe",
@@ -23,7 +24,8 @@
         "Gram",
         "Teaspoon",
         "Lit",
-        "Mililit"
+        "Mililit",
+        "unit"
     ],
     "report_reason": [
         "It is spam",

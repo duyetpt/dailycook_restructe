@@ -236,8 +236,8 @@ public class UserService {
     @PUT
     @Path("/{userId}/ban")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response banUser(@PathParam("userId") String userId, String adminInfo) {
-        String data = ModelResolver.getApi(ModelDefine.BAN_USER).doProcess(userId, adminInfo);
+    public Response banUser(@PathParam("userId") String userId, String adminInfo, @QueryParam("flag") String flag) {
+        String data = ModelResolver.getApi(ModelDefine.BAN_USER).doProcess(userId, adminInfo, flag);
         return Response.ok(data).build();
     }
 }
