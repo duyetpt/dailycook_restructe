@@ -86,7 +86,7 @@ public class UserCache {
         String id = emailMap.get(email);
         if (id == null) {
             User user = UserDAO.getInstance().getUserInfoByEmail(email);
-            if (user != null) {
+            if (user != null && user.getRole().equals(User.NORMAL_USER_ROLE)) {
                 cache(user);
                 id = user.getId();
             }
@@ -129,6 +129,10 @@ public class UserCache {
                 List<User> users = UserDAO.getInstance().listUserByName(username);
                 if (users != null) {
                     for (User user : users) {
+                        if (!user.getRole().equals(User.NORMAL_USER_ROLE) ) {
+                            continue;
+                        }
+                        
                         userIds.add(user.getId());
                         cache(user);
                     }

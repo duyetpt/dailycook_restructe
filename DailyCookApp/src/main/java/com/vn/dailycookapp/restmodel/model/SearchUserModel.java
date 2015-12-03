@@ -39,7 +39,7 @@ public class SearchUserModel extends AbstractModel {
             Validator.getInstance().validateEmail(username);
             // search by email
             CompactUserInfo cUser = UserCache.getInstance().getInfoByEmail(username);
-
+            
             cUsers = new ArrayList<CompactUserInfo>();
             if (cUser != null) {
                 cUsers.add(cUser);
