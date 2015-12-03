@@ -424,13 +424,4 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
         }
     }
     
-    public static void main(String[] args) throws DAOException {
-        ConnectionDAO.DB_HOST = "dailycook.cloudapp.net";
-        RecipeDAO dao = getInstance();
-        Iterator<Recipe> recipes = dao.getTop(2);
-        while(recipes.hasNext()) {
-            System.out.println(recipes.next().getTitle());
-        }
-                
-    }
 }
