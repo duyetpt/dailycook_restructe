@@ -12,6 +12,7 @@ import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import org.dao.DeviceTokenDAO;
 import org.entity.Notification;
 import org.json.JsonTransformer;
 
@@ -36,9 +37,12 @@ public class BanUserModel extends AbstractModel {
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         // authentiation admin
+        AdminAuth.auth(adminAcc);
         if (flag.equals("ban")) {
-            AdminAuth.auth(adminAcc);
+            // Remove all session of this user
             SessionManager.getInstance().closeAllSessionOfUser(myId);
+            // Remove all device of this user
+            DeviceTokenDAO.getInstance().removeUserDevices(myId);
         } else if (flag.equals("unban")) {
             NotificationActionImp.getInstance().addNotification(null, null, "Dailycook", myId, Notification.UNBAN_USER_TYPE);
         }

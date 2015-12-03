@@ -65,9 +65,12 @@ public class RemoveRecipeModel extends AbstractModel{
         CommentDAO.getInstance().removeAllCommentOfRecipe(recipeId);
         RecipeDAO.getInstance().updateRecipeStatus(recipeId, Recipe.REMOVED_FLAG);
         
-        // NOTI TO USER
         Recipe recipe = RecipeDAO.getInstance().getRecipe(recipeId);
         User user = UserDAO.getInstance().get(recipe.getOwner(), User.class);
+        // decrease recipe number
+        UserDAO.getInstance().decreaseRecipeNumber(user.getId());
+        
+        // NOTI TO USER
         if (user.getActiveFlag() != User.DELETED_FLAG) {
             NotificationActionImp.getInstance().addNotification(recipeId, recipe.getTitle(), "Dailycook", recipe.getOwner(), Notification.REMOVE_RECIPE_TYPE);
         }

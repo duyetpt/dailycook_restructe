@@ -71,7 +71,6 @@ public class NotificationWorker {
                     list = notiRemoveRecipe(noti);
                     break;
                 case Notification.UNBAN_USER_TYPE:
-                    // TODO
                     list = notiUnbanUserType(noti);
                     break;
             }
@@ -79,7 +78,7 @@ public class NotificationWorker {
             // save to DB
             NotificationDAO.getInstance().save(list);
             // TODO PUSH TO NOTIFICATIO SERVER
-            if (!list.isEmpty()) {
+            if (!list.isEmpty() && !noti.getType().equals(Notification.UNBAN_USER_TYPE)) {
                 APNSPusher.getInstance().push(list);
             }
 
@@ -155,7 +154,6 @@ public class NotificationWorker {
         noti.setTo(notification.getTo());
         noti.setRecipeId(notification.getRecipeId());
         noti.setType(Notification.NEW_FAVORITE_TYPE);
-        noti.setFromAvatar(user.getAvatarUrl());
         noti.setFromName(user.getDisplayName());
         noti.setRecipeTitle(notification.getRecipeTitle());
 
@@ -177,7 +175,6 @@ public class NotificationWorker {
         noti.setFrom(notification.getFrom());
         noti.setTo(notification.getTo());
         noti.setType(Notification.NEW_FOLLOWER_TYPE);
-        noti.setFromAvatar(user.getAvatarUrl());
         noti.setFromName(user.getDisplayName());
 
         List<Notification> notis = new ArrayList<Notification>();
@@ -189,8 +186,9 @@ public class NotificationWorker {
 
         Notification noti = new Notification();
         noti.setFrom(notification.getFrom());
+        noti.setFromName("Dailycook");
         noti.setTo(notification.getTo());
-        noti.setType(Notification.NEW_FOLLOWER_TYPE);
+        noti.setType(Notification.REMOVE_RECIPE_TYPE);
 
         List<Notification> notis = new ArrayList<Notification>();
         notis.add(noti);

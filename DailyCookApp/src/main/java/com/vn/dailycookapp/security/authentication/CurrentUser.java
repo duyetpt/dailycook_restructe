@@ -13,6 +13,7 @@ import com.vn.dailycookapp.utils.DCAException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import com.vn.dailycookapp.utils.lang.Language;
 import com.vn.dailycookapp.utils.validate.Validator;
+import org.TimeUtils;
 
 public class CurrentUser {
 
@@ -57,21 +58,20 @@ public class CurrentUser {
                 }
             }
         } else {
-            if (user.getActiveFlag() == User.ACTIVE_FLAG) {
-                this.userId = user.getId();
-                displayName = user.getDisplayName();
-                avatarUrl = user.getAvatarUrl();
-                coverUrl = user.getCoverUrl();
-                dob = user.getDob();
-                language = user.getLanguage();
-                this.numberFollower = user.getNumberFollower();
-                this.numberFollowing = user.getNumberFollowing();
-                this.numberRecipes = user.getNumberRecipes();
-                this.notificationFlag = user.getNotificationFlag();
-                token = SessionManager.getInstance().addSession(user.getId());
-            } else {
+            if (user.getActiveFlag() == User.DELETED_FLAG || user.getBanToTime() > TimeUtils.getCurrentGMTTime()) {
                 throw new BanedUserException(ErrorCodeConstant.BANED_USER);
             }
+            this.userId = user.getId();
+            displayName = user.getDisplayName();
+            avatarUrl = user.getAvatarUrl();
+            coverUrl = user.getCoverUrl();
+            dob = user.getDob();
+            language = user.getLanguage();
+            this.numberFollower = user.getNumberFollower();
+            this.numberFollowing = user.getNumberFollowing();
+            this.numberRecipes = user.getNumberRecipes();
+            this.notificationFlag = user.getNotificationFlag();
+            token = SessionManager.getInstance().addSession(user.getId());
         }
 
     }
@@ -101,28 +101,29 @@ public class CurrentUser {
         User user = UserDAO.getInstance().getUserInfoByEmail(token.getUsername());
         if (user != null) {
             String password = EncryptHelper.encrypt(token.getPassword());
+
             if (password.equals(user.getPassword())) {
-                if (user.getActiveFlag() == User.ACTIVE_FLAG) {
-                    if (user.getDisplayName() != null) {
-                        displayName = user.getDisplayName();
-                    } else {
-                        displayName = user.getEmail().split("@")[0];
-                    }
-                    this.userId = user.getId();
-                    avatarUrl = user.getAvatarUrl();
-                    coverUrl = user.getCoverUrl();
-                    dob = user.getDob();
-                    language = user.getLanguage();
-                    this.token = SessionManager.getInstance().addSession(user.getId());
-                    this.numberFollower = user.getNumberFollower();
-                    this.numberFollowing = user.getNumberFollowing();
-                    this.numberRecipes = user.getNumberRecipes();
-                    this.notificationFlag = user.getNotificationFlag();
-                    // cache data
-                    UserCache.getInstance().cache(user);
-                } else {
+                if (user.getActiveFlag() == User.DELETED_FLAG || user.getBanToTime() > TimeUtils.getCurrentGMTTime()) {
                     throw new BanedUserException(ErrorCodeConstant.BANED_USER);
                 }
+
+                if (user.getDisplayName() != null) {
+                    displayName = user.getDisplayName();
+                } else {
+                    displayName = user.getEmail().split("@")[0];
+                }
+                this.userId = user.getId();
+                avatarUrl = user.getAvatarUrl();
+                coverUrl = user.getCoverUrl();
+                dob = user.getDob();
+                language = user.getLanguage();
+                this.token = SessionManager.getInstance().addSession(user.getId());
+                this.numberFollower = user.getNumberFollower();
+                this.numberFollowing = user.getNumberFollowing();
+                this.numberRecipes = user.getNumberRecipes();
+                this.notificationFlag = user.getNotificationFlag();
+                // cache data
+                UserCache.getInstance().cache(user);
             } else {
                 throw new LoginFailException(ErrorCodeConstant.PASSWORD_INCORRECT);
             }
@@ -226,6 +227,5 @@ public class CurrentUser {
     public void setNotificationFlag(boolean notificationFlag) {
         this.notificationFlag = notificationFlag;
     }
-    
-    
+
 }
