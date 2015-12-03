@@ -1,5 +1,6 @@
 package com.vn.dailycookapp.restmodel;
 
+import com.vn.dailycookapp.cache.user.UserCache;
 import org.DCAUtilsException;
 import org.json.JsonTransformer;
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public abstract class AbstractModel {
 			preExecute(data);
 			response = execute();
 		} catch (Exception ex) {
+                    // clean cache
+                    UserCache.getInstance().cleanCache();
 			if (ex instanceof DCAException) {
 				DCAException vEx = (DCAException) ex;
 				response = new DCAResponse(vEx.getErrorCode());

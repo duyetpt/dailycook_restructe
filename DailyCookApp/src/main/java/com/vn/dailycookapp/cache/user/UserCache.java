@@ -165,4 +165,9 @@ public class UserCache {
 
         return users;
     }
+
+    public void cleanCache() {
+        this.emailMap.clear();
+        this.userMap.clear();
+    }
 }
