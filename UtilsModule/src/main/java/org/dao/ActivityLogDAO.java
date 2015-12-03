@@ -15,7 +15,7 @@ import org.mongodb.morphia.aggregation.Group;
 import org.mongodb.morphia.query.Query;
 
 /**
- *
+ * Phan nay la de thong ke so nguoi online
  * @author duyetpt
  */
 public class ActivityLogDAO extends AbstractDAO<ActivityLog> {
@@ -41,7 +41,8 @@ public class ActivityLogDAO extends AbstractDAO<ActivityLog> {
         }
     }
 
-    private Iterator<Count> statistics(Date from, Date to) throws DAOException {
+    // ham nay se tra ve so luong từ ngày From dến to
+    public Iterator<Count> statistics(Date from, Date to) throws DAOException {
         try {
             AggregationPipeline aggregation = datastore.createAggregation(ActivityLog.class);
             aggregation.match(datastore.createQuery(ActivityLog.class).filter("time >= ", from.getTime()).filter("time <=", to.getTime()));
