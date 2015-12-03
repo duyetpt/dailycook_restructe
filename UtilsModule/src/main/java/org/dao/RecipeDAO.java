@@ -417,10 +417,20 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public Iterator<Recipe> getTop(int top) throws DAOException {
         try {
             AggregationPipeline aggregation = datastore.createAggregation(Recipe.class);
-            Iterator<Recipe> list = aggregation.sort(new Sort("favorite_number", -1)).limit(top).out(Recipe.class);
+            Iterator<Recipe> list = aggregation.sort(new Sort("favorite_number", -1)).limit(top).aggregate(Recipe.class);
             return list;
         } catch (Exception ex) {
             throw new DAOException();
         }
+    }
+    
+    public static void main(String[] args) throws DAOException {
+        ConnectionDAO.DB_HOST = "dailycook.cloudapp.net";
+        RecipeDAO dao = getInstance();
+        Iterator<Recipe> recipes = dao.getTop(2);
+        while(recipes.hasNext()) {
+            System.out.println(recipes.next().getTitle());
+        }
+                
     }
 }

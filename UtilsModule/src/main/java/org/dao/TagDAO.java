@@ -86,7 +86,7 @@ public class TagDAO extends AbstractDAO<Tag> {
     public Iterator<Tag> getTop(int top) throws DAOException {
         try {
             AggregationPipeline aggregation = datastore.createAggregation(Tag.class);
-            Iterator<Tag> list = aggregation.sort(new Sort("numberTaged", -1)).limit(top).out(Tag.class);
+            Iterator<Tag> list = aggregation.sort(new Sort("numberTaged", -1)).limit(top).aggregate(Tag.class);
             return list;
         } catch (Exception ex) {
             throw new DAOException();
