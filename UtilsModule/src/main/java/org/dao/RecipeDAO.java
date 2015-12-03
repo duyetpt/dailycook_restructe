@@ -11,7 +11,10 @@ import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.Query;
 
 import com.mongodb.DBRef;
+import java.util.Iterator;
 import org.Unicode;
+import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.aggregation.Sort;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 
@@ -407,6 +410,16 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             return query.asList();
         } catch (Exception ex) {
             logger.error("get recipe of user error:" + userId, ex);
+            throw new DAOException();
+        }
+    }
+    
+    public Iterator<Recipe> getTop(int top) throws DAOException {
+        try {
+            AggregationPipeline aggregation = datastore.createAggregation(Recipe.class);
+            Iterator<Recipe> list = aggregation.sort(new Sort("favorite_number", -1)).limit(top).out(Recipe.class);
+            return list;
+        } catch (Exception ex) {
             throw new DAOException();
         }
     }
