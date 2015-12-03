@@ -66,7 +66,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> getRecipes(int skip, int take, String sort,
             List<String> followingIds) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", Recipe.APPROVED_FLAG)
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag !=", Recipe.REMOVED_FLAG)
                     .offset(skip).limit(take);
             switch (sort) {
                 case SORT_BY_FOLLOWING:
