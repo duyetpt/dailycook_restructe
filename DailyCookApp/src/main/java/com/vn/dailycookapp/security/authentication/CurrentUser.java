@@ -14,6 +14,7 @@ import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import com.vn.dailycookapp.utils.lang.Language;
 import com.vn.dailycookapp.utils.validate.Validator;
 import org.TimeUtils;
+import org.Unicode;
 
 public class CurrentUser {
 
@@ -78,8 +79,8 @@ public class CurrentUser {
 
     private String saveToDB(FbToken fbToken) throws DCAException, DAOException {
         User user = new User();
-        user = new User();
         user.setDisplayName(displayName);
+        user.setDisplayNameNormalize(Unicode.toAscii(displayName));
         user.setAvatarUrl(avatarUrl);
         user.setCoverUrl(coverUrl);
         user.setDob(dob);

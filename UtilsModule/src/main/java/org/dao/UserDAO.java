@@ -209,7 +209,7 @@ public class UserDAO extends AbstractDAO<User> {
     public boolean unBanUser(String userId) {
         try {
             Query<User> query = datastore.createQuery(User.class).field("_id").equal(new ObjectId(userId));
-            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("active_flag", User.ACTIVE_FLAG);
+            UpdateOperations<User> updateO = datastore.createUpdateOperations(User.class).set("active_flag", User.ACTIVE_FLAG).set("ban_to_time", 0);
             UpdateResults result = datastore.update(query, updateO);
             return result.getUpdatedCount() == 1;
         } catch (Exception ex) {

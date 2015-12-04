@@ -2,9 +2,9 @@
     "language": "vi",
     "ingredient_type": [
         "Thịt",
-		"Xương",
+        "Xương",
         "Trứng",
-		"Thủy sản",
+        "Thủy sản",
         "Hải sản",
         "Sản phẩm từ sữa",
         "Rau",
@@ -12,7 +12,7 @@
         "Hoa quả",
         "Rau thơm",
         "Gia vị",
-		"Đồ khô"
+        "Đồ khô"
     ],
     "notification_msg": {
         "new_comment": "đã bình luận trên một công thức của bạn",
