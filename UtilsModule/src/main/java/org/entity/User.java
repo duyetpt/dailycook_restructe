@@ -18,7 +18,7 @@ public class User {
     public static final String NORMAL_USER_ROLE = "normal_user";
     public static final String SUPER_ADMIN_ROLE = "super_admin";
     public static final String ADMIN_ROLE = "admin";
-    
+
 //    public static final String SORT_BY_NAME = "display_name";/
     public static final String SORT_BY_DATE = "-registered_time";
     public static final String SORT_BY_RECIPE = "-n_recipes";
@@ -28,15 +28,19 @@ public class User {
     public static final int BAN_FLAG_ONCE = 0;
     public static final int BAN_FLAG_SECOND = -1;
     public static final int DELETED_FLAG = -2;
-    
+
     public static final long BAN_FIRST_TIME = 7 * 24 * 60 * 60 * 1000L;
     public static final long BAN_SECOND_TIME = 30 * 24 * 60 * 60 * 1000L;
-    
+
     @Id
     private String id;
 
     @Property("display_name")
     private String displayName;
+
+    @JsonIgnoreProperty
+    @Property("display_name_normalize")
+    private String displayNameNormalize;
 
     @Property("email")
     @Indexed(background = false, unique = true)
@@ -53,7 +57,7 @@ public class User {
 
     @Property("n_reports")
     private int numberReport;
-    
+
     @Property("n_bans")
     private int numberBans;
 
@@ -97,10 +101,10 @@ public class User {
     @JsonIgnoreProperty
     @Property("ban_to_time")
     private long banToTime;
-    
+
     @Property("notification_flag")
     private boolean notificationFlag = true;
-    
+
     public String getId() {
         return id;
     }
@@ -165,7 +169,7 @@ public class User {
     public void setNumberBans(int numberBans) {
         this.numberBans = numberBans;
     }
-    
+
     public int getNumberFollower() {
         return numberFollower;
     }
@@ -276,6 +280,14 @@ public class User {
 
     public void setNotificationFlag(boolean notificationFlag) {
         this.notificationFlag = notificationFlag;
+    }
+
+    public String getDisplayNameNormalize() {
+        return displayNameNormalize;
+    }
+
+    public void setDisplayNameNormalize(String displayNameNormalize) {
+        this.displayNameNormalize = displayNameNormalize;
     }
 
 }

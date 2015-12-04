@@ -15,6 +15,7 @@ import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.utils.DCAException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import com.vn.dailycookapp.utils.validate.Validator;
+import org.Unicode;
 
 /**
  *
@@ -42,6 +43,7 @@ public class RegisterModel extends AbstractModel {
         user.setEmail(regInfo.getEmail());
         user.setPassword(encryptPass);
         user.setDisplayName(regInfo.getEmail().split("@")[0]);
+        user.setDisplayNameNormalize(Unicode.toAscii(user.getDisplayName()));
         user.setLanguage(regInfo.getLanguage());
         // save to db
         UserDAO.getInstance().saveWithSynchronized(user);
