@@ -31,7 +31,7 @@ public class DeviceToken {
     @Property("user_id")
     private String userId;
 
-    @Indexed(unique = true)
+    @Indexed
     @Property("device_token")
     private String deviceToken;
 

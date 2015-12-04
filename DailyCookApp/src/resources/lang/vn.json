@@ -2,9 +2,9 @@
     "language": "vi",
     "ingredient_type": [
         "Thịt",
-		"Xương",
+        "Xương",
         "Trứng",
-		"Thủy sản",
+        "Thủy sản",
         "Hải sản",
         "Sản phẩm từ sữa",
         "Rau",
@@ -12,7 +12,9 @@
         "Hoa quả",
         "Rau thơm",
         "Gia vị",
-		"Đồ khô"
+        "Đồ khô",
+        "Rượu",
+        "Dầu ăn, bơ"
     ],
     "notification_msg": {
         "new_comment": "đã bình luận trên một công thức của bạn",
@@ -20,6 +22,7 @@
         "new_favorite": "đã thích một công thức của bạn",
         "new_recipe_of_following": "đã thêm một công thức mới",
         "unban_user": "Chào mừng bạn quay trở lại",
+        "ban_user": "Tài khoản của bạn bị ban tới ngày",
         "remove_recipe": "Xin lỗi, chúng tôi đã phải xóa một công thức của bạn!"
     },
     "units": [

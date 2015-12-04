@@ -42,6 +42,7 @@ public class BanUserModel extends AbstractModel {
             // Remove all session of this user
             SessionManager.getInstance().closeAllSessionOfUser(myId);
             // Remove all device of this user
+            NotificationActionImp.getInstance().addNotification(null, null, "Dailycook", myId, Notification.BAN_USER_TYPE);
             DeviceTokenDAO.getInstance().removeUserDevices(myId);
         } else if (flag.equals("unban")) {
             NotificationActionImp.getInstance().addNotification(null, null, "Dailycook", myId, Notification.UNBAN_USER_TYPE);
