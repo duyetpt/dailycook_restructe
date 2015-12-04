@@ -27,10 +27,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 public class DCAHttpRequest {
 
     private DCAHttpRequest() {
-        client = HttpClientBuilder.create().build();
     }
-
-    CloseableHttpClient client;
 
     private static final DCAHttpRequest instance = new DCAHttpRequest();
 
@@ -72,8 +69,11 @@ public class DCAHttpRequest {
     }
 
     private int getResponse(HttpUriRequest httpRequest) throws IOException {
+        CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpResponse httpResponse = client.execute(httpRequest);
-        return httpResponse.getStatusLine().getStatusCode();
+        int status = httpResponse.getStatusLine().getStatusCode();
+        client.close();
+        return status;
 
 //        BufferedReader rd = new BufferedReader(
 //                new InputStreamReader(httpResponse.getEntity().getContent()));
