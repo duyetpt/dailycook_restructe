@@ -371,7 +371,7 @@ public class UserDAO extends AbstractDAO<User> {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.ADMIN_ROLE);
 
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
-            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone");
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone").order("-registered_time");
             return query.asList();
         } catch (Exception ex) {
             throw new DAOException();
@@ -384,7 +384,7 @@ public class UserDAO extends AbstractDAO<User> {
             Query<User> query = datastore.createQuery(User.class).filter("role", User.ADMIN_ROLE);
             query.filter("active_flag", flag);
             query.field("display_name").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
-            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone");
+            query.retrievedFields(true, "id", "display_name", "registered_time", "email", "active_flag", "phone").order("-registered_time");
             return query.asList();
         } catch (Exception ex) {
             throw new DAOException();
