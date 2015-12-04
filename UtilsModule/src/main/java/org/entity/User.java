@@ -23,6 +23,8 @@ public class User {
     public static final String SORT_BY_DATE = "-registered_time";
     public static final String SORT_BY_RECIPE = "-n_recipes";
     public static final String SORT_BY_BAN = "-n_bans";
+    public static final String SORT_BY_Name = "display_name";
+    
 
     public static final int ACTIVE_FLAG = 1;
     public static final int BAN_FLAG_ONCE = 0;
