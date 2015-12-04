@@ -6,7 +6,6 @@
 package org.dao;
 
 import java.util.List;
-import org.Unicode;
 import org.bson.types.ObjectId;
 import org.entity.Report;
 import org.mongodb.morphia.query.Query;
@@ -17,7 +16,7 @@ import org.mongodb.morphia.query.UpdateResults;
  *
  * @author KhanhDN
  */
-public class ReportDAO extends AbstractDAO{
+public class ReportDAO extends AbstractDAO<Report>{
     private static final ReportDAO instance = new ReportDAO();
     
     private ReportDAO(){
