@@ -263,6 +263,28 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             throw new DAOException();
         }
     }
+    public List<Recipe> searchAllAndFilterRecipeByOwner(String name,String owner, int skip, int take,int flag,String Oder) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", flag);
+            query.filter("owner", owner);
+            query.field("normalize_title").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(Oder);
+            return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
+    public List<Recipe> searchAllRecipeByOwner(String name, String owner, int skip, int take, String order) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("owner", owner);
+            query.field("normalize_title").containsIgnoreCase(Unicode.toAscii(name)).offset(skip).limit(take);
+            query.retrievedFields(true, "picture_url", "status_flag", "owner", "title", "created_time","favorite_number").order(order);
+            
+            return query.asList();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
     
     /**
      * count number recipe match name
@@ -293,6 +315,24 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public long getSearchAllResultNumber(String name) throws DAOException {
         try {
             Query<Recipe> query = datastore.createQuery(Recipe.class);
+            query.field("normalize_title").contains(Unicode.toAscii(name));
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
+    public long getSearchByOwnerAndFilterResultNumber(String name,int flag_active, String owner) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag", flag_active);
+            query.field("normalize_title").contains(Unicode.toAscii(name)).filter("owner", owner);
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
+    public long getSearchByOwnerAllResultNumber(String name, String owner) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("owner", owner);
             query.field("normalize_title").contains(Unicode.toAscii(name));
             return query.countAll();
         } catch (Exception ex) {
