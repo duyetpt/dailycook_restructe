@@ -225,6 +225,14 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return null;
     }
+    public List<User> getAllUserAdmin() {
+        try {
+            Query<User> query = datastore.createQuery(User.class).filter("role", User.ADMIN_ROLE);
+            return query.asList();
+        } catch (Exception ex) {
+        }
+        return null;
+    }
 
     // count number user registed in period
     public long getNumberRegisteredUser(long from, long to) {
