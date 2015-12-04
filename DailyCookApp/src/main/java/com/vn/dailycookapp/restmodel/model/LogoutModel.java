@@ -4,6 +4,7 @@ import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.security.session.SessionManager;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import org.dao.DeviceTokenDAO;
 
 public class LogoutModel extends AbstractModel {
 	
@@ -16,6 +17,8 @@ public class LogoutModel extends AbstractModel {
 	protected DCAResponse execute() throws Exception {
 		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
 		SessionManager.getInstance().closeSessionOfToken(myId);
+                // close notification
+                DeviceTokenDAO.getInstance().removeUserDevices(myId);
 		return response;
 	}
 	

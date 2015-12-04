@@ -17,6 +17,7 @@ public class Notification {
     public static final String NEW_FOLLOWER_TYPE = "new_follower_noti";
     public static final String NEW_RECIPE_FROM_FOLLOWING_TYPE = "new_recipe_from_following_noti";
     public static final String UNBAN_USER_TYPE = "unban_user";
+    public static final String BAN_USER_TYPE = "ban_user";
     public static final String REMOVE_RECIPE_TYPE = "remove_recipe";
     public static final String NEW_FAVORITE_TYPE = "favorite_noti";
 

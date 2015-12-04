@@ -72,6 +72,8 @@ public class NotificationWorker {
                     break;
                 case Notification.UNBAN_USER_TYPE:
                     list = notiUnbanUserType(noti);
+                case Notification.BAN_USER_TYPE:
+                    list = notiBanUserType(noti);
                     break;
             }
 
@@ -200,6 +202,17 @@ public class NotificationWorker {
         noti.setFromName("Dailycook");
         noti.setTo(notification.getTo());
         noti.setType(Notification.UNBAN_USER_TYPE);
+
+        List<Notification> notis = new ArrayList<Notification>();
+        notis.add(noti);
+        return notis;
+    }
+
+    private List<Notification> notiBanUserType(Notification notification) {
+        Notification noti = new Notification();
+        noti.setFromName("Dailycook");
+        noti.setTo(notification.getTo());
+        noti.setType(Notification.BAN_USER_TYPE);
 
         List<Notification> notis = new ArrayList<Notification>();
         notis.add(noti);
