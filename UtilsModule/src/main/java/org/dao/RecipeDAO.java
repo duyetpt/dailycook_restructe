@@ -339,6 +339,14 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
             throw new DAOException();
         }
     }
+    public long getNumberRecipeByOwner(String owner) throws DAOException {
+        try {
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("owner", owner);
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
+    }
     
     public List<Recipe> getAllRecipe() {
         try {
