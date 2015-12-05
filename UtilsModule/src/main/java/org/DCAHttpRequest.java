@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
-import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -26,7 +26,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class DCAHttpRequest {
 
+    CloseableHttpClient client;
+
     private DCAHttpRequest() {
+        client = HttpClientBuilder.create().build();
     }
 
     private static final DCAHttpRequest instance = new DCAHttpRequest();
@@ -69,21 +72,16 @@ public class DCAHttpRequest {
     }
 
     private int getResponse(HttpUriRequest httpRequest) throws IOException {
-        CloseableHttpClient client = HttpClientBuilder.create().build();
-        HttpResponse httpResponse = client.execute(httpRequest);
-        int status = httpResponse.getStatusLine().getStatusCode();
-        client.close();
-        return status;
+        CloseableHttpResponse httpResponse = null;
+        try {
+            httpResponse = client.execute(httpRequest);
+            int status = httpResponse.getStatusLine().getStatusCode();
+            return status;
+        } finally {
+            if (httpResponse != null) {
+                httpResponse.close();
+            }
+        }
 
-//        BufferedReader rd = new BufferedReader(
-//                new InputStreamReader(httpResponse.getEntity().getContent()));
-//
-//        StringBuilder result = new StringBuilder();
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            result.append(line);
-//        }
-//
-//        return result.toString();
     }
 }
