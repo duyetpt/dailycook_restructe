@@ -47,7 +47,6 @@ public class ActivityLogDAO extends AbstractDAO<ActivityLog> {
             AggregationPipeline aggregation = datastore.createAggregation(ActivityLog.class);
             aggregation.match(datastore.createQuery(ActivityLog.class).filter("time >= ", from.getTime()).filter("time <=", to.getTime()));
             Iterator<Count> result = aggregation.group("time", Group.grouping("count", new Accumulator("$sum", 1))).aggregate(Count.class);
-
             return result;
         } catch (Exception ex) {
             logger.error("ActivityLogDAO -> statistics error", ex);

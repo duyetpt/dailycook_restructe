@@ -58,8 +58,10 @@ public class ActivityLog {
         this.action = action;
     }
 
+    @Entity
     public static class Count {
 
+        @Id
         private long time;
         private int count;
 
