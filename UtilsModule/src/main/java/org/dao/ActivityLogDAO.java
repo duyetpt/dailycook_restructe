@@ -54,6 +54,14 @@ public class ActivityLogDAO extends AbstractDAO<ActivityLog> {
             logger.error("ActivityLogDAO -> statistics error", ex);
             throw new DAOException();
         }
-
+    }
+    
+    public long getCountActivityLog() throws DAOException {
+        try{
+            Query<ActivityLog> query = datastore.createQuery(ActivityLog.class);
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
     }
 }
