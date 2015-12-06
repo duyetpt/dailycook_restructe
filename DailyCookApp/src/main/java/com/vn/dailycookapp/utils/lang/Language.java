@@ -111,6 +111,7 @@ public class Language {
             delegate.put(Notification.NEW_FOLLOWER_TYPE, arr.getString("new_follower"));//
             delegate.put(Notification.NEW_RECIPE_FROM_FOLLOWING_TYPE, arr.getString("new_recipe_of_following"));
             delegate.put(Notification.UNBAN_USER_TYPE, arr.getString("unban_user"));
+            delegate.put(Notification.BAN_USER_TYPE, arr.getString("ban_user"));
             delegate.put(Notification.REMOVE_RECIPE_TYPE, arr.getString("remove_recipe"));
         }
     }
