@@ -49,7 +49,7 @@ public class FollowUserModel extends AbstractModel {
                 if (user.getActiveFlag() != User.ACTIVE_FLAG) {
                     throw new BanedUserException(ErrorCodeConstant.BANED_USER);
                 }
-                if (following != null && following.getStarIds().contains(starId)) {
+                if (following != null && following.getStarIds() !=null && following.getStarIds().contains(starId)) {
                     logger.info(myId + " have been followed " + starId);
                 } else {
                     success = FollowingDAO.getInstance().following(myId, starId);
