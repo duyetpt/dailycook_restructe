@@ -35,6 +35,10 @@ public class GetNotificationsModel extends AbstractModel {
 
         if (list != null) {
             for (Notification noti : list) {
+                if (noti.getType().equals(Notification.BAN_USER_TYPE)) {
+                    continue;
+                }
+
                 GetNotificationResponseData responseInfo = new GetNotificationResponseData();
                 responseInfo.setMsg(Language.getInstance().getMessage(noti.getType(), user.getLanguage()));
                 responseInfo.setRecipeId(noti.getRecipeId());

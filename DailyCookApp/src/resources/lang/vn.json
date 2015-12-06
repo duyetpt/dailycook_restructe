@@ -21,8 +21,8 @@
         "new_follower": "đang theo dõi bạn",
         "new_favorite": "đã thích",
         "new_recipe_of_following": "đã thêm",
-        "unban_user": "Chào mừng bạn quay trở lại",
-        "ban_user": "Tài khoản của bạn bị ban tới ngày",
+        "unban_user": ", chào mừng bạn quay trở lại",
+        "ban_user": ", tài khoản của bạn bị ban tới ngày",
         "remove_recipe": ", chúng tôi đã xóa!"
     },
     "units": [
