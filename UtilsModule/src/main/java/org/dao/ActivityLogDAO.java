@@ -12,6 +12,7 @@ import org.entity.ActivityLog.Count;
 import org.mongodb.morphia.aggregation.Accumulator;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
 import org.mongodb.morphia.aggregation.Group;
+import org.mongodb.morphia.aggregation.Sort;
 import org.mongodb.morphia.query.Query;
 
 /**
@@ -46,12 +47,21 @@ public class ActivityLogDAO extends AbstractDAO<ActivityLog> {
         try {
             AggregationPipeline aggregation = datastore.createAggregation(ActivityLog.class);
             aggregation.match(datastore.createQuery(ActivityLog.class).filter("time >= ", from.getTime()).filter("time <=", to.getTime()));
-            Iterator<Count> result = aggregation.group("time", Group.grouping("count", new Accumulator("$sum", 1))).aggregate(Count.class);
+            Iterator<Count> result = aggregation.group("time", Group.grouping("count", new Accumulator("$sum", 1))).sort(Sort.ascending("time")).aggregate(Count.class);
+
             return result;
         } catch (Exception ex) {
             logger.error("ActivityLogDAO -> statistics error", ex);
             throw new DAOException();
         }
-
+    }
+    
+    public long getCountActivityLog() throws DAOException {
+        try{
+            Query<ActivityLog> query = datastore.createQuery(ActivityLog.class);
+            return query.countAll();
+        } catch (Exception ex) {
+            throw new DAOException();
+        }
     }
 }
