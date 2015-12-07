@@ -1,0 +1,23 @@
+- Hướng dẫn cài app
+- Giới thiệu 2 đối tượng người dùng
+-> Unregister : show all feature
+-> register : show all feature
+- Giới thiệu các chức năng unregistered user : new feed, detail recipe -> shopping list
+- Giới thiệu các chức của registed user
+
+-> login
+-> -> login by facebook
+
+-> newFeed
+
+-> Detail screen : share facebook, add plan, shopping list, comment, report
+	(Một người bắn notification)
+
+	-> Leftside
+-> -> Notification
+(push notification : Following)
+-> -> create recipe (chụp ảnh đĩa nho + táo -> step táo, nho..)
+-> create plan meal
+
+-> Favorite một vài recipe để có dữ liệu
+

@@ -66,24 +66,23 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
     public List<Recipe> getRecipes(int skip, int take, String sort,
             List<String> followingIds) throws DAOException {
         try {
-            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag !=", Recipe.REMOVED_FLAG)
-                    .offset(skip).limit(take);
+            Query<Recipe> query = datastore.createQuery(Recipe.class).filter("status_flag !=", Recipe.REMOVED_FLAG);
             switch (sort) {
                 case SORT_BY_FOLLOWING:
                     if (followingIds != null) {
-                        query.field("owner").in(followingIds).order("-created_time");
+                        query.field("owner").in(followingIds).order("-created_time").offset(skip).limit(take);;
                     } else {
                         return new ArrayList<>();
                     }
                     break;
                 case SORT_BY_HOTEST:
                     long time = TimeUtils.getCurrentGMTTime() - TimeUtils.A_MONTH_MILI;
-                    query.field("created_time")
+                    query.field("-created_time")
                             .greaterThanOrEq(time)
-                            .order("-favorite_number");
+                            .order("-favorite_number").offset(skip).limit(take);;
                     break;
                 case SORT_BY_NEWEST:
-                    query.order("-created_time");
+                    query.order("-created_time").offset(skip).limit(take);
                     break;
             }
 
