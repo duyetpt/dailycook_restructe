@@ -1,43 +1,17 @@
 {
-    "language": "vi",
-    "ingredient_type": [
-        "Thịt",
-        "Xương",
-        "Trứng",
-        "Thủy sản",
-        "Hải sản",
-        "Sản phẩm từ sữa",
-        "Rau",
-        "Ngũ cốc",
-        "Hoa quả",
-        "Rau thơm",
-        "Gia vị",
-        "Đồ khô",
-        "Rượu",
-        "Dầu ăn, bơ"
-    ],
-    "notification_msg": {
-        "new_comment": "đã bình luận trên ",
-        "new_follower": "đang theo dõi bạn",
-        "new_favorite": "đã thích",
-        "new_recipe_of_following": "đã thêm",
-        "unban_user": ", chào mừng bạn quay trở lại",
-        "ban_user": ", tài khoản của bạn bị ban tới ngày",
-        "remove_recipe": ", chúng tôi đã xóa "
-    },
-    "units": [
-        "Kg",
-        "Gram",
-        "Thìa cà phê",
-        "Lạng",
-        "Quả",
-        "Lit",
-        "Mililit"
-    ],
-    "report_reason": [
-        "Công thưc này là 'rác'",
-        "Chứa nội dung khiếm nhã",
-        "Nội dung gây khó chụi và không thú vị",
-        "Tôi nghĩ nó không nên có trên Dailycook"
-    ]
+    "array": {
+        "language": "vi",
+        "ingredient_type": ["Thịt", "Thủy sản", "Hải sản", "Trứng", "Rau", "Sữa", "Ngũ cốc", "Trái cây", "Rau thơm", "rượu", "dầu ăn", "gia vị"],
+        "notification_msg": {
+            "new_comment": "đã bình luận trên ",
+            "new_follower": "đang theo dõi bạn",
+            "new_favorite": "đã thích",
+            "new_recipe_of_following": "đã thêm",
+            "unban_user": ", chào mừng bạn quay trở lại",
+            "ban_user": ", tài khoản của bạn bị ban tới ngày",
+            "remove_recipe": ", chúng tôi đã xóa "
+        },
+        "units": ["Kg", "Gram", "Thìa cà phê", "Lạng", "Quả", "Lit", "Mililit"],
+        "report_reason": ["Công thưc này là 'rác'", "Chứa nội dung khiếm nhã", "Nội dung gây khó chụi và không thú vị", "Tôi nghĩ nó không nên có trên Dailycook"]
+    }
 }

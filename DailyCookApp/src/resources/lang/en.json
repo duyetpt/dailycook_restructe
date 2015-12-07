@@ -1,16 +1,6 @@
 {
     "language": "en",
-    "ingredient_type": [
-        "Meat",
-        "Seafood",
-        "Eggs",
-        "Vegetables",
-        "Milk",
-        "Cereals",
-        "Fruits",
-        "Aromatic vegetables",
-        "marinade"
-    ],
+    "ingredient_type": ["Meat", "Fisheries", "Seafood", "Eggs", "Vegetables", "Milk", "Cereals", "Fruits", "Aromatic vegetables", "alcohol", "cooking oil", "marinade"],
     "notification_msg": {
         "new_comment": "was commented in your recipe",
         "new_follower": "followed you",
@@ -20,18 +10,6 @@
         "ban_user": "Your account are ban to",
         "remove_recipe": ",We removed "
     },
-    "units": [
-        "Kg",
-        "Gram",
-        "Teaspoon",
-        "Lit",
-        "Mililit",
-        "unit"
-    ],
-    "report_reason": [
-        "It is spam",
-        "It is impolite",
-        "It's annoying or not interesting",
-        "I think it shouldn't be on Dailycook"
-    ]
+    "units": ["Kg", "Gram", "Teaspoon", "Lit", "Mililit", "unit"],
+    "report_reason": ["It is spam", "It is impolite", "It's annoying or not interesting", "I think it shouldn't be on Dailycook"]
 }
