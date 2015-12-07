@@ -9,6 +9,7 @@ import org.entity.Following;
 import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.response.DCAResponse;
+import com.vn.dailycookapp.entity.response.SearchResponseData;
 import com.vn.dailycookapp.entity.response.SearchUserResponseData;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
@@ -33,14 +34,14 @@ public class SearchUserModel extends AbstractModel {
     @Override
     protected DCAResponse execute() throws Exception {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-        List<SearchUserResponseData> data = new ArrayList<SearchUserResponseData>();
+        List<SearchUserResponseData> data = new ArrayList<>();
         List<CompactUserInfo> cUsers = null;
         try {
             Validator.getInstance().validateEmail(username);
             // search by email
             CompactUserInfo cUser = UserCache.getInstance().getInfoByEmail(username);
             
-            cUsers = new ArrayList<CompactUserInfo>();
+            cUsers = new ArrayList<>();
             if (cUser != null) {
                 cUsers.add(cUser);
             }
@@ -54,7 +55,10 @@ public class SearchUserModel extends AbstractModel {
         if (myId != null) {
             following = FollowingDAO.getInstance().get(myId, Following.class);
         }
-
+        
+        SearchResponseData responseData = new SearchResponseData();
+        responseData.setResultNumber(cUsers.size());
+                
         int countSkip = 0;
         int countTake = 0;
         for (CompactUserInfo cUser : cUsers) {
@@ -82,8 +86,9 @@ public class SearchUserModel extends AbstractModel {
 
             data.add(info);
         }
-
-        response.setData(data);
+        responseData.setUsers(data);
+        
+        response.setData(responseData);
         return response;
     }
 

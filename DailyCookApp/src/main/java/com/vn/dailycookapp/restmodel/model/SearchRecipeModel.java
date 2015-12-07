@@ -21,9 +21,11 @@ import com.vn.dailycookapp.cache.user.CompactUserInfo;
 import com.vn.dailycookapp.cache.user.UserCache;
 import com.vn.dailycookapp.entity.response.DCAResponse;
 import com.vn.dailycookapp.entity.response.SearchRecipeResponseData;
+import com.vn.dailycookapp.entity.response.SearchResponseData;
 import com.vn.dailycookapp.restmodel.AbstractModel;
 import com.vn.dailycookapp.restmodel.InvalidParamException;
 import com.vn.dailycookapp.utils.ErrorCodeConstant;
+import java.util.Arrays;
 
 public class SearchRecipeModel extends AbstractModel {
 
@@ -94,27 +96,31 @@ public class SearchRecipeModel extends AbstractModel {
                 recipes = RecipeDAO.getInstance().searchRecipeByName(keyword);
                 break;
         }
-
+        
+        SearchResponseData responseData = new SearchResponseData();
         List<SearchRecipeResponseData> result = getResult(recipes, nIngredientMatchMap);
-
+        
+        // total result
         int resultLength = result.size();
+        responseData.setResultNumber(resultLength);
+        
         if (resultLength <= skip) {
             skip = 0;
             take = 0;
         } else {
             take = resultLength - skip < take ? resultLength : take + skip;
         }
-        response.setData(result.subList(skip, take));
+        responseData.setRecipes(result.subList(skip, take));
+        
+        response.setData(responseData);
         return response;
     }
 
     private List<String> parseKeyword() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         String[] keys = keyword.split(",");
 
-        for (String key : keys) {
-            result.add(key);
-        }
+        result.addAll(Arrays.asList(keys));
 
         return result;
     }
