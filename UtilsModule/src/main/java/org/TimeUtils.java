@@ -7,7 +7,7 @@ import java.util.TimeZone;
 
 public class TimeUtils {
 
-    private static final String STANDARD_TIME_ZONE = "Etc/GMT+0";
+    public static final String STANDARD_TIME_ZONE = "Etc/GMT+0";
     public static final long A_MONTH_MILI = 1000l * 60l * 60l * 24l * 30l;
 
     // private static final String VN_TIME_ZONE = "Etc/GMT+7";
@@ -30,11 +30,10 @@ public class TimeUtils {
     }
 
     public static long getStartDay(long time) {
-
         TimeZone timezone = TimeZone.getTimeZone(STANDARD_TIME_ZONE);
-        long currentTime = System.currentTimeMillis();
-        currentTime = currentTime - timezone.getOffset(currentTime);
-        Date date = new Date(currentTime);
+        time = time - timezone.getOffset(time);
+        Date date = new Date(time);
         return new Date(date.getYear(), date.getMonth(), date.getDate()).getTime();
     }
+
 }
