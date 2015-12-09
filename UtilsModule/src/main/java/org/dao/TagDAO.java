@@ -57,8 +57,8 @@ public class TagDAO extends AbstractDAO<Tag> {
     public List<Tag> list(String tag, int skip, int take) throws DAOException {
         try {
             Query<Tag> query = datastore.createQuery(Tag.class);
-            query.field("normalizeTag").contains(tag).order("-popularPoint")
-                    .limit(10).offset(skip);
+            query.field("normalizeTag").contains(Unicode.toAscii(tag)).order("-popularPoint")
+                    .limit(take).offset(skip);
 
             return query.asList();
         } catch (Exception ex) {

@@ -49,7 +49,7 @@ public class suggestSearchingModel extends AbstractModel {
 		 case TAG_TYPE:
                          keywords = keyword.split(",+");
                          keyword = keywords[keywords.length -1];
-			 List<Tag> tags = TagDAO.getInstance().list(keyword, 0, 3);
+			 List<Tag> tags = TagDAO.getInstance().list(keyword.trim(), 0, 3);
 			 if (tags != null)
 				 for (Tag tag : tags)
 					 result.add(tag.getTag()); 
