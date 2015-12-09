@@ -28,26 +28,11 @@ public class NotificationWorker {
         return instance;
     }
 
-//    @Override
-//    public void run() {
-//        while (true) {
-//            logger.info("Notificaion worker is running...");
-//            if (NotificationActionImp.getInstance().getQueue().isEmpty()) {
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException ex) {
-//                    logger.error("notification exceiption", ex);
-//                }
-//                continue;
-//            }
-//        }
-//    }
-//
     public void pushNotification(Notification noti) {
         logger.info("Notificaion worker is running...");
         try {
             // increate notification number
-            if (noti.getTo() != null) {
+            if (noti.getTo() != null && !noti.getType().equals(Notification.BAN_USER_TYPE)) {
                 CompactUserInfo toUser = UserCache.getInstance().get(noti.getTo());
                 toUser.increaseNumberNotificaion();
                 UserDAO.getInstance().increateNotificationNumber(toUser.getUserId());
@@ -217,6 +202,7 @@ public class NotificationWorker {
         noti.setTo(notification.getTo());
         noti.setRecipeTitle(notification.getRecipeTitle());
         noti.setType(Notification.BAN_USER_TYPE);
+        noti.setStatus(Notification.READED_STATUS);
 
         List<Notification> notis = new ArrayList<Notification>();
         notis.add(noti);
