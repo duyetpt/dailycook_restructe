@@ -6,9 +6,9 @@
         "new_follower": "followed you",
         "new_favorite": "favorited",
         "new_recipe_of_following": "added",
-        "unban_user": "Wellcome, you account is active.",
-        "ban_user": "Your account are ban to",
-        "remove_recipe": ",We removed "
+        "unban_user": ", wellcome you account is active.",
+        "ban_user": ", your account is ban",
+        "remove_recipe": ", we removed "
     },
     "units": ["Kg", "Gram", "Teaspoon", "Lit", "Mililit", "unit"],
     "report_reason": ["It is spam", "It is impolite", "It's annoying or not interesting", "I think it shouldn't be on Dailycook"]

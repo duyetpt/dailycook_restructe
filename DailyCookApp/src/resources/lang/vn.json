@@ -7,7 +7,7 @@
         "new_favorite": "đã thích",
         "new_recipe_of_following": "đã thêm",
         "unban_user": ", chào mừng bạn quay trở lại",
-        "ban_user": ", tài khoản của bạn bị ban tới ngày",
+        "ban_user": ", tài khoản của bạn bị khóa",
         "remove_recipe": ", chúng tôi đã xóa "
     },
     "units": ["Kg", "Gram", "Thìa cà phê", "Lạng", "Quả", "Lit", "Mililit"],
