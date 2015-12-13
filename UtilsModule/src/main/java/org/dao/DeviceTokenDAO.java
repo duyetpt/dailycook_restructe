@@ -59,5 +59,4 @@ public class DeviceTokenDAO extends AbstractDAO<DeviceToken> {
             throw new DAOException();
         }
     }
-    
 }

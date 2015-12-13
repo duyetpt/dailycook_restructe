@@ -11,7 +11,7 @@ import com.mongodb.MongoClientOptions;
 public class ConnectionDAO {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionDAO.class);
 	
-	public static String DB_HOST = "localhost";
+	public static String DB_HOST = "dailycook.cloudapp.net";
         
 	private static final String DBNAME = "dailycook";
 	private static Morphia morphia;
@@ -24,7 +24,7 @@ public class ConnectionDAO {
 		
 		// tell Morphia where to find your classes
 		// can be called multiple times with different packages or classes
-		morphia.mapPackage("com.vn.dailycookapp.entity");
+		morphia.mapPackage("org.entity");
                 
                 MongoClientOptions mongoClientOpts = MongoClientOptions.builder().connectTimeout(60000).socketTimeout(120000)
                                                         .connectionsPerHost(400).threadsAllowedToBlockForConnectionMultiplier(20).build();
