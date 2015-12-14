@@ -12,7 +12,8 @@ public class ConnectionDAO {
 
     private final static Logger logger = LoggerFactory.getLogger(ConnectionDAO.class);
 
-    public static String DB_HOST = "localhost";
+//    public static String DB_HOST = "localhost";
+    public static String DB_HOST = "dailycook.cloudapp.net";
 
     private static final String DBNAME = "dailycook";
     private static Morphia morphia;

@@ -7,6 +7,7 @@ package com.vn.dailycookapp.server;
 
 import com.vn.dailycookapp.logs.LogManager;
 import com.vn.dailycookapp.security.session.SessionManager;
+import org.dao.ConnectionDAO;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         // start management session
+        ConnectionDAO.DB_HOST = "localhost";
         Thread mSession = new Thread(SessionManager.getInstance());
         mSession.start();
         
