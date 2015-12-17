@@ -43,10 +43,7 @@ public class GetRecipeOfUserModel extends AbstractModel {
         DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
         List<NewFeedResponseData> datas = new ArrayList<>();
         
-        long startTime = System.currentTimeMillis();
         List<Recipe> recipes = RecipeDAO.getInstance().getRecipeOfUser(userId, skip, take);
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time to get recipes from db:" + (endTime - startTime));
         if (!recipes.isEmpty()) {
             Set<String> userIds = new TreeSet<>();
             // get list owner of list recipe
