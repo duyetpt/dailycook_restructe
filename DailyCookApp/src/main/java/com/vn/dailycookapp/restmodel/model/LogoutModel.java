@@ -7,19 +7,22 @@ import com.vn.dailycookapp.utils.ErrorCodeConstant;
 import org.dao.DeviceTokenDAO;
 
 public class LogoutModel extends AbstractModel {
-	
-	@Override
-	protected void preExecute(String... data) throws Exception {
-		myId = data[0];
-	}
-	
-	@Override
-	protected DCAResponse execute() throws Exception {
-		DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
-		SessionManager.getInstance().closeSessionOfToken(myId);
-                // close notification
-                DeviceTokenDAO.getInstance().removeUserDevices(myId);
-		return response;
-	}
-	
+
+    private String token;
+
+    @Override
+    protected void preExecute(String... data) throws Exception {
+        myId = data[0];
+        token = data[1];
+    }
+
+    @Override
+    protected DCAResponse execute() throws Exception {
+        DCAResponse response = new DCAResponse(ErrorCodeConstant.SUCCESSUL.getErrorCode());
+        SessionManager.getInstance().closeSessionOfToken(token);
+        // close notification
+        DeviceTokenDAO.getInstance().removeUserDevices(myId);
+        return response;
+    }
+
 }

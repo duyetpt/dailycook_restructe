@@ -3,7 +3,7 @@
     "ingredient_type": ["Meat", "Fisheries", "Seafood", "Eggs", "Vegetables", "Milk", "Cereals", "Fruits", "Aromatic vegetables", "alcohol", "cooking oil", "marinade"],
     "notification_msg": {
         "new_comment": "was commented in your recipe",
-        "new_follower": "followed you",
+        "new_follower": "started following you",
         "new_favorite": "favorited",
         "new_recipe_of_following": "added",
         "unban_user": ", wellcome you account is active.",
