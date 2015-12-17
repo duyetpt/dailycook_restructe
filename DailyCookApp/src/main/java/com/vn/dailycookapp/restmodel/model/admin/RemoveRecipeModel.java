@@ -69,6 +69,7 @@ public class RemoveRecipeModel extends AbstractModel{
         User user = UserDAO.getInstance().get(recipe.getOwner(), User.class);
         // decrease recipe number
         UserDAO.getInstance().decreaseRecipeNumber(user.getId());
+        UserCache.getInstance().get(user.getId()).decreaseNumberRecipe();
         
         // NOTI TO USER
         if (user.getActiveFlag() != User.DELETED_FLAG) {
