@@ -138,6 +138,6 @@ public class SearchRecipeResponseData implements Comparable<SearchRecipeResponse
             }
         }
 
-        return result * -1;
+        return result;
     }
 }
