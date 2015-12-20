@@ -10,7 +10,6 @@ public class SearchRecipeResponseData implements Comparable<SearchRecipeResponse
      * userName: String, recipeId: String, title: String, recipeStory: String,
      * recipePicture: String, nFavorite: int, favorite: boolean }
      */
-
     private String recipeId;
     private String username;
     private String titlel;
@@ -125,18 +124,18 @@ public class SearchRecipeResponseData implements Comparable<SearchRecipeResponse
         int result = 0;
         if (this.percentMatch != other.getPercentMatch()) {
             result = this.percentMatch > other.percentMatch ? -1 : 1;
-        }
-
-        if (this.favorite != other.favorite) {
-            result = this.favorite ? -1 : 1;
-        }
-
-        if (this.nFavorite != other.nFavorite) {
-            result = this.nFavorite > other.nFavorite ? -1 : 1;
-        }
-
-        if (this.createTime != other.createTime) {
-            result = this.createTime > other.createTime ? -1 : 1;
+        } else {
+            if (this.favorite != other.favorite) {
+                result = this.favorite ? -1 : 1;
+            } else {
+                if (this.nFavorite != other.nFavorite) {
+                    result = this.nFavorite > other.nFavorite ? -1 : 1;
+                } else {
+                    if (this.createTime != other.createTime) {
+                        result = this.createTime > other.createTime ? -1 : 1;
+                    }
+                }
+            }
         }
 
         return result * -1;
