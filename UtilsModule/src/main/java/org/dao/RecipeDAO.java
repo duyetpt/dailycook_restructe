@@ -79,7 +79,7 @@ public class RecipeDAO extends AbstractDAO<Recipe> {
                     long time = TimeUtils.getCurrentGMTTime() - TimeUtils.A_MONTH_MILI;
                     query.field("created_time")
                             .greaterThanOrEq(time)
-                            .order("-favorite_number").order("-created_time").offset(skip).limit(take);
+                            .order("-created_time").order("-favorite_number").offset(skip).limit(take);
                     break;
                 case SORT_BY_NEWEST:
                     query.order("-created_time").offset(skip).limit(take);
