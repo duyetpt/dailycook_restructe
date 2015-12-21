@@ -27,8 +27,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vn.dailycookapp.notification.NotificationWorker;
-import com.vn.dailycookapp.security.session.SessionManager;
 
 /**
  * http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/examples/

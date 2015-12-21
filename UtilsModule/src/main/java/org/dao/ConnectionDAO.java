@@ -10,10 +10,13 @@ import com.mongodb.MongoClientOptions;
 
 public class ConnectionDAO {
 
+    public static final String CONFIG_FOR_WEB_SERVICE = "web_service";
+    public static final String CONFIG_FOR_WEB_BACKEND = "web_backend";
     private final static Logger logger = LoggerFactory.getLogger(ConnectionDAO.class);
 
 //    public static String DB_HOST = "localhost";
     public static String DB_HOST = "dailycook.cloudapp.net";
+    public static String CONFIG_FOR = CONFIG_FOR_WEB_BACKEND;
 
     private static final String DBNAME = "dailycook";
     private static Morphia morphia;
@@ -24,12 +27,18 @@ public class ConnectionDAO {
 
         morphia = new Morphia();
 
-		// tell Morphia where to find your classes
+        // tell Morphia where to find your classes
         // can be called multiple times with different packages or classes
         morphia.mapPackage("org.entity");
 
-        MongoClientOptions mongoClientOpts = MongoClientOptions.builder().maxConnectionIdleTime(2).connectTimeout(60000).socketKeepAlive(true)
-                .connectionsPerHost(100).build();
+        MongoClientOptions mongoClientOpts = null;
+        if (CONFIG_FOR.equals(CONFIG_FOR_WEB_BACKEND)) {
+            mongoClientOpts = MongoClientOptions.builder().maxConnectionIdleTime(2).connectTimeout(60000)
+                    .connectionsPerHost(100).build();
+        } else {
+            mongoClientOpts = MongoClientOptions.builder().connectTimeout(6000)
+                    .connectionsPerHost(100).build();
+        }
         MongoClient mongoClient = new MongoClient(DB_HOST, mongoClientOpts);
 //		MongoClient mongoClient = new MongoClient("dailycook.cloudapp.net");
 

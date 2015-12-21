@@ -18,6 +18,7 @@ public class Main {
     public static void main(String[] args) {
         // start management session
         ConnectionDAO.DB_HOST = "localhost";
+        ConnectionDAO.CONFIG_FOR = ConnectionDAO.CONFIG_FOR_WEB_SERVICE;
         Thread mSession = new Thread(SessionManager.getInstance());
         mSession.start();
         
