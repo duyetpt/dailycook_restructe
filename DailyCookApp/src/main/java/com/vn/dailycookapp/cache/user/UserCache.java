@@ -94,6 +94,64 @@ public class UserCache {
         return id == null ? null : userMap.get(id);
     }
 
+//    /**
+//     * Get list user info by username
+//     *
+//     * @param username
+//     * @return
+//     * @throws DAOException
+//     */
+//    public List<CompactUserInfo> list(String username, int skip, int take) throws DAOException {
+//        Set<String> userIds = new HashSet<String>();
+//        for (CompactUserInfo cUser : userMap.values()) {
+//            if (Unicode.toAscii(cUser.getDisplayName()).toLowerCase().contains(username)) {
+//                userIds.add(cUser.getUserId());
+//            }
+//            if (cUser.getEmail().contains(username)) {
+//                userIds.add(cUser.getUserId());
+//            }
+//        }
+//
+//        logger.info("Find_user_in_cache:" + userIds.toString());
+//
+//        if (userIds.isEmpty()) {
+//            List<User> users = UserDAO.getInstance().listUserByName(username);
+//            if (users != null) {
+//                for (User user : users) {
+//                    if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
+//                        continue;
+//                    }
+//                    userIds.add(user.getId());
+//                    cache(user);
+//                }
+//                logger.info("Find_user_in_db:" + users.toString());
+//            }
+//        } else if (userIds.size() < skip + take) {
+//            int foundNumber = UserDAO.getInstance().countUserByName(username);
+//            if (foundNumber > userIds.size()) {
+//                List<User> users = UserDAO.getInstance().listUserByName(username);
+//                if (users != null) {
+//                    for (User user : users) {
+//                        if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
+//                            continue;
+//                        }
+//
+//                        userIds.add(user.getId());
+//                        cache(user);
+//                    }
+//                    logger.info("Find_user_in_db:" + users.toString());
+//                }
+//            }
+//        }
+//
+//        List<CompactUserInfo> cUsers = new ArrayList<CompactUserInfo>();
+//        for (String userId : userIds) {
+//            cUsers.add(userMap.get(userId));
+//        }
+//
+//        logger.info("Find_user_in_cache_response:" + cUsers.toString());
+//        return cUsers;
+//    }
     /**
      * Get list user info by username
      *
@@ -101,47 +159,20 @@ public class UserCache {
      * @return
      * @throws DAOException
      */
-    public List<CompactUserInfo> list(String username, int skip, int take) throws DAOException {
+    public List<CompactUserInfo> list(String username) throws DAOException {
         Set<String> userIds = new HashSet<String>();
-        for (CompactUserInfo cUser : userMap.values()) {
-            if (Unicode.toAscii(cUser.getDisplayName()).toLowerCase().contains(username)) {
-                userIds.add(cUser.getUserId());
-            }
-            if (cUser.getEmail().contains(username)) {
-                userIds.add(cUser.getUserId());
-            }
-        }
 
-        logger.info("Find_user_in_cache:" + userIds.toString());
-
-        if (userIds.isEmpty()) {
-            List<User> users = UserDAO.getInstance().listUserByName(username);
-            if (users != null) {
-                for (User user : users) {
-                    if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
-                        continue;
-                    }
-                    userIds.add(user.getId());
-                    cache(user);
+        List<User> users = UserDAO.getInstance().listUserByName(username);
+        if (users != null) {
+            for (User user : users) {
+                if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
+                    continue;
                 }
-                logger.info("Find_user_in_db:" + users.toString());
-            }
-        } else if (userIds.size() < skip + take) {
-            int foundNumber = UserDAO.getInstance().countUserByName(username);
-            if (foundNumber > userIds.size()) {
-                List<User> users = UserDAO.getInstance().listUserByName(username);
-                if (users != null) {
-                    for (User user : users) {
-                        if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
-                            continue;
-                        }
 
-                        userIds.add(user.getId());
-                        cache(user);
-                    }
-                    logger.info("Find_user_in_db:" + users.toString());
-                }
+                userIds.add(user.getId());
+                cache(user);
             }
+            logger.info("Find_user_in_db:" + users.toString());
         }
 
         List<CompactUserInfo> cUsers = new ArrayList<CompactUserInfo>();
