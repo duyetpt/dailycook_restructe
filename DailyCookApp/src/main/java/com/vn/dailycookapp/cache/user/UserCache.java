@@ -87,7 +87,7 @@ public class UserCache {
         if (id == null) {
             User user = UserDAO.getInstance().getUserInfoByEmail(email);
             if (user != null && user.getRole().equals(User.NORMAL_USER_ROLE)) {
-//                cache(user);
+                cache(user);
                 id = user.getId();
             }
         }
@@ -170,7 +170,7 @@ public class UserCache {
                 }
 
                 userIds.add(user.getId());
-//                cache(user);
+                cache(user);
             }
             logger.info("Find_user_in_db:" + users.toString());
         }
