@@ -60,7 +60,7 @@ public class UserDAO extends AbstractDAO<User> {
             Query<User> query = datastore.createQuery(User.class);
 
             query.or(query.criteria("email").containsIgnoreCase(username),
-                    query.criteria("display_name").containsIgnoreCase(username));
+                    query.criteria("display_name_normalize").containsIgnoreCase(username));
 
             return query.asList();
         } catch (Exception ex) {

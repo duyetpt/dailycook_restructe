@@ -162,7 +162,7 @@ public class UserCache {
     public List<CompactUserInfo> list(String username) throws DAOException {
         Set<String> userIds = new HashSet<String>();
 
-        List<User> users = UserDAO.getInstance().listUserByName(username);
+        List<User> users = UserDAO.getInstance().listUserByName(Unicode.toAscii(username));
         if (users != null) {
             for (User user : users) {
                 if (!user.getRole().equals(User.NORMAL_USER_ROLE)) {
